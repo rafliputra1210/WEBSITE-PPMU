@@ -1,300 +1,823 @@
 @extends('layouts.app')
 
 @section('content')
-    <style>
-        /* Memindahkan style keluar dari div container agar lebih rapi secara struktur HTML */
-        :root {
-            --poppins: 'Poppins', sans-serif;
-            /* Gradient Tokens */
-            --grad-hero: linear-gradient(135deg, rgba(13, 110, 253, 0.15) 0%, rgba(111, 66, 193, 0.15) 50%, rgba(13, 202, 240, 0.15) 100%);
-            --grad-primary: linear-gradient(135deg, #0d6efd 0%, #6f42c1 100%);
-            /* Shadow Tokens */
-            --shadow-sm: 0 2px 8px rgba(0,0,0,0.04);
-            --shadow-md: 0 10px 30px rgba(0,0,0,0.06);
-            --shadow-lg: 0 20px 50px rgba(13, 110, 253, 0.1);
-            /* UI Tokens */
-            --radius-md: 16px;
-            --radius-lg: 24px;
-        }
+<style>
+    :root {
+        --grad-hero: linear-gradient(135deg, #0a0f2e 0%, #1a1040 50%, #0d2137 100%);
+        --grad-primary: linear-gradient(135deg, #6366f1 0%, #8b5cf6 50%, #06b6d4 100%);
+        --grad-accent: linear-gradient(135deg, #f59e0b 0%, #ef4444 100%);
+        --grad-green: linear-gradient(135deg, #10b981 0%, #059669 100%);
+        --c-primary: #6366f1;
+        --c-violet: #8b5cf6;
+        --c-cyan: #06b6d4;
+        --c-green: #10b981;
+        --radius-lg: 24px;
+        --radius-xl: 32px;
+        --shadow-glow: 0 0 40px rgba(99,102,241,0.25);
+    }
 
-        body {
-            font-family: var(--poppins);
-            background-color: #ffffff;
-            color: #212529;
-            overflow-x: hidden;
-        }
+    /* ==================== HERO ==================== */
+    .hero-home {
+        background: var(--grad-hero);
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        position: relative;
+        overflow: hidden;
+        padding-top: 100px;
+    }
 
-        h1, h2, h3, h4, .fw-bold {
-            font-weight: 700 !important;
-            letter-spacing: -0.5px;
-        }
+    .hero-home::before {
+        content: '';
+        position: absolute;
+        width: 600px;
+        height: 600px;
+        background: radial-gradient(circle, rgba(99,102,241,0.3) 0%, transparent 70%);
+        top: -200px;
+        right: -200px;
+        border-radius: 50%;
+        animation: pulseGlow 8s ease-in-out infinite;
+    }
 
-        /* 1. HEADER / NAVBAR: Semi-Glassmorphism Sticky Blur */
-        .glass-nav {
-            background: rgba(255, 255, 255, 0.8);
-            backdrop-filter: blur(15px) saturate(180%);
-            -webkit-backdrop-filter: blur(15px) saturate(180%);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.3);
-            transition: all 0.3s ease-in-out;
-        }
+    .hero-home::after {
+        content: '';
+        position: absolute;
+        width: 400px;
+        height: 400px;
+        background: radial-gradient(circle, rgba(6,182,212,0.2) 0%, transparent 70%);
+        bottom: -100px;
+        left: -100px;
+        border-radius: 50%;
+        animation: pulseGlow 10s ease-in-out infinite reverse;
+    }
 
-        .navbar-brand .logo-icon {
-            width: 35px;
-            height: 35px;
-            background: var(--grad-primary);
-            color: white;
-            border-radius: 8px;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: bold;
-            margin-right: 10px;
-        }
+    @keyframes pulseGlow {
+        0%, 100% { transform: scale(1); opacity: 0.7; }
+        50% { transform: scale(1.1); opacity: 1; }
+    }
 
-        /* 2. HERO SECTION: Animated Gradient & Illustration split */
-        .hero-premium {
-            background-image: var(--grad-hero);
-            position: relative;
-            padding-top: 160px; /* Space for sticky nav */
-            padding-bottom: 120px;
-        }
+    .hero-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        background: rgba(255,255,255,0.08);
+        border: 1px solid rgba(255,255,255,0.15);
+        backdrop-filter: blur(10px);
+        padding: 8px 20px;
+        border-radius: 100px;
+        color: #a5b4fc;
+        font-size: 0.8rem;
+        font-weight: 600;
+        letter-spacing: 0.5px;
+        margin-bottom: 1.5rem;
+        animation: fadeSlideDown 0.6s ease both;
+    }
 
-        /* Background Particle Animation Placeholder */
-        .hero-premium::before {
-            content: '';
-            position: absolute;
-            width: 300px;
-            height: 300px;
-            background: rgba(111, 66, 193, 0.2);
-            border-radius: 50%;
-            filter: blur(80px);
-            top: 10%;
-            left: -100px;
-            animation: floatShape 20s infinite alternate;
-        }
+    .hero-badge .pulse-dot {
+        width: 8px;
+        height: 8px;
+        background: #10b981;
+        border-radius: 50%;
+        box-shadow: 0 0 0 3px rgba(16,185,129,0.3);
+        animation: pulseDot 2s infinite;
+    }
 
-        .hero-premium .illustration-holder {
-            /* Placeholder untuk gambar ilustrasi online learning */
-            background-color: rgba(255,255,255,0.5);
-            border-radius: var(--radius-lg);
-            border: 2px solid #ffffff;
-            box-shadow: var(--shadow-lg);
-            aspect-ratio: 16/10;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #6f42c1;
-        }
+    @keyframes pulseDot {
+        0%, 100% { box-shadow: 0 0 0 3px rgba(16,185,129,0.3); }
+        50% { box-shadow: 0 0 0 8px rgba(16,185,129,0.1); }
+    }
 
-        /* 3. FEATURES SECTION: Premium Cards Neumorphism */
-        .card-feature {
-            background: #ffffff;
-            border: 1px solid #f1f3f5;
-            border-radius: var(--radius-md);
-            padding: 2.5rem 2rem;
-            transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
-            box-shadow: var(--shadow-sm);
-            height: 100%;
-        }
+    .hero-headline {
+        font-size: clamp(2.5rem, 6vw, 4.5rem);
+        font-weight: 800;
+        line-height: 1.1;
+        letter-spacing: -2px;
+        color: #ffffff;
+        animation: fadeSlideUp 0.7s ease both 0.1s;
+    }
 
-        .card-feature:hover {
-            transform: translateY(-10px);
-            box-shadow: var(--shadow-lg);
-            border-color: rgba(13, 110, 253, 0.1);
-        }
+    .hero-headline .gradient-text {
+        background: var(--grad-primary);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+    }
 
-        .icon-box {
-            width: 70px;
-            height: 70px;
-            border-radius: 18px;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            margin-bottom: 1.5rem;
-            box-shadow: inset 0 0 15px rgba(255,255,255,0.5);
-        }
+    .hero-sub {
+        color: #94a3b8;
+        font-size: 1.1rem;
+        line-height: 1.7;
+        max-width: 500px;
+        animation: fadeSlideUp 0.7s ease both 0.2s;
+    }
 
-        /* Missing Sections Styling Placeholders */
-        .section-title-wrapper {
-            margin-bottom: 60px;
-        }
+    .hero-actions {
+        animation: fadeSlideUp 0.7s ease both 0.3s;
+    }
 
-        .course-grid, .article-layout, .gallery-grid, .testimonial-carousel {
-            background-color: #f8f9fa;
-            border-radius: var(--radius-lg);
-            padding: 40px;
-            color: #6c757d;
-            border: 1px dashed #dee2e6;
-            margin-bottom: 30px;
-        }
+    .btn-hero-primary {
+        background: var(--grad-primary);
+        color: #fff;
+        border: none;
+        padding: 15px 35px;
+        border-radius: 100px;
+        font-weight: 700;
+        font-size: 1rem;
+        transition: all 0.3s ease;
+        box-shadow: 0 8px 30px rgba(99,102,241,0.4);
+        text-decoration: none;
+        display: inline-block;
+    }
 
-        /* Footer: Dark Elegant */
-        .footer-dark {
-            background-color: #111111;
-            color: #adb5bd;
-            border-radius: var(--radius-lg) var(--radius-lg) 0 0;
-            margin-top: 80px;
-        }
+    .btn-hero-primary:hover {
+        color: #fff;
+        transform: translateY(-3px);
+        box-shadow: 0 16px 40px rgba(99,102,241,0.5);
+    }
 
-        /* Utility: Buttons Premium */
-        .btn-premium {
-            background: var(--grad-primary);
-            color: white;
-            border: none;
-            transition: all 0.3s ease;
-        }
-        .btn-premium:hover {
-            color: white;
-            opacity: 0.9;
-            transform: scale(1.03);
-            box-shadow: 0 8px 20px rgba(13, 110, 253, 0.2);
-        }
+    .btn-hero-ghost {
+        color: #cbd5e1;
+        border: 1px solid rgba(255,255,255,0.2);
+        padding: 14px 35px;
+        border-radius: 100px;
+        font-weight: 600;
+        font-size: 1rem;
+        transition: all 0.3s ease;
+        text-decoration: none;
+        display: inline-block;
+        background: rgba(255,255,255,0.05);
+    }
 
-        @keyframes floatShape {
-            0% { transform: translate(0, 0) rotate(0deg); }
-            100% { transform: translate(50px, 50px) rotate(10deg); }
-        }
-    </style>
+    .btn-hero-ghost:hover {
+        color: #fff;
+        background: rgba(255,255,255,0.12);
+        border-color: rgba(255,255,255,0.4);
+        transform: translateY(-2px);
+    }
 
-    <header class="fixed-top glass-nav">
-        <nav class="absolute top-0 left-0 w-full z-50 bg-white shadow-sm border-b border-gray-100">
-        <div class="max-w-7xl mx-auto px-6 py-4">
-            
-            <input type="checkbox" id="mobile-menu-saklar" class="hidden peer">
+    .hero-stats {
+        display: flex;
+        gap: 2rem;
+        margin-top: 2.5rem;
+        padding-top: 2rem;
+        border-top: 1px solid rgba(255,255,255,0.08);
+        animation: fadeSlideUp 0.7s ease both 0.4s;
+    }
 
-            <div class="flex justify-between items-center relative z-20">
-                <a href="{{ route('home') }}" class="text-2xl font-bold text-slate-900 flex items-center gap-2">
-                    <span class="w-8 h-8 bg-teal-600 rounded-lg flex items-center justify-center text-white shadow-md">E</span>
-                    Educate <span class="text-teal-600">.</span>
-                </a>
+    .hero-stat-item h3 {
+        font-size: 1.8rem;
+        font-weight: 800;
+        color: #fff;
+        margin-bottom: 2px;
+        background: var(--grad-primary);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+    }
 
-                <label for="mobile-menu-saklar" class="md:hidden cursor-pointer text-slate-800 hover:text-teal-600 transition select-none">
-                    <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
-                    </svg>
-                </label>
+    .hero-stat-item p {
+        font-size: 0.75rem;
+        color: #64748b;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        font-weight: 600;
+        margin: 0;
+    }
 
-                <div class="hidden md:flex items-center space-x-8 text-slate-600 font-medium">
-                    <a href="{{ route('home') }}" class="text-teal-600 font-bold transition">Beranda</a>
-                    <a href="{{ route('pesantren.index') }}" class="hover:text-teal-600 transition">Pesantren</a>
-                    <a href="{{ route('madrasah.index') }}" class="hover:text-teal-600 transition">Madrasah</a>
-                    <a href="{{ route('pesantren.berita') }}" class="hover:text-teal-600 transition">Berita</a>
-                    <a href="{{ route('pesantren.pendaftaran') }}" class="bg-teal-600 text-white px-6 py-2.5 rounded-full font-bold hover:bg-teal-700 transition shadow-md">
-                        Daftar Sekarang
+    /* Hero Floating Card */
+    .hero-visual {
+        position: relative;
+        animation: fadeSlideLeft 0.8s ease both 0.3s;
+    }
+
+    .hero-img-wrapper {
+        position: relative;
+        border-radius: var(--radius-xl);
+        overflow: hidden;
+        box-shadow: var(--shadow-glow), 0 30px 80px rgba(0,0,0,0.4);
+        border: 1px solid rgba(255,255,255,0.1);
+    }
+
+    .hero-img-wrapper img {
+        width: 100%;
+        height: 480px;
+        object-fit: cover;
+        display: block;
+    }
+
+    .floating-card {
+        position: absolute;
+        background: rgba(15,23,42,0.85);
+        backdrop-filter: blur(20px);
+        border: 1px solid rgba(255,255,255,0.1);
+        border-radius: 16px;
+        padding: 14px 18px;
+        color: #fff;
+        font-size: 0.8rem;
+    }
+
+    .floating-card-1 {
+        bottom: -20px;
+        left: -30px;
+        animation: float 6s ease-in-out infinite;
+    }
+
+    .floating-card-2 {
+        top: 30px;
+        right: -30px;
+        animation: float 8s ease-in-out infinite reverse;
+    }
+
+    @keyframes float {
+        0%, 100% { transform: translateY(0); }
+        50% { transform: translateY(-10px); }
+    }
+
+    /* ==================== FEATURES ==================== */
+    .features-section {
+        background: #ffffff;
+        padding: 100px 0;
+    }
+
+    .section-chip {
+        display: inline-block;
+        background: rgba(99,102,241,0.08);
+        color: var(--c-primary);
+        border: 1px solid rgba(99,102,241,0.2);
+        padding: 6px 18px;
+        border-radius: 100px;
+        font-size: 0.78rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 1.5px;
+        margin-bottom: 16px;
+    }
+
+    .section-title {
+        font-size: clamp(2rem, 4vw, 2.8rem);
+        font-weight: 800;
+        letter-spacing: -1px;
+        color: #0f172a;
+        line-height: 1.2;
+    }
+
+    .section-subtitle {
+        color: #64748b;
+        font-size: 1.05rem;
+        max-width: 540px;
+        margin: 0 auto;
+        line-height: 1.7;
+    }
+
+    .feature-card {
+        background: #fff;
+        border: 1px solid #f1f5f9;
+        border-radius: 20px;
+        padding: 2.5rem 2rem;
+        height: 100%;
+        transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+        position: relative;
+        overflow: hidden;
+    }
+
+    .feature-card::before {
+        content: '';
+        position: absolute;
+        top: 0; left: 0; right: 0;
+        height: 3px;
+        background: var(--grad-primary);
+        transform: scaleX(0);
+        transition: transform 0.4s ease;
+        transform-origin: left;
+    }
+
+    .feature-card:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 20px 60px rgba(99,102,241,0.1);
+        border-color: rgba(99,102,241,0.15);
+    }
+
+    .feature-card:hover::before {
+        transform: scaleX(1);
+    }
+
+    .feature-icon {
+        width: 64px;
+        height: 64px;
+        border-radius: 16px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.6rem;
+        margin-bottom: 1.5rem;
+    }
+
+    /* ==================== PROGRAMS ==================== */
+    .programs-section {
+        background: linear-gradient(180deg, #fafafa 0%, #f1f5f9 100%);
+        padding: 100px 0;
+    }
+
+    .program-card {
+        border-radius: 20px;
+        overflow: hidden;
+        background: #fff;
+        border: 1px solid #e2e8f0;
+        transition: all 0.4s ease;
+    }
+
+    .program-card:hover {
+        transform: translateY(-6px);
+        box-shadow: 0 25px 50px rgba(0,0,0,0.1);
+    }
+
+    .program-card-img {
+        height: 220px;
+        object-fit: cover;
+        width: 100%;
+    }
+
+    .program-badge {
+        position: absolute;
+        top: 16px;
+        left: 16px;
+        padding: 5px 14px;
+        border-radius: 100px;
+        font-size: 0.72rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+
+    /* ==================== STATS ==================== */
+    .stats-section {
+        background: var(--grad-hero);
+        padding: 80px 0;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .stats-section::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.02'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+    }
+
+    .stat-box {
+        text-align: center;
+        padding: 20px;
+        position: relative;
+    }
+
+    .stat-box h2 {
+        font-size: clamp(2.5rem, 5vw, 4rem);
+        font-weight: 900;
+        margin-bottom: 4px;
+        background: var(--grad-primary);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+    }
+
+    .stat-box p {
+        color: #94a3b8;
+        font-size: 0.85rem;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        font-weight: 600;
+        margin: 0;
+    }
+
+    /* ==================== TESTIMONIALS ==================== */
+    .testimonials-section {
+        padding: 100px 0;
+        background: #fff;
+    }
+
+    .testimonial-card {
+        background: #f8fafc;
+        border: 1px solid #e2e8f0;
+        border-radius: 20px;
+        padding: 2rem;
+        height: 100%;
+        transition: all 0.3s ease;
+    }
+
+    .testimonial-card:hover {
+        background: #fff;
+        box-shadow: 0 15px 40px rgba(0,0,0,0.08);
+        transform: translateY(-4px);
+    }
+
+    .testimonial-stars {
+        color: #f59e0b;
+        margin-bottom: 1rem;
+        letter-spacing: 2px;
+    }
+
+    .testimonial-avatar {
+        width: 44px;
+        height: 44px;
+        border-radius: 50%;
+        object-fit: cover;
+        border: 2px solid #e2e8f0;
+    }
+
+    .avatar-placeholder {
+        width: 44px;
+        height: 44px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 700;
+        font-size: 1rem;
+        flex-shrink: 0;
+    }
+
+    /* ==================== CTA ==================== */
+    .cta-section {
+        padding: 80px 0;
+        background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+    }
+
+    .cta-box {
+        background: var(--grad-hero);
+        border-radius: var(--radius-xl);
+        padding: 70px 60px;
+        text-align: center;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .cta-box::before {
+        content: '';
+        position: absolute;
+        width: 400px;
+        height: 400px;
+        background: radial-gradient(circle, rgba(99,102,241,0.4) 0%, transparent 70%);
+        top: -200px;
+        right: -100px;
+    }
+
+    .cta-box::after {
+        content: '';
+        position: absolute;
+        width: 300px;
+        height: 300px;
+        background: radial-gradient(circle, rgba(6,182,212,0.3) 0%, transparent 70%);
+        bottom: -150px;
+        left: -50px;
+    }
+
+    .cta-box * { position: relative; z-index: 1; }
+
+    /* ==================== ANIMATIONS ==================== */
+    @keyframes fadeSlideDown {
+        from { opacity: 0; transform: translateY(-20px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes fadeSlideUp {
+        from { opacity: 0; transform: translateY(30px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes fadeSlideLeft {
+        from { opacity: 0; transform: translateX(40px); }
+        to { opacity: 1; transform: translateX(0); }
+    }
+</style>
+
+{{-- ===================== HERO SECTION ===================== --}}
+<section class="hero-home">
+    <div class="container position-relative" style="z-index:2;">
+        <div class="row align-items-center g-5">
+            <div class="col-lg-6">
+                <div class="hero-badge">
+                    <span class="pulse-dot"></span>
+                    Penerimaan Santri/Siswa Baru 2026
+                </div>
+                <h1 class="hero-headline">
+                    Raih Ilmu &amp;<br>
+                    <span class="gradient-text">Akhlak Mulia</span><br>
+                    Bersama Kami
+                </h1>
+                <p class="hero-sub mt-4">
+                    Membangun Generasi Cerdas, Berakhlak Mulia, dan Berwawasan Global melalui sistem pendidikan Madrasah dan Pesantren yang modern dan terpadu.
+                </p>
+                <div class="hero-actions d-flex flex-wrap gap-3 mt-4">
+                    <a href="{{ route('pesantren.pendaftaran') }}" class="btn-hero-primary">
+                        <i class="bi bi-pencil-square me-2"></i>Daftar Pesantren
+                    </a>
+                    <a href="{{ route('madrasah.pendaftaran') }}" class="btn-hero-ghost">
+                        <i class="bi bi-mortarboard me-2"></i>Portal Madrasah
                     </a>
                 </div>
+                <div class="hero-stats">
+                    <div class="hero-stat-item">
+                        <h3>1.2K+</h3>
+                        <p>Santri Aktif</p>
+                    </div>
+                    <div class="hero-stat-item">
+                        <h3>85+</h3>
+                        <p>Asatidz</p>
+                    </div>
+                    <div class="hero-stat-item">
+                        <h3>15+</h3>
+                        <p>Tahun Berdiri</p>
+                    </div>
+                </div>
             </div>
+            <div class="col-lg-6 d-none d-lg-block">
+                <div class="hero-visual">
+                    <div class="hero-img-wrapper">
+                        <img src="https://images.unsplash.com/photo-1544717305-2782549b5136?ixlib=rb-4.0.3&auto=format&fit=crop&w=900&q=80"
+                             alt="Santri belajar bersama di pesantren">
+                        <div class="overlay-dark" style="position:absolute;inset:0;background:linear-gradient(180deg,transparent 50%,rgba(10,15,46,0.6));"></div>
+                    </div>
 
-            <div class="hidden peer-checked:block md:hidden absolute top-full left-0 w-full bg-white shadow-xl border-t border-gray-100 z-10 pb-6">
-                <div class="flex flex-col px-6 py-6 space-y-6 text-slate-700 font-medium text-lg">
-                    <a href="{{ route('home') }}" class="text-teal-600 font-bold">Beranda</a>
-                    <a href="{{ route('pesantren.index') }}" class="hover:text-teal-600 transition">Pesantren</a>
-                    <a href="{{ route('madrasah.index') }}" class="hover:text-teal-600 transition">Madrasah</a>
-                    <a href="{{ route('pesantren.berita') }}" class="hover:text-teal-600 transition">Berita Terkini</a>
-                    <a href="#" class="hover:text-teal-600 transition">Galeri</a>
-                    
-                    <div class="pt-4 mt-2">
-                        <a href="{{ route('pesantren.pendaftaran') }}" class="inline-block bg-teal-600 text-white px-8 py-3.5 rounded-full font-bold hover:bg-teal-700 transition shadow-md text-center">
-                            Daftar Sekarang
-                        </a>
+                    <!-- Floating Card 1 -->
+                    <div class="floating-card floating-card-1">
+                        <div class="d-flex align-items-center gap-2 mb-1">
+                            <div style="width:32px;height:32px;background:var(--grad-green);border-radius:8px;display:flex;align-items:center;justify-content:center;">
+                                <i class="bi bi-book-half text-white" style="font-size:0.9rem;"></i>
+                            </div>
+                            <div>
+                                <div style="color:#e2e8f0;font-weight:700;font-size:0.85rem;">Program Tahfidz</div>
+                                <div style="color:#64748b;font-size:0.7rem;">30 Juz · Intensif</div>
+                            </div>
+                        </div>
+                        <div style="background:rgba(16,185,129,0.15);border-radius:8px;padding:6px 10px;color:#10b981;font-weight:600;font-size:0.72rem;">✓ Unggulan</div>
+                    </div>
+
+                    <!-- Floating Card 2 -->
+                    <div class="floating-card floating-card-2">
+                        <div style="color:#94a3b8;font-size:0.7rem;margin-bottom:4px;text-transform:uppercase;letter-spacing:1px;">Penerimaan</div>
+                        <div style="color:#e2e8f0;font-weight:700;font-size:1.1rem;">PPDB 2026</div>
+                        <div style="color:#6366f1;font-weight:600;font-size:0.78rem;">Dibuka Sekarang →</div>
                     </div>
                 </div>
             </div>
         </div>
-    </nav>
-    </header>
+    </div>
+</section>
 
-    <section class="hero-premium">
-        <div class="container relative z-10">
-            <div class="row align-items-center g-5">
-                <div class="col-lg-6 text-center text-lg-start">
-                    <span class="inline-block py-1.5 px-3 rounded-full bg-white text-primary fw-semibold text-xs mb-4 shadow-sm border border-light">
-                        ✨ Selamat Datang di Portal Pendidikan Terpadu
-                    </span>
-                    <h1 class="display-3 fw-extrabold mb-4 text-dark leading-tight">
-                        Upgrade Your Skills <br class="d-none d-xl-block">for the <span class="text-primary" style="background: var(--grad-primary); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Future</span>
-                    </h1>
-                    <p class="lead mb-5 text-muted max-w-xl mx-auto mx-lg-0 font-light">Membangun Generasi Cerdas, Berakhlak Mulia, dan Berwawasan Global melalui pendidikan Madrasah dan Pesantren.</p>
-                    <div class="d-flex gap-3 justify-content-center justify-content-lg-start flex-wrap">
-                        <a href="{{ route('pesantren.pendaftaran') }}" class="btn btn-premium btn-lg px-5 rounded-pill shadow fw-bold">Daftar Pesantren</a>
-                        <a href="{{ route('madrasah.pendaftaran') }}" class="btn btn-outline-dark btn-lg px-5 rounded-pill fw-medium hover-bg-white shadow-sm border-2">Portal Madrasah</a>
-                    </div>
-                </div>
-                <div class="col-lg-6 d-none d-lg-block">
-                    <div class="illustration-holder">
-                        <i class="bi bi-person-workspace display-1 opacity-25"></i>
-                        {{-- Ganti Icon di atas dengan <img src="hero-illustration.svg" alt="Students Online Learning"> --}}
-                    </div>
-                </div>
-            </div>
+{{-- ===================== FEATURES SECTION ===================== --}}
+<section class="features-section">
+    <div class="container">
+        <div class="text-center mb-5">
+            <span class="section-chip">Layanan Kami</span>
+            <h2 class="section-title">Ekosistem Pendidikan<br>yang Lengkap &amp; Modern</h2>
+            <p class="section-subtitle mt-3">Kami menyediakan berbagai layanan unggulan untuk mendukung tumbuh kembang santri dan siswa secara holistik.</p>
         </div>
-    </section>
 
-    <section class="container py-5 mt-5">
-        <div class="text-center section-title-wrapper max-w-2xl mx-auto mb-5">
-            <span class="text-uppercase tracking-widest text-primary fw-bold text-xs mb-2 d-block">Core Services</span>
-            <h2 class="display-5 fw-bold text-dark">Layanan Utama Portal</h2>
-            <p class="text-muted mt-3 font-light mx-auto" style="max-w: 500px">Kami menyediakan berbagai layanan unggulan untuk mendukung ekosistem pendidikan Madrasah dan Pesantren yang modern.</p>
-        </div>
-        
         <div class="row g-4 justify-content-center">
             <div class="col-md-6 col-lg-4">
-                <div class="card-feature text-center">
-                    <div class="icon-box bg-primary-subtle text-primary">
-                        <i class="bi bi-newspaper display-6"></i>
+                <div class="feature-card">
+                    <div class="feature-icon" style="background:rgba(99,102,241,0.1);color:#6366f1;">
+                        <i class="bi bi-journal-text"></i>
                     </div>
-                    <h4 class="card-title fw-bold text-dark mb-3">Berita & Informasi</h4>
-                    <p class="card-text text-muted font-light mb-4">Dapatkan update terbaru seputar kegiatan akademik, prestasi, dan pengumuman non-akademik di lingkungan portal.</p>
-                    <a href="{{ route('pesantren.berita') }}" class="btn btn-outline-primary px-4 rounded-pill fw-medium btn-sm">Baca Berita →</a>
+                    <h4 class="fw-bold text-dark mb-3">Berita &amp; Informasi</h4>
+                    <p class="text-secondary mb-4" style="line-height:1.7;">Update terbaru seputar kegiatan akademik, prestasi santri, dan pengumuman penting dari lingkungan pesantren dan madrasah.</p>
+                    <a href="{{ route('pesantren.berita') }}" class="text-decoration-none fw-semibold" style="color:var(--c-primary);">Baca Berita <i class="bi bi-arrow-right"></i></a>
                 </div>
             </div>
 
             <div class="col-md-6 col-lg-4">
-                <div class="card-feature text-center">
-                    <div class="icon-box bg-success-subtle text-success">
-                        <i class="bi bi-wallet2 display-6"></i>
+                <div class="feature-card">
+                    <div class="feature-icon" style="background:rgba(16,185,129,0.1);color:#10b981;">
+                        <i class="bi bi-heart-fill"></i>
                     </div>
-                    <h4 class="card-title fw-bold text-dark mb-3">Investasi Akhirat</h4>
-                    <p class="card-text text-muted font-light mb-4">Salurkan donasi Anda secara transparan untuk pembangunan fasilitas, beasiswa, dan operasional pendidikan yang berkelanjutan.</p>
-                    <a href="{{ route('pesantren.donasi') }}" class="btn btn-success px-4 rounded-pill fw-medium btn-sm shadow-sm">Mulai Donasi</a>
+                    <h4 class="fw-bold text-dark mb-3">Investasi Akhirat</h4>
+                    <p class="text-secondary mb-4" style="line-height:1.7;">Salurkan donasi Anda secara transparan untuk pembangunan fasilitas, beasiswa santri, dan operasional pendidikan yang berkelanjutan.</p>
+                    <a href="{{ route('pesantren.donasi') }}" class="text-decoration-none fw-semibold" style="color:#10b981;">Donasi Sekarang <i class="bi bi-arrow-right"></i></a>
                 </div>
             </div>
 
             <div class="col-md-6 col-lg-4">
-                <div class="card-feature text-center">
-                    <div class="icon-box bg-warning-subtle text-warning">
-                        <i class="bi bi-building display-6"></i>
+                <div class="feature-card">
+                    <div class="feature-icon" style="background:rgba(245,158,11,0.1);color:#f59e0b;">
+                        <i class="bi bi-building-check"></i>
                     </div>
-                    <h4 class="card-title fw-bold text-dark mb-3">Fasilitas Modern</h4>
-                    <p class="card-text text-muted font-light mb-4">Eksplorasi sarana dan prasarana penunjang pembelajaran yang memadai, nyaman, dan berbasis teknologi modern.</p>
-                    <a href="{{ route('madrasah.fasilitas') }}" class="btn btn-outline-warning text-dark px-4 rounded-pill fw-medium btn-sm">Lihat Fasilitas</a>
+                    <h4 class="fw-bold text-dark mb-3">Fasilitas Modern</h4>
+                    <p class="text-secondary mb-4" style="line-height:1.7;">Sarana dan prasarana penunjang pembelajaran yang nyaman, lengkap, dan berbasis teknologi modern untuk mendukung potensi terbaik.</p>
+                    <a href="{{ route('madrasah.fasilitas') }}" class="text-decoration-none fw-semibold" style="color:#f59e0b;">Lihat Fasilitas <i class="bi bi-arrow-right"></i></a>
+                </div>
+            </div>
+
+            <div class="col-md-6 col-lg-4">
+                <div class="feature-card">
+                    <div class="feature-icon" style="background:rgba(6,182,212,0.1);color:#06b6d4;">
+                        <i class="bi bi-person-fill-check"></i>
+                    </div>
+                    <h4 class="fw-bold text-dark mb-3">Portal Wali Santri</h4>
+                    <p class="text-secondary mb-4" style="line-height:1.7;">Pantau perkembangan akademik, kehadiran, tagihan SPP, dan laporan keuangan putra-putri Anda secara real-time kapanpun, dimanapun.</p>
+                    <a href="#" class="text-decoration-none fw-semibold" style="color:#06b6d4;">Login Wali <i class="bi bi-arrow-right"></i></a>
+                </div>
+            </div>
+
+            <div class="col-md-6 col-lg-4">
+                <div class="feature-card">
+                    <div class="feature-icon" style="background:rgba(239,68,68,0.1);color:#ef4444;">
+                        <i class="bi bi-trophy-fill"></i>
+                    </div>
+                    <h4 class="fw-bold text-dark mb-3">Galeri Prestasi</h4>
+                    <p class="text-secondary mb-4" style="line-height:1.7;">Dokumentasi pencapaian membanggakan para santri dan siswa dalam berbagai kompetisi regional, nasional, hingga internasional.</p>
+                    <a href="#" class="text-decoration-none fw-semibold" style="color:#ef4444;">Lihat Galeri <i class="bi bi-arrow-right"></i></a>
+                </div>
+            </div>
+
+            <div class="col-md-6 col-lg-4">
+                <div class="feature-card">
+                    <div class="feature-icon" style="background:rgba(139,92,246,0.1);color:#8b5cf6;">
+                        <i class="bi bi-clipboard2-data-fill"></i>
+                    </div>
+                    <h4 class="fw-bold text-dark mb-3">PPDB Online</h4>
+                    <p class="text-secondary mb-4" style="line-height:1.7;">Proses Penerimaan Peserta Didik Baru yang mudah, cepat, dan transparan. Daftarkan putra-putri Anda sekarang juga.</p>
+                    <a href="{{ route('pesantren.pendaftaran') }}" class="text-decoration-none fw-semibold" style="color:#8b5cf6;">Daftar PPDB <i class="bi bi-arrow-right"></i></a>
                 </div>
             </div>
         </div>
-    </section>
+    </div>
+</section>
 
-    <section class="container py-5">
-        <div class="section-title-wrapper text-center mb-5">
-            <h2 class="display-6 fw-bold text-dark">Courses / articles / Gallery / Testimonials</h2>
-            <p class="text-muted">Implement modern sections here (Carousel, Bento Grid, Zoom Gallery)</p>
+{{-- ===================== PROGRAMS SECTION ===================== --}}
+<section class="programs-section">
+    <div class="container">
+        <div class="text-center mb-5">
+            <span class="section-chip">Program Unggulan</span>
+            <h2 class="section-title">Pilihan Program<br>Sesuai Kebutuhan</h2>
+            <p class="section-subtitle mt-3">Dari program tahfidz intensif hingga pendidikan formal berwawasan keislaman — semua tersedia untuk putra-putri terbaik Anda.</p>
         </div>
-        <div class="row">
-            <div class="col-12"><div class="course-grid shadow-sm text-center">Course Cards Grid Layout</div></div>
-            <div class="col-12"><div class="article-layout shadow-sm text-center">Clean Article/Blog Layout</div></div>
-            <div class="col-12"><div class="gallery-grid shadow-sm text-center">Grid Gallery with Hover Zoom</div></div>
-            <div class="col-12"><div class="testimonial-carousel shadow-sm text-center">Carousel Student Reviews Slider</div></div>
-        </div>
-    </section>
 
-    <footer class="footer-dark py-5 mt-5">
-        <div class="container py-4 text-center">
-            <p class="fw-bold text-white mb-2">Educate Portal</p>
-            <p class="text-muted text-sm max-w-md mx-auto mb-4">Professional, inspiring, modern, and trustworthy platform for educational excellence.</p>
-            <div class="d-flex gap-3 justify-content-center text-white mb-4">
-                <i class="bi bi-facebook"></i><i class="bi bi-twitter-x"></i><i class="bi bi-instagram"></i><i class="bi bi-linkedin"></i>
+        <div class="row g-4">
+            <div class="col-md-6 col-lg-4">
+                <div class="program-card position-relative shadow-sm">
+                    <div style="position:relative;">
+                        <img src="https://images.unsplash.com/photo-1578496780929-60dc9c6b4ee9?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80"
+                             class="program-card-img" alt="Program Tahfidz">
+                        <span class="program-badge bg-success text-white">⭐ Unggulan</span>
+                    </div>
+                    <div class="p-4">
+                        <h5 class="fw-bold text-dark mb-2">Program Tahfidz Al-Qur'an</h5>
+                        <p class="text-secondary small mb-3" style="line-height:1.6;">Hafalan 30 Juz dengan metode setoran harian dan muraja'ah terstruktur bimbingan asatidz berpengalaman.</p>
+                        <div class="d-flex align-items-center justify-content-between">
+                            <div class="d-flex gap-2">
+                                <span class="badge bg-success-subtle text-success rounded-pill px-3 py-2 small fw-semibold">Pesantren</span>
+                            </div>
+                            <a href="{{ route('pesantren.pendaftaran') }}" class="text-primary fw-bold small text-decoration-none">Daftar →</a>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <p class="text-xs m-0 text-muted">&copy; {{ date('Y') }} Educate Portal. All rights reserved.</p>
+
+            <div class="col-md-6 col-lg-4">
+                <div class="program-card position-relative shadow-sm">
+                    <div style="position:relative;">
+                        <img src="https://images.unsplash.com/photo-1509062522246-3755977927d7?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80"
+                             class="program-card-img" alt="Madrasah Ibtidaiyah">
+                        <span class="program-badge" style="background:rgba(99,102,241,0.9);color:#fff;">Formal</span>
+                    </div>
+                    <div class="p-4">
+                        <h5 class="fw-bold text-dark mb-2">Madrasah Ibtidaiyah</h5>
+                        <p class="text-secondary small mb-3" style="line-height:1.6;">Pendidikan dasar berbasis kurikulum nasional plus diniyah yang membentuk fondasi ilmu dan akhlak sejak dini.</p>
+                        <div class="d-flex align-items-center justify-content-between">
+                            <span class="badge" style="background:rgba(99,102,241,0.1);color:#6366f1;border-radius:100px;padding:7px 14px;font-size:0.75rem;font-weight:600;">Madrasah</span>
+                            <a href="{{ route('madrasah.pendaftaran') }}" class="text-primary fw-bold small text-decoration-none">Daftar →</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6 col-lg-4">
+                <div class="program-card position-relative shadow-sm">
+                    <div style="position:relative;">
+                        <img src="https://images.unsplash.com/photo-1627556704302-624286467c65?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80"
+                             class="program-card-img" alt="Kajian Kitab Kuning">
+                        <span class="program-badge" style="background:rgba(245,158,11,0.9);color:#fff;">Tradisional</span>
+                    </div>
+                    <div class="p-4">
+                        <h5 class="fw-bold text-dark mb-2">Kajian Kitab Kuning</h5>
+                        <p class="text-secondary small mb-3" style="line-height:1.6;">Mendalami khazanah keilmuan Islam klasik melalui kajian kitab-kitab para ulama salaf yang otoritatif.</p>
+                        <div class="d-flex align-items-center justify-content-between">
+                            <span class="badge rounded-pill px-3 py-2 small fw-semibold" style="background:rgba(245,158,11,0.1);color:#f59e0b;">Pesantren</span>
+                            <a href="{{ route('pesantren.pendaftaran') }}" class="text-primary fw-bold small text-decoration-none">Daftar →</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-    </footer>
+    </div>
+</section>
+
+{{-- ===================== STATS SECTION ===================== --}}
+<section class="stats-section">
+    <div class="container position-relative" style="z-index:1;">
+        <div class="row g-4 text-center">
+            <div class="col-6 col-md-3">
+                <div class="stat-box">
+                    <h2>1.200+</h2>
+                    <p>Santri Mukim</p>
+                </div>
+            </div>
+            <div class="col-6 col-md-3">
+                <div class="stat-box">
+                    <h2>85+</h2>
+                    <p>Asatidz & Guru</p>
+                </div>
+            </div>
+            <div class="col-6 col-md-3">
+                <div class="stat-box">
+                    <h2>15+</h2>
+                    <p>Tahun Berdiri</p>
+                </div>
+            </div>
+            <div class="col-6 col-md-3">
+                <div class="stat-box">
+                    <h2>500+</h2>
+                    <p>Alumni Berprestasi</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+{{-- ===================== TESTIMONIALS ===================== --}}
+<section class="testimonials-section">
+    <div class="container">
+        <div class="text-center mb-5">
+            <span class="section-chip">Testimoni</span>
+            <h2 class="section-title">Apa Kata Mereka?</h2>
+            <p class="section-subtitle mt-3">Kepercayaan wali santri dan alumni adalah motivasi terbesar kami untuk terus berkembang.</p>
+        </div>
+
+        <div class="row g-4">
+            <div class="col-md-4">
+                <div class="testimonial-card">
+                    <div class="testimonial-stars">★★★★★</div>
+                    <p class="text-secondary mb-4" style="line-height:1.7;font-style:italic;">"Alhamdulillah, putra saya sangat berkembang sejak masuk pesantren ini. Tidak hanya hafalan Qur'an yang bertambah, akhlaknya pun semakin baik. Sangat recommended!"</p>
+                    <div class="d-flex align-items-center gap-3">
+                        <div class="avatar-placeholder" style="background:linear-gradient(135deg,#6366f1,#8b5cf6);color:#fff;">B</div>
+                        <div>
+                            <div class="fw-bold text-dark" style="font-size:0.9rem;">Bapak Hendra S.</div>
+                            <div class="text-muted" style="font-size:0.78rem;">Wali Santri — Kelas 5 MI</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="testimonial-card">
+                    <div class="testimonial-stars">★★★★★</div>
+                    <p class="text-secondary mb-4" style="line-height:1.7;font-style:italic;">"Fasilitas asramanya bersih, kasur nyaman, dan makanan bergizi. Sistem keamanannya juga ketat. Anak saya merasa betah dan semangat belajar setiap harinya."</p>
+                    <div class="d-flex align-items-center gap-3">
+                        <div class="avatar-placeholder" style="background:linear-gradient(135deg,#10b981,#059669);color:#fff;">N</div>
+                        <div>
+                            <div class="fw-bold text-dark" style="font-size:0.9rem;">Ibu Nurhasanah</div>
+                            <div class="text-muted" style="font-size:0.78rem;">Wali Santri — Tahfidz Junior</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="testimonial-card">
+                    <div class="testimonial-stars">★★★★★</div>
+                    <p class="text-secondary mb-4" style="line-height:1.7;font-style:italic;">"Saya alumni pesantren ini angkatan 2018. Ilmu yang saya dapat di sini menjadi bekal kuat saat kuliah di luar negeri. Terima kasih para asatidz yang luar biasa."</p>
+                    <div class="d-flex align-items-center gap-3">
+                        <div class="avatar-placeholder" style="background:linear-gradient(135deg,#f59e0b,#ef4444);color:#fff;">R</div>
+                        <div>
+                            <div class="fw-bold text-dark" style="font-size:0.9rem;">Ahmad Rizki Maulana</div>
+                            <div class="text-muted" style="font-size:0.78rem;">Alumni 2018 — Mahasiswa Al-Azhar</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+{{-- ===================== CTA SECTION ===================== --}}
+<section class="cta-section">
+    <div class="container">
+        <div class="cta-box">
+            <span class="section-chip" style="background:rgba(99,102,241,0.2);color:#a5b4fc;border-color:rgba(99,102,241,0.3);">PPDB 2026</span>
+            <h2 class="section-title text-white mt-3" style="font-size:clamp(1.8rem,4vw,3rem);">
+                Wujudkan Impian<br>Putra-Putri Anda
+            </h2>
+            <p class="mt-3 mb-5" style="color:#94a3b8;font-size:1.05rem;max-width:540px;margin:1rem auto 2.5rem;">
+                Bergabunglah bersama ribuan keluarga yang telah mempercayakan pendidikan putra-putri mereka kepada kami. Pendaftaran masih dibuka!
+            </p>
+            <div class="d-flex gap-3 justify-content-center flex-wrap">
+                <a href="{{ route('pesantren.pendaftaran') }}" class="btn-hero-primary">
+                    <i class="bi bi-pencil-square me-2"></i>Daftar Pesantren
+                </a>
+                <a href="{{ route('madrasah.pendaftaran') }}" class="btn-hero-ghost">
+                    <i class="bi bi-mortarboard me-2"></i>Daftar Madrasah
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
 
 @endsection

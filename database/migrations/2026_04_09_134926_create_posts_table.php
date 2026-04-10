@@ -8,12 +8,12 @@ return new class extends Migration
 {
     public function up(): void
     {
-        // Tabel ini sudah tidak dipakai, digantikan oleh donaturs table
-        if (!Schema::hasTable('donations')) {
-            Schema::create('donations', function (Blueprint $table) {
+        // Tabel ini sudah tidak dipakai, digantikan oleh beritas table
+        if (!Schema::hasTable('posts')) {
+            Schema::create('posts', function (Blueprint $table) {
                 $table->id();
-                $table->string('name')->nullable();
-                $table->decimal('amount', 15, 2);
+                $table->string('title');
+                $table->text('body')->nullable();
                 $table->timestamps();
             });
         }
@@ -21,6 +21,6 @@ return new class extends Migration
 
     public function down(): void
     {
-        Schema::dropIfExists('donations');
+        Schema::dropIfExists('posts');
     }
 };
