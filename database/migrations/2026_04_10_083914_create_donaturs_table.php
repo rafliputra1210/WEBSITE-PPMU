@@ -11,11 +11,13 @@ return new class extends Migration
      */
     public function up(): void
 {
-    Schema::create('categories', function (Blueprint $table) {
+    Schema::create('donaturs', function (Blueprint $table) {
         $table->id();
-        $table->string('name'); // Contoh: Berita Pesantren, Fasilitas Madrasah
-        $table->string('slug')->unique();
-        $table->string('type'); // 'pesantren' atau 'madrasah'
+        $table->string('nama_donatur');
+        $table->decimal('jumlah_donasi', 15, 2);
+        $table->text('pesan')->nullable();
+        $table->date('tanggal_donasi');
+        $table->enum('status', ['pending', 'berhasil'])->default('pending');
         $table->timestamps();
     });
 }
@@ -25,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('categories');
+        Schema::dropIfExists('donaturs');
     }
 };

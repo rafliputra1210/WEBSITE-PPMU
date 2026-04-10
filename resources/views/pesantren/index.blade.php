@@ -1,66 +1,182 @@
-<x-layout>
-    <section class="relative bg-gradient-to-br from-emerald-900 via-emerald-800 to-teal-900 py-32 overflow-hidden mt-10">
-        <div class="absolute top-[-50%] left-[-10%] w-96 h-96 bg-emerald-500/30 rounded-full blur-[120px]"></div>
-        <div class="absolute bottom-[-20%] right-[-10%] w-96 h-96 bg-teal-400/20 rounded-full blur-[100px]"></div>
-        
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-white relative z-10">
-            <span class="inline-block py-1 px-4 rounded-full bg-white/10 backdrop-blur-sm border border-white/20 text-emerald-100 text-sm font-medium mb-6">
-                Lembaga Pendidikan Islam
-            </span>
-            <h1 class="text-5xl md:text-6xl font-bold mb-6 drop-shadow-md">Portal Pesantren</h1>
-            <p class="text-xl text-emerald-100/90 max-w-2xl mx-auto font-light leading-relaxed">
-                Membentuk generasi qurani yang mandiri, berilmu, modern, dan berakhlakul karimah untuk menyongsong masa depan.
-            </p>
-        </div>
-    </section>
+@extends('layouts.app')
 
-    <section class="py-20 bg-gray-50 relative">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 -mt-24 relative z-20">
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-                
-                <a href="{{ route('pesantren.profil') }}" class="group bg-white/80 backdrop-blur-xl p-8 rounded-3xl shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-white hover:shadow-[0_8px_30px_rgba(16,185,129,0.15)] hover:-translate-y-2 transition-all duration-300 text-center">
-                    <div class="w-20 h-20 bg-gradient-to-br from-emerald-100 to-emerald-50 text-emerald-600 rounded-2xl flex items-center justify-center mx-auto mb-6 text-4xl shadow-inner group-hover:scale-110 transition-transform">📖</div>
-                    <h3 class="font-bold text-gray-800 text-lg">Profil & Tentang</h3>
-                    <p class="text-sm text-gray-500 mt-2">Mengenal sejarah dan visi misi kami.</p>
-                </a>
+@section('content')
+<style>
+    /* Mengubah gradient hero khusus untuk halaman pesantren menjadi nuansa Emerald/Teal yang sejuk */
+    .hero-pesantren {
+        background: linear-gradient(135deg, rgba(16, 185, 129, 0.08) 0%, rgba(20, 184, 166, 0.08) 100%);
+        padding-top: 180px;
+        padding-bottom: 100px;
+        position: relative;
+    }
+    
+    .btn-pesantren {
+        background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+        color: white;
+        border: none;
+        box-shadow: 0 4px 15px rgba(16, 185, 129, 0.25);
+    }
+    
+    .btn-pesantren:hover {
+        color: white;
+        transform: translateY(-2px);
+        box-shadow: 0 8px 25px rgba(16, 185, 129, 0.35);
+    }
 
-                <a href="{{ route('pesantren.fasilitas') }}" class="group bg-white/80 backdrop-blur-xl p-8 rounded-3xl shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-white hover:shadow-[0_8px_30px_rgba(16,185,129,0.15)] hover:-translate-y-2 transition-all duration-300 text-center">
-                    <div class="w-20 h-20 bg-gradient-to-br from-emerald-100 to-emerald-50 text-emerald-600 rounded-2xl flex items-center justify-center mx-auto mb-6 text-4xl shadow-inner group-hover:scale-110 transition-transform">🏢</div>
-                    <h3 class="font-bold text-gray-800 text-lg">Fasilitas</h3>
-                    <p class="text-sm text-gray-500 mt-2">Sarana pendukung belajar santri.</p>
-                </a>
+    .card-menu {
+        transition: all 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
+        border: 1px solid rgba(0,0,0,0.05);
+        border-radius: var(--radius-lg);
+        cursor: pointer;
+    }
 
-                <a href="{{ route('pesantren.galeri') }}" class="group bg-white/80 backdrop-blur-xl p-8 rounded-3xl shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-white hover:shadow-[0_8px_30px_rgba(16,185,129,0.15)] hover:-translate-y-2 transition-all duration-300 text-center">
-                    <div class="w-20 h-20 bg-gradient-to-br from-emerald-100 to-emerald-50 text-emerald-600 rounded-2xl flex items-center justify-center mx-auto mb-6 text-4xl shadow-inner group-hover:scale-110 transition-transform">📸</div>
-                    <h3 class="font-bold text-gray-800 text-lg">Galeri Prestasi</h3>
-                    <p class="text-sm text-gray-500 mt-2">Dokumentasi kegiatan dan pencapaian.</p>
-                </a>
+    .card-menu:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 15px 35px rgba(16, 185, 129, 0.1) !important;
+        border-color: rgba(16, 185, 129, 0.2);
+    }
 
-                <a href="{{ route('pesantren.berita') }}" class="group bg-white/80 backdrop-blur-xl p-8 rounded-3xl shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-white hover:shadow-[0_8px_30px_rgba(16,185,129,0.15)] hover:-translate-y-2 transition-all duration-300 text-center">
-                    <div class="w-20 h-20 bg-gradient-to-br from-emerald-100 to-emerald-50 text-emerald-600 rounded-2xl flex items-center justify-center mx-auto mb-6 text-4xl shadow-inner group-hover:scale-110 transition-transform">📰</div>
-                    <h3 class="font-bold text-gray-800 text-lg">Berita Pesantren</h3>
-                    <p class="text-sm text-gray-500 mt-2">Informasi dan pengumuman terbaru.</p>
-                </a>
+    .icon-wrapper {
+        width: 60px;
+        height: 60px;
+        border-radius: 16px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 1.5rem;
+    }
+</style>
 
-                <a href="{{ route('pesantren.donasi') }}" class="group relative overflow-hidden bg-gradient-to-br from-emerald-600 to-teal-800 p-8 rounded-3xl shadow-lg hover:shadow-2xl hover:shadow-emerald-600/40 hover:-translate-y-1 transition-all duration-300 sm:col-span-2 flex items-center gap-6 text-left border border-emerald-500/30">
-                    <div class="absolute top-0 right-0 w-40 h-40 bg-white/10 rounded-full blur-2xl transform translate-x-1/2 -translate-y-1/2"></div>
-                    <div class="w-20 h-20 shrink-0 bg-white/20 backdrop-blur-md text-white rounded-2xl flex items-center justify-center text-4xl group-hover:scale-110 transition-transform shadow-inner">🤲</div>
-                    <div>
-                        <h3 class="font-bold text-white text-2xl">Investasi Akhirat</h3>
-                        <p class="text-emerald-100 mt-2">Salurkan donasi, infaq, dan sedekah terbaik Anda untuk pengembangan pendidikan Islam.</p>
+<section class="hero-pesantren">
+    <div class="container relative z-10">
+        <div class="row align-items-center justify-content-between g-5">
+            <div class="col-lg-6 text-center text-lg-start">
+                <span class="badge bg-white text-success px-4 py-2 rounded-pill shadow-sm mb-4 border border-success-subtle fw-semibold tracking-wide">
+                    🌿 Lembaga Pendidikan Islam Terpadu
+                </span>
+                <h1 class="display-4 fw-extrabold mb-4 text-dark leading-tight" style="letter-spacing: -1px;">
+                    Portal <span class="text-success" style="background: linear-gradient(135deg, #10b981, #059669); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Pesantren</span>
+                </h1>
+                <p class="lead text-secondary mb-5 font-light" style="font-size: 1.1rem; max-width: 500px;">
+                    Membentuk generasi Qur'ani yang mandiri, berilmu pengetahuan luas, dan berakhlakul karimah untuk menyongsong tantangan global.
+                </p>
+                <div class="d-flex flex-wrap justify-content-center justify-content-lg-start gap-3">
+                    <a href="{{ route('pesantren.pendaftaran') }}" class="btn btn-pesantren btn-lg px-5 rounded-pill fw-bold">Pendaftaran Santri Baru</a>
+                </div>
+            </div>
+            
+            <div class="col-lg-5 d-none d-lg-block text-end">
+                <div class="position-relative">
+                    <img src="https://images.unsplash.com/photo-1596422846543-75c6fb19f66b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Suasana Pesantren" class="img-fluid rounded-5 shadow-lg border border-white border-4" style="object-fit: cover; height: 450px; width: 100%;">
+                    
+                    <div class="position-absolute top-50 start-0 translate-middle-x bg-white p-3 rounded-4 shadow-lg text-start border border-light" style="width: 200px;">
+                        <div class="d-flex align-items-center gap-3">
+                            <div class="bg-success-subtle text-success rounded-circle d-flex align-items-center justify-content-center" style="width: 45px; height: 45px;">
+                                <i class="bi bi-book-half fs-5"></i>
+                            </div>
+                            <div>
+                                <h5 class="mb-0 fw-bold">Tahfidz</h5>
+                                <small class="text-muted fw-medium text-xs">Program Unggulan</small>
+                            </div>
+                        </div>
                     </div>
-                </a>
-
-                <a href="{{ route('pesantren.pendaftaran') }}" class="group relative overflow-hidden bg-gradient-to-br from-amber-500 to-orange-600 p-8 rounded-3xl shadow-lg hover:shadow-2xl hover:shadow-amber-500/40 hover:-translate-y-1 transition-all duration-300 sm:col-span-2 flex items-center gap-6 text-left border border-amber-400/30">
-                    <div class="absolute bottom-0 right-0 w-40 h-40 bg-white/20 rounded-full blur-2xl transform translate-x-1/3 translate-y-1/3"></div>
-                    <div class="w-20 h-20 shrink-0 bg-white/20 backdrop-blur-md text-white rounded-2xl flex items-center justify-center text-4xl group-hover:scale-110 transition-transform shadow-inner">📝</div>
-                    <div>
-                        <h3 class="font-bold text-white text-2xl">Pendaftaran Santri</h3>
-                        <p class="text-amber-50 mt-2">Bergabunglah bersama keluarga besar kami. Pendaftaran santri baru tahun ajaran 2026 telah dibuka.</p>
-                    </div>
-                </a>
-
+                </div>
             </div>
         </div>
-    </section>
-</x-layout>
+    </div>
+</section>
+
+<section class="py-5 bg-white" style="margin-top: -40px; position: relative; z-index: 20; border-radius: 40px 40px 0 0;">
+    <div class="container py-4">
+        <div class="row g-4">
+            
+            <div class="col-md-4 col-sm-6">
+                <a href="#" class="text-decoration-none">
+                    <div class="card card-menu h-100 p-4 bg-white shadow-sm text-center">
+                        <div class="icon-wrapper bg-primary-subtle text-primary mx-auto">
+                            <i class="bi bi-journal-text fs-2"></i>
+                        </div>
+                        <h5 class="fw-bold text-dark mb-2">Profil & Tentang</h5>
+                        <p class="text-muted small font-light mb-0">Mengenal sejarah, visi, misi, dan struktur kepengurusan Pesantren kami.</p>
+                    </div>
+                </a>
+            </div>
+
+            <div class="col-md-4 col-sm-6">
+                <a href="#" class="text-decoration-none">
+                    <div class="card card-menu h-100 p-4 bg-white shadow-sm text-center">
+                        <div class="icon-wrapper bg-info-subtle text-info mx-auto">
+                            <i class="bi bi-buildings fs-2"></i>
+                        </div>
+                        <h5 class="fw-bold text-dark mb-2">Fasilitas & Asrama</h5>
+                        <p class="text-muted small font-light mb-0">Lihat sarana prasarana yang mendukung kenyamanan belajar dan menetap santri.</p>
+                    </div>
+                </a>
+            </div>
+
+            <div class="col-md-4 col-sm-6">
+                <a href="#" class="text-decoration-none">
+                    <div class="card card-menu h-100 p-4 bg-white shadow-sm text-center">
+                        <div class="icon-wrapper bg-warning-subtle text-warning mx-auto">
+                            <i class="bi bi-trophy fs-2"></i>
+                        </div>
+                        <h5 class="fw-bold text-dark mb-2">Galeri Prestasi</h5>
+                        <p class="text-muted small font-light mb-0">Kumpulan medali, penghargaan, dan pencapaian membanggakan santri.</p>
+                    </div>
+                </a>
+            </div>
+
+            <div class="col-md-4 col-sm-6">
+                <a href="#" class="text-decoration-none">
+                    <div class="card card-menu h-100 p-4 bg-white shadow-sm text-center">
+                        <div class="icon-wrapper bg-secondary-subtle text-secondary mx-auto">
+                            <i class="bi bi-images fs-2"></i>
+                        </div>
+                        <h5 class="fw-bold text-dark mb-2">Potret Pesantren</h5>
+                        <p class="text-muted small font-light mb-0">Dokumentasi kegiatan harian, kajian kitab, dan momen berharga lainnya.</p>
+                    </div>
+                </a>
+            </div>
+
+            <div class="col-md-8 col-sm-12">
+                <a href="{{ route('pesantren.donasi') }}" class="text-decoration-none">
+                    <div class="card card-menu h-100 p-4 shadow-sm border-0" style="background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%); border: 1px solid #bbf7d0 !important;">
+                        <div class="row align-items-center h-100">
+                            <div class="col-sm-8 text-start p-lg-4">
+                                <span class="badge bg-success-subtle text-success mb-3 fw-bold rounded-pill px-3 py-2">Salurkan Kebaikan</span>
+                                <h4 class="fw-bold text-dark mb-2">Investasi Akhirat</h4>
+                                <p class="text-muted font-light mb-0">Dukung pembangunan fasilitas, operasional pesantren, dan beasiswa santri. Setiap donasi Anda adalah amal jariyah yang tak terputus.</p>
+                            </div>
+                            <div class="col-sm-4 text-center mt-4 mt-sm-0">
+                                <div class="bg-success text-white rounded-circle d-inline-flex align-items-center justify-content-center shadow-lg" style="width: 90px; height: 90px;">
+                                    <i class="bi bi-heart-fill fs-1"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<section class="py-5 bg-light">
+    <div class="container">
+        <div class="row g-4 text-center justify-content-center border-top border-bottom py-4 border-light-subtle">
+            <div class="col-6 col-md-3">
+                <h2 class="display-5 fw-bold text-dark mb-0">1.2K+</h2>
+                <p class="text-muted text-uppercase small tracking-wide fw-medium">Santri Mukim</p>
+            </div>
+            <div class="col-6 col-md-3">
+                <h2 class="display-5 fw-bold text-dark mb-0">85+</h2>
+                <p class="text-muted text-uppercase small tracking-wide fw-medium">Asatidz & Pengurus</p>
+            </div>
+            <div class="col-6 col-md-3">
+                <h2 class="display-5 fw-bold text-dark mb-0">4</h2>
+                <p class="text-muted text-uppercase small tracking-wide fw-medium">Program Kajian</p>
+            </div>
+        </div>
+    </div>
+</section>
+@endsection
