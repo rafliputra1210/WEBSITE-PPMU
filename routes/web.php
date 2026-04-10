@@ -41,3 +41,21 @@ Route::prefix('madrasah')->name('madrasah.')->group(function () {
     Route::get('/berita', function () { return "Halaman Berita Madrasah Segera Hadir"; })->name('berita');
     Route::get('/pendaftaran', function () { return "Halaman Pendaftaran Madrasah Segera Hadir"; })->name('pendaftaran');
 });
+
+// 2. Kumpulan Rute Portal Pesantren
+Route::prefix('pesantren')->name('pesantren.')->group(function () {
+    Route::get('/', function () { return view('pesantren.index'); })->name('index');
+    
+    // Rute yang masih sementara:
+    Route::get('/profil', function () { return "Halaman Profil Pesantren Segera Hadir"; })->name('profil');
+    Route::get('/fasilitas', function () { return "Halaman Fasilitas Pesantren Segera Hadir"; })->name('fasilitas');
+    Route::get('/galeri', function () { return "Halaman Galeri Pesantren Segera Hadir"; })->name('galeri');
+    
+    // INI YANG DIUBAH: Mengarah ke file desain berita
+    Route::get('/berita', function () { 
+        return view('pesantren.berita'); 
+    })->name('berita');
+    
+    Route::get('/investasi-akhirat', function () { return "Halaman Donasi Pesantren Segera Hadir"; })->name('donasi');
+    Route::get('/pendaftaran', function () { return "Halaman Pendaftaran Pesantren Segera Hadir"; })->name('pendaftaran');
+});
