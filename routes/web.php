@@ -43,3 +43,21 @@ Route::prefix('madrasah')->name('madrasah.')->group(function () {
         return view('madrasah.profil'); 
     })->name('profil');
 });
+
+// 4. Kumpulan Rute Admin / Pengelola
+use App\Http\Controllers\AdminController;
+
+Route::prefix('admin')->name('admin.')->group(function () {
+    Route::get('/', [AdminController::class, 'dashboard'])->name('dashboard');
+    
+    // CRUD Berita
+    Route::prefix('berita')->name('berita.')->group(function () {
+        Route::get('/', [AdminController::class, 'beritaIndex'])->name('index');
+        Route::get('/create', [AdminController::class, 'beritaCreate'])->name('create');
+        Route::post('/', [AdminController::class, 'beritaStore'])->name('store');
+        Route::get('/{berita}/edit', [AdminController::class, 'beritaEdit'])->name('edit');
+        Route::put('/{berita}', [AdminController::class, 'beritaUpdate'])->name('update');
+        Route::delete('/{berita}', [AdminController::class, 'beritaDestroy'])->name('destroy');
+    });
+
+});
