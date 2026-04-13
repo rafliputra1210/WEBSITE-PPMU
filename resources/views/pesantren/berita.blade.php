@@ -385,7 +385,7 @@
         @if($beritaUtama && !request('q') && !request('kategori') && $beritaList->currentPage() === 1)
         <div class="section-label mb-4">Artikel Utama</div>
         <a href="{{ route('pesantren.berita.detail', $beritaUtama->slug) }}" class="featured-card mb-5 d-md-grid d-block">
-            <img src="{{ $beritaUtama->gambar ?? 'https://images.unsplash.com/photo-1532012197267-da84d127e765?w=800' }}"
+            <img src="{{ $beritaUtama->gambar ? asset('storage/' . $beritaUtama->gambar) : 'https://images.unsplash.com/photo-1532012197267-da84d127e765?w=800' }}"
                  alt="{{ $beritaUtama->judul }}">
             <div class="featured-content">
                 @php
@@ -427,7 +427,7 @@
                 <div class="col-md-6 col-lg-4">
                     <a href="{{ route('pesantren.berita.detail', $b->slug) }}" class="article-card">
                         <div class="article-img-wrap">
-                            <img src="{{ $b->gambar ?? 'https://images.unsplash.com/photo-1532012197267-da84d127e765?w=600' }}"
+                            <img src="{{ $b->gambar ? asset('storage/' . $b->gambar) : 'https://images.unsplash.com/photo-1532012197267-da84d127e765?w=600' }}"
                                  alt="{{ $b->judul }}">
                             <span class="kategori-badge position-absolute" style="top:12px;left:12px;background:{{ $c[1] ?? '#f1f5f9' }};color:{{ $c[2] ?? '#1e293b' }};">
                                 {{ $b->kategori }}
