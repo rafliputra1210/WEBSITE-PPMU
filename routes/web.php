@@ -3,6 +3,9 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\DonasiController;
 use App\Http\Controllers\BeritaController;
+use App\Http\Controllers\PendaftaranController;
+use App\Http\Controllers\GaleriController;
+use App\Http\Controllers\AdminController;
 
 // 1. Rute Beranda (Halaman Utama)
 Route::get('/', function () {
@@ -22,6 +25,9 @@ Route::prefix('pesantren')->name('pesantren.')->group(function () {
         return view('pesantren.pendaftaran'); 
     })->name('pendaftaran');
 
+    // POST: simpan form pendaftaran pesantren
+    Route::post('/pendaftaran', [PendaftaranController::class, 'store'])->name('pendaftaran.store');
+
     // Donasi / Investasi Akhirat
     Route::get('/donasi', [DonasiController::class, 'index'])->name('donasi');
     Route::post('/donasi', [DonasiController::class, 'store'])->name('donasi.store');
@@ -36,17 +42,23 @@ Route::prefix('madrasah')->name('madrasah.')->group(function () {
     Route::get('/pendaftaran', function () { 
         return view('madrasah.pendaftaran'); 
     })->name('pendaftaran');
+
+    // POST: simpan form pendaftaran madrasah
+    Route::post('/pendaftaran', [PendaftaranController::class, 'store'])->name('pendaftaran.store');
+
     Route::get('/fasilitas', function () { 
         return view('madrasah.fasilitas'); 
     })->name('fasilitas');
+
     Route::get('/profil', function () { 
         return view('madrasah.profil'); 
     })->name('profil');
 });
 
-// 4. Kumpulan Rute Admin / Pengelola
-use App\Http\Controllers\AdminController;
+// 4. Rute Publik Galeri
+Route::get('/galeri', [GaleriController::class, 'index'])->name('galeri.index');
 
+// 5. Kumpulan Rute Admin / Pengelola
 Route::prefix('admin')->name('admin.')->group(function () {
     Route::get('/', [AdminController::class, 'dashboard'])->name('dashboard');
     
@@ -60,4 +72,19 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::delete('/{berita}', [AdminController::class, 'beritaDestroy'])->name('destroy');
     });
 
+    // CRUD Galeri
+    Route::prefix('galeri')->name('galeri.')->group(function () {
+        Route::get('/', [AdminController::class, 'galeriIndex'])->name('index');
+        Route::get('/create', [AdminController::class, 'galeriCreate'])->name('create');
+        Route::post('/', [AdminController::class, 'galeriStore'])->name('store');
+        Route::get('/{galeri}/edit', [AdminController::class, 'galeriEdit'])->name('edit');
+        Route::put('/{galeri}', [AdminController::class, 'galeriUpdate'])->name('update');
+        Route::delete('/{galeri}', [AdminController::class, 'galeriDestroy'])->name('destroy');
+    });
+
+    // Manajemen Data Pendaftaran
+    Route::prefix('pendaftaran')->name('pendaftaran.')->group(function () {
+        Route::get('/', [PendaftaranController::class, 'adminIndex'])->name('index');
+        Route::delete('/{pendaftaran}', [PendaftaranController::class, 'adminDestroy'])->name('destroy');
+    });
 });

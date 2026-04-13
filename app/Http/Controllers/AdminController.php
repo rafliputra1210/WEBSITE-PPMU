@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Berita;
+use App\Models\Galeri;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Storage;
 
@@ -97,5 +98,84 @@ class AdminController extends Controller
         $berita->delete();
 
         return redirect()->route('admin.berita.index')->with('success', 'Berita berhasil dihapus');
+    }
+
+    // ==========================================
+    // CRUD GALERI
+    // ==========================================
+
+    public function galeriIndex()
+    {
+        $galeris = Galeri::latest('id')->paginate(12);
+        return view('admin.galeri.index', compact('galeris'));
+    }
+
+    public function galeriCreate()
+    {
+        return view('admin.galeri.create');
+    }
+
+    public function galeriStore(Request $request)
+    {
+        $request->validate([
+            'entitas'     => 'required|in:pesantren,madrasah',
+            'kategori'    => 'required|in:potret,prestasi',
+            'judul_gambar'=> 'nullable|string|max:255',
+            'gambar'      => 'required|image|mimes:jpeg,png,jpg,gif,webp|max:4096',
+        ]);
+
+        $path = $request->file('gambar')->store('galeri', 'public');
+
+        Galeri::create([
+            'entitas'      => $request->entitas,
+            'kategori'     => $request->kategori,
+            'judul_gambar' => $request->judul_gambar,
+            'file_path'    => $path,
+        ]);
+
+        return redirect()->route('admin.galeri.index')->with('success', 'Foto berhasil ditambahkan ke galeri.');
+    }
+
+    public function galeriEdit(Galeri $galeri)
+    {
+        return view('admin.galeri.edit', compact('galeri'));
+    }
+
+    public function galeriUpdate(Request $request, Galeri $galeri)
+    {
+        $request->validate([
+            'entitas'     => 'required|in:pesantren,madrasah',
+            'kategori'    => 'required|in:potret,prestasi',
+            'judul_gambar'=> 'nullable|string|max:255',
+            'gambar'      => 'nullable|image|mimes:jpeg,png,jpg,gif,webp|max:4096',
+        ]);
+
+        $data = [
+            'entitas'      => $request->entitas,
+            'kategori'     => $request->kategori,
+            'judul_gambar' => $request->judul_gambar,
+        ];
+
+        if ($request->hasFile('gambar')) {
+            // Hapus gambar lama
+            if (Storage::disk('public')->exists($galeri->file_path)) {
+                Storage::disk('public')->delete($galeri->file_path);
+            }
+            $data['file_path'] = $request->file('gambar')->store('galeri', 'public');
+        }
+
+        $galeri->update($data);
+
+        return redirect()->route('admin.galeri.index')->with('success', 'Foto galeri berhasil diperbarui.');
+    }
+
+    public function galeriDestroy(Galeri $galeri)
+    {
+        if (Storage::disk('public')->exists($galeri->file_path)) {
+            Storage::disk('public')->delete($galeri->file_path);
+        }
+        $galeri->delete();
+
+        return redirect()->route('admin.galeri.index')->with('success', 'Foto galeri berhasil dihapus.');
     }
 }

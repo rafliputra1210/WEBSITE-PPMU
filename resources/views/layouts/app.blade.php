@@ -48,28 +48,27 @@
             z-index: 1000;
             height: var(--nav-h);
             transition: all 0.35s ease;
-            /* Default: transparent for hero pages */
-            background: transparent;
+            background: linear-gradient(135deg, #0a0f2e 0%, #111827 100%);
+            border-bottom: 1px solid rgba(255,255,255,0.06);
         }
 
         #main-navbar.scrolled {
-            background: rgba(255, 255, 255, 0.92);
+            background: linear-gradient(135deg, #0a0f2e 0%, #111827 100%);
             backdrop-filter: blur(20px) saturate(180%);
             -webkit-backdrop-filter: blur(20px) saturate(180%);
-            box-shadow: 0 2px 30px rgba(0,0,0,0.06);
-            border-bottom: 1px solid rgba(255,255,255,0.5);
+            box-shadow: 0 4px 30px rgba(0,0,0,0.35);
+            border-bottom: 1px solid rgba(255,255,255,0.08);
         }
 
-        #main-navbar.scrolled .nav-link { color: #334155 !important; }
-        #main-navbar.scrolled .brand-text { color: #0f172a !important; }
-        #main-navbar.scrolled .nav-link:hover,
-        #main-navbar.scrolled .nav-link.active-nav { color: var(--c-primary) !important; }
-
-        /* Default (transparent) colors */
+        /* Semua state: teks selalu putih */
         #main-navbar .brand-text { color: #ffffff; font-weight: 800; font-size: 1.15rem; letter-spacing: -0.5px; transition: color 0.3s; }
         #main-navbar .nav-link { color: rgba(255,255,255,0.85) !important; font-weight: 600; font-size: 0.9rem; padding: 0.4rem 0.9rem !important; border-radius: 8px; transition: all 0.2s; }
         #main-navbar .nav-link:hover { color: #fff !important; background: rgba(255,255,255,0.1); }
-        #main-navbar .nav-link.active-nav { color: #fff !important; }
+        #main-navbar .nav-link.active-nav { color: #fff !important; background: rgba(99,102,241,0.25); }
+        #main-navbar.scrolled .nav-link { color: rgba(255,255,255,0.85) !important; }
+        #main-navbar.scrolled .brand-text { color: #ffffff !important; }
+        #main-navbar.scrolled .nav-link:hover,
+        #main-navbar.scrolled .nav-link.active-nav { color: #fff !important; }
 
         .nav-logo-box {
             width: 36px;
@@ -106,8 +105,8 @@
         }
 
         .btn-nav-login {
-            color: rgba(255,255,255,0.8) !important;
-            border: 1px solid rgba(255,255,255,0.25);
+            color: rgba(255,255,255,0.85) !important;
+            border: 1px solid rgba(255,255,255,0.3);
             padding: 7px 18px;
             border-radius: 100px;
             font-weight: 600;
@@ -117,19 +116,95 @@
             display: inline-block;
         }
 
-        #main-navbar.scrolled .btn-nav-login {
-            color: #475569 !important;
-            border-color: #cbd5e1;
-        }
-
         .btn-nav-login:hover {
             background: rgba(255,255,255,0.15);
             color: #fff !important;
+            border-color: rgba(255,255,255,0.5);
         }
 
-        #main-navbar.scrolled .btn-nav-login:hover {
+        /* ======= LOGO MADRASAH (NAVBAR) ======= */
+        .nav-madrasah-logo-wrap {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+        }
+        .nav-madrasah-logo {
+            height: 40px;
+            width: auto;
+            object-fit: contain;
+            transition: all 0.3s ease;
+            flex-shrink: 0;
+            filter: drop-shadow(0 2px 6px rgba(0,0,0,0.15));
+        }
+        .nav-madrasah-logo:hover {
+            transform: scale(1.06);
+            filter: drop-shadow(0 4px 12px rgba(0,0,0,0.25));
+        }
+        #main-navbar.scrolled .nav-madrasah-logo {
+            filter: drop-shadow(0 2px 6px rgba(0,0,0,0.08));
+        }
+        #main-navbar.scrolled .nav-madrasah-logo:hover {
+            filter: drop-shadow(0 4px 10px rgba(99,102,241,0.2));
+        }
+        .nav-madrasah-label {
+            font-size: 0.72rem;
+            font-weight: 700;
+            line-height: 1.3;
+            letter-spacing: 0.3px;
+            color: rgba(255,255,255,0.9);
+            transition: color 0.3s;
+        }
+        .nav-madrasah-label span {
+            display: block;
+            font-size: 0.62rem;
+            font-weight: 500;
+            opacity: 0.75;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+        }
+        #main-navbar.scrolled .nav-madrasah-label {
+            color: #0f172a;
+        }
+        /* Hide text label on medium screens, show only logo */
+        @media (max-width: 1199px) {
+            .nav-madrasah-label { display: none; }
+        }
+        /* Mobile logo in offcanvas header */
+        .mob-madrasah-logo {
+            height: 36px;
+            width: auto;
+            object-fit: contain;
+            filter: drop-shadow(0 2px 6px rgba(0,0,0,0.2));
+        }
+
+        /* ======= MOBILE HAMBURGER ======= */
+        .nav-hamburger {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 42px;
+            height: 42px;
+            border-radius: 10px;
+            background: rgba(255,255,255,0.18);
+            border: 1.5px solid rgba(255,255,255,0.3);
+            color: #fff;
+            font-size: 1.4rem;
+            cursor: pointer;
+            transition: all 0.25s;
+            flex-shrink: 0;
+        }
+        .nav-hamburger:hover {
+            background: rgba(255,255,255,0.28);
+        }
+        #main-navbar.scrolled .nav-hamburger {
             background: #f1f5f9;
-            color: var(--c-primary) !important;
+            border-color: #e2e8f0;
+            color: #334155;
+        }
+        #main-navbar.scrolled .nav-hamburger:hover {
+            background: #e2e8f0;
+            color: var(--c-primary);
         }
 
         /* Dropdown Menu */
@@ -166,85 +241,246 @@
 
         /* ======= FOOTER ======= */
         .site-footer {
-            background: #0a0f2e;
+            background: #080d1f;
             color: #94a3b8;
-            padding: 80px 0 30px;
+            padding: 40px 0 0;
             margin-top: 0;
-            border-top: 1px solid rgba(255,255,255,0.05);
+            border-top: 1px solid rgba(255,255,255,0.06);
         }
 
-        .footer-brand { font-weight: 800; color: #f1f5f9; font-size: 1.15rem; }
+        .footer-brand { font-weight: 800; color: #f1f5f9; font-size: 1.05rem; }
 
-        .footer-heading {
-            color: #e2e8f0;
+        .footer-tagline {
+            color: #475569;
+            font-size: 0.8rem;
+            line-height: 1.6;
+            margin-top: 6px;
+            max-width: 220px;
+        }
+
+        .footer-col-title {
+            color: #cbd5e1;
             font-weight: 700;
-            font-size: 0.9rem;
+            font-size: 0.72rem;
             text-transform: uppercase;
-            letter-spacing: 1px;
-            margin-bottom: 20px;
+            letter-spacing: 1.2px;
+            margin-bottom: 12px;
         }
 
         .footer-link {
             display: block;
-            color: #64748b;
+            color: #475569;
             text-decoration: none;
-            font-size: 0.9rem;
-            padding: 5px 0;
-            transition: color 0.25s, padding-left 0.25s;
+            font-size: 0.82rem;
+            padding: 3px 0;
+            transition: color 0.2s;
         }
+        .footer-link:hover { color: #a5b4fc; }
 
-        .footer-link:hover { color: #a5b4fc; padding-left: 6px; }
-
-        .footer-contact {
-            display: flex;
-            align-items: flex-start;
-            gap: 12px;
-            margin-bottom: 16px;
-            font-size: 0.88rem;
-        }
-
-        .footer-contact-icon {
-            width: 34px;
-            height: 34px;
-            background: rgba(99,102,241,0.15);
-            color: #a5b4fc;
-            border-radius: 9px;
+        .footer-contact-row {
             display: flex;
             align-items: center;
-            justify-content: center;
+            gap: 8px;
+            font-size: 0.8rem;
+            color: #475569;
+            margin-bottom: 8px;
+        }
+        .footer-contact-row i {
+            color: #6366f1;
+            font-size: 0.85rem;
             flex-shrink: 0;
-            font-size: 0.9rem;
         }
 
         .footer-divider {
-            border-color: rgba(255,255,255,0.06);
-            margin: 40px 0 24px;
+            border-color: rgba(255,255,255,0.05);
+            margin: 28px 0 0;
         }
 
+        .footer-bottom {
+            padding: 14px 0;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .footer-copy {
+            font-size: 0.75rem;
+            color: #334155;
+        }
+
+        .footer-bottom-links {
+            display: flex;
+            gap: 20px;
+        }
+        .footer-bottom-links a {
+            font-size: 0.75rem;
+            color: #334155;
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+        .footer-bottom-links a:hover { color: #a5b4fc; }
+
         .social-btn {
-            width: 38px;
-            height: 38px;
-            background: rgba(255,255,255,0.05);
+            width: 32px;
+            height: 32px;
+            background: rgba(255,255,255,0.04);
             border: 1px solid rgba(255,255,255,0.08);
-            border-radius: 10px;
+            border-radius: 8px;
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            color: #94a3b8;
-            font-size: 1rem;
+            color: #64748b;
+            font-size: 0.88rem;
             text-decoration: none;
-            transition: all 0.25s;
+            transition: all 0.2s;
         }
-
         .social-btn:hover {
             background: var(--c-primary);
             border-color: var(--c-primary);
             color: #fff;
-            transform: translateY(-3px);
+            transform: translateY(-2px);
         }
 
         /* ======= PAGE PADDING FOR NON-HERO PAGES ======= */
         .page-padded-top { padding-top: calc(var(--nav-h) + 20px); }
+
+        /* ======= MOBILE OFFCANVAS MENU ======= */
+        #mobileMenu {
+            max-width: 300px;
+            border-left: none;
+        }
+        .mob-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 18px 20px;
+            background: linear-gradient(135deg, #0a0f2e 0%, #1a1040 100%);
+            border-bottom: none !important;
+        }
+        .mob-close-btn {
+            width: 34px; height: 34px;
+            border-radius: 8px;
+            background: rgba(255,255,255,0.12);
+            border: 1px solid rgba(255,255,255,0.18);
+            color: #fff;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .mob-close-btn:hover { background: rgba(255,255,255,0.22); }
+        .mob-body {
+            padding: 0;
+            overflow-y: auto;
+        }
+        /* Section group */
+        .mob-section {
+            padding: 16px 20px 8px;
+        }
+        .mob-section-label {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 6px;
+        }
+        .mob-section-line {
+            flex: 1;
+            height: 2px;
+            border-radius: 2px;
+        }
+        .mob-section-text {
+            font-size: 0.68rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            white-space: nowrap;
+        }
+        /* Nav links */
+        .mob-link {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 10px 12px;
+            border-radius: 10px;
+            text-decoration: none;
+            color: #1e293b;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: all 0.2s;
+            margin-bottom: 2px;
+        }
+        .mob-link:hover {
+            background: #f8fafc;
+            color: var(--c-primary);
+            transform: translateX(3px);
+        }
+        .mob-link.active-mob {
+            background: rgba(99,102,241,0.08);
+            color: var(--c-primary);
+        }
+        .mob-link .mob-icon {
+            width: 34px; height: 34px;
+            border-radius: 9px;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 0.95rem;
+            flex-shrink: 0;
+        }
+        .mob-link .mob-arrow {
+            margin-left: auto;
+            font-size: 0.75rem;
+            opacity: 0.35;
+            transition: opacity 0.2s;
+        }
+        .mob-link:hover .mob-arrow { opacity: 0.7; }
+        /* Separating line between sub-sections */
+        .mob-divider {
+            height: 1px;
+            background: linear-gradient(to right, transparent, #e2e8f0 30%, #e2e8f0 70%, transparent);
+            margin: 6px 20px;
+        }
+        /* CTA footer inside offcanvas */
+        .mob-cta {
+            padding: 16px 20px 24px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        .mob-cta-masuk {
+            display: block;
+            text-align: center;
+            padding: 11px;
+            border-radius: 100px;
+            font-weight: 700;
+            font-size: 0.9rem;
+            border: 2px solid var(--c-primary);
+            color: var(--c-primary);
+            text-decoration: none;
+            transition: all 0.25s;
+        }
+        .mob-cta-masuk:hover {
+            background: var(--c-primary);
+            color: #fff;
+        }
+        .mob-cta-ppdb {
+            display: block;
+            text-align: center;
+            padding: 12px;
+            border-radius: 100px;
+            font-weight: 700;
+            font-size: 0.9rem;
+            background: var(--grad-primary);
+            color: #fff;
+            text-decoration: none;
+            box-shadow: 0 4px 15px rgba(99,102,241,0.35);
+            transition: all 0.3s;
+        }
+        .mob-cta-ppdb:hover {
+            color: #fff;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(99,102,241,0.45);
+        }
     </style>
 
     @yield('styles')
@@ -254,11 +490,23 @@
     <!-- ===== NAVBAR ===== -->
     <nav id="main-navbar">
         <div class="container h-100 d-flex align-items-center justify-content-between">
-            <!-- Brand -->
-            <a href="{{ url('/') }}" class="d-flex align-items-center gap-2 text-decoration-none">
-                <div class="nav-logo-box">E</div>
-                <span class="brand-text">Educate<span style="color:var(--c-cyan);">.</span></span>
-            </a>
+            <!-- Brand + Logo Madrasah (kiri) -->
+            <div class="d-flex align-items-center gap-3">
+                <!-- Logo Madrasah -->
+                <a href="{{ route('madrasah.index') }}" class="nav-madrasah-logo-wrap" title="Portal Madrasah">
+                    <img src="{{ asset('images/logo.jpeg') }}"
+                         alt="Logo Madrasah"
+                         class="nav-madrasah-logo">
+                </a>
+
+                <!-- Divider -->
+                <div style="width:1px;height:28px;background:rgba(255,255,255,0.2);" id="nav-logo-divider"></div>
+
+                <!-- Brand Educate -->
+                <a href="{{ url('/') }}" class="d-flex align-items-center gap-2 text-decoration-none">
+                    
+                </a>
+            </div>
 
             <!-- Desktop Nav -->
             <ul class="navbar-nav flex-row align-items-center gap-1 d-none d-lg-flex">
@@ -289,51 +537,146 @@
                 <li class="nav-item">
                     <a class="nav-link {{ request()->is('pesantren/berita*') ? 'active-nav' : '' }}" href="{{ route('pesantren.berita') }}">Berita</a>
                 </li>
+
+                <li class="nav-item">
+                    <a class="nav-link {{ request()->is('galeri*') ? 'active-nav' : '' }}" href="{{ route('galeri.index') }}">
+                        <i class="bi bi-images me-1"></i>Galeri
+                    </a>
+                </li>
             </ul>
 
-            <!-- CTA Buttons -->
-            <div class="d-none d-lg-flex align-items-center gap-2">
-                <a href="#" class="btn-nav-login">Masuk</a>
+            <!-- CTA Buttons (Desktop) -->
+            <div class="d-none d-lg-flex align-items-center gap-3">
                 <a href="{{ route('pesantren.pendaftaran') }}" class="btn-nav-ppdb">PPDB 2026</a>
             </div>
 
-            <!-- Mobile Toggle -->
-            <button class="d-lg-none border-0 p-0" style="background:transparent;color:rgba(255,255,255,0.85);"
-                    data-bs-toggle="offcanvas" data-bs-target="#mobileMenu" type="button">
-                <i class="bi bi-list" style="font-size:1.8rem;"></i>
-            </button>
+            <!-- Mobile: Hamburger -->
+            <div class="d-flex d-lg-none align-items-center gap-2">
+                <button class="nav-hamburger"
+                        data-bs-toggle="offcanvas" data-bs-target="#mobileMenu"
+                        type="button" aria-label="Buka Menu">
+                    <i class="bi bi-list"></i>
+                </button>
+            </div>
         </div>
     </nav>
 
     <!-- Mobile Offcanvas -->
-    <div class="offcanvas offcanvas-end" tabindex="-1" id="mobileMenu" style="max-width:300px;">
-        <div class="offcanvas-header border-bottom" style="padding: 20px;">
+    <div class="offcanvas offcanvas-end" tabindex="-1" id="mobileMenu">
+        <!-- Header -->
+        <div class="mob-header">
+            <!-- Brand kiri -->
+            <a href="{{ url('/') }}" class="d-flex align-items-center gap-2 text-decoration-none">
+                <div class="nav-logo-box" style="width:32px;height:32px;font-size:0.85rem;">E</div>
+                <span style="font-weight:800;font-size:1rem;color:#fff;">Educate<span style="color:#67e8f9;">.</span></span>
+            </a>
+
+            <!-- Logo Madrasah kanan -->
             <div class="d-flex align-items-center gap-2">
-                <div class="nav-logo-box" style="width:30px;height:30px;font-size:0.8rem;">E</div>
-                <span style="font-weight:800;font-size:1rem;color:#0f172a;">Educate<span style="color:var(--c-primary);">.</span></span>
+                <a href="{{ route('madrasah.index') }}" class="d-flex align-items-center gap-2 text-decoration-none" title="Portal Madrasah">
+                    <img src="{{ asset('images/logo-madrasah.png') }}"
+                         alt="Logo Madrasah"
+                         class="mob-madrasah-logo">
+                    <div style="text-align:right;">
+                        <div style="font-size:0.68rem;font-weight:700;color:#fff;line-height:1.2;">Madrasah</div>
+                        <div style="font-size:0.58rem;font-weight:500;color:rgba(255,255,255,0.6);text-transform:uppercase;letter-spacing:0.5px;">PPMU</div>
+                    </div>
+                </a>
+                <button class="mob-close-btn" data-bs-dismiss="offcanvas" aria-label="Tutup">
+                    <i class="bi bi-x-lg"></i>
+                </button>
             </div>
-            <button type="button" class="btn-close" data-bs-dismiss="offcanvas"></button>
         </div>
-        <div class="offcanvas-body p-4">
-            <div class="d-flex flex-column gap-1">
-                <a href="{{ url('/') }}" class="footer-link py-2" style="font-size:0.95rem;color:#0f172a;font-weight:600;">🏠 Beranda</a>
-                <hr style="margin:10px 0;border-color:#f1f5f9;">
-                <div style="font-size:0.75rem;text-transform:uppercase;letter-spacing:1px;color:#94a3b8;font-weight:700;margin-bottom:8px;">Pesantren</div>
-                <a href="{{ route('pesantren.index') }}" class="footer-link">Portal Pesantren</a>
-                <a href="{{ route('pesantren.donasi') }}" class="footer-link">Investasi Akhirat</a>
-                <a href="{{ route('pesantren.pendaftaran') }}" class="footer-link">Pendaftaran</a>
-                <hr style="margin:10px 0;border-color:#f1f5f9;">
-                <div style="font-size:0.75rem;text-transform:uppercase;letter-spacing:1px;color:#94a3b8;font-weight:700;margin-bottom:8px;">Madrasah</div>
-                <a href="{{ route('madrasah.index') }}" class="footer-link">Portal Madrasah</a>
-                <a href="{{ route('madrasah.fasilitas') }}" class="footer-link">Fasilitas</a>
-                <a href="{{ route('madrasah.pendaftaran') }}" class="footer-link">Pendaftaran</a>
-                <hr style="margin:10px 0;border-color:#f1f5f9;">
-                <a href="{{ route('pesantren.berita') }}" class="footer-link" style="color:#0f172a;font-weight:600;">📰 Berita</a>
-                <div class="mt-4 d-flex flex-column gap-2">
-                    <a href="#" class="btn btn-outline-primary rounded-pill fw-semibold">Masuk</a>
-                    <a href="{{ route('pesantren.pendaftaran') }}" class="btn-nav-ppdb text-center rounded-pill" style="padding:10px;">PPDB 2026</a>
-                </div>
+
+        <!-- Body -->
+        <div class="mob-body">
+
+            <!-- Beranda -->
+            <div class="mob-section">
+                <a href="{{ url('/') }}" class="mob-link {{ request()->is('/') ? 'active-mob' : '' }}">
+                    <span class="mob-icon" style="background:#f0fdf4;color:#16a34a;"><i class="bi bi-house-fill"></i></span>
+                    Beranda
+                    <i class="bi bi-chevron-right mob-arrow"></i>
+                </a>
             </div>
+
+            <div class="mob-divider"></div>
+
+            <!-- Pesantren Section -->
+            <div class="mob-section">
+                <div class="mob-section-label">
+                    <span class="mob-section-text" style="color:#6366f1;">Pesantren</span>
+                    <div class="mob-section-line" style="background:linear-gradient(to right,#6366f1,#8b5cf6,transparent);"></div>
+                </div>
+                <a href="{{ route('pesantren.index') }}" class="mob-link {{ request()->is('pesantren') ? 'active-mob' : '' }}">
+                    <span class="mob-icon" style="background:#eef2ff;color:#6366f1;"><i class="bi bi-house-heart-fill"></i></span>
+                    Portal Pesantren
+                    <i class="bi bi-chevron-right mob-arrow"></i>
+                </a>
+                <a href="{{ route('pesantren.donasi') }}" class="mob-link {{ request()->is('pesantren/donasi*') ? 'active-mob' : '' }}">
+                    <span class="mob-icon" style="background:#fef2f2;color:#ef4444;"><i class="bi bi-heart-fill"></i></span>
+                    Investasi Akhirat
+                    <i class="bi bi-chevron-right mob-arrow"></i>
+                </a>
+                <a href="{{ route('pesantren.pendaftaran') }}" class="mob-link {{ request()->is('pesantren/pendaftaran') ? 'active-mob' : '' }}">
+                    <span class="mob-icon" style="background:#f0fdf4;color:#16a34a;"><i class="bi bi-person-plus-fill"></i></span>
+                    Pendaftaran
+                    <i class="bi bi-chevron-right mob-arrow"></i>
+                </a>
+            </div>
+
+            <div class="mob-divider"></div>
+
+            <!-- Madrasah Section -->
+            <div class="mob-section">
+                <div class="mob-section-label">
+                    <span class="mob-section-text" style="color:#0891b2;">Madrasah</span>
+                    <div class="mob-section-line" style="background:linear-gradient(to right,#0891b2,#06b6d4,transparent);"></div>
+                </div>
+                <a href="{{ route('madrasah.index') }}" class="mob-link {{ request()->is('madrasah') ? 'active-mob' : '' }}">
+                    <span class="mob-icon" style="background:#ecfeff;color:#0891b2;"><i class="bi bi-building-fill"></i></span>
+                    Portal Madrasah
+                    <i class="bi bi-chevron-right mob-arrow"></i>
+                </a>
+                <a href="{{ route('madrasah.fasilitas') }}" class="mob-link {{ request()->is('madrasah/fasilitas') ? 'active-mob' : '' }}">
+                    <span class="mob-icon" style="background:#fffbeb;color:#d97706;"><i class="bi bi-building-check"></i></span>
+                    Fasilitas
+                    <i class="bi bi-chevron-right mob-arrow"></i>
+                </a>
+                <a href="{{ route('madrasah.pendaftaran') }}" class="mob-link {{ request()->is('madrasah/pendaftaran') ? 'active-mob' : '' }}">
+                    <span class="mob-icon" style="background:#f0fdf4;color:#16a34a;"><i class="bi bi-person-plus-fill"></i></span>
+                    Pendaftaran
+                    <i class="bi bi-chevron-right mob-arrow"></i>
+                </a>
+            </div>
+
+            <div class="mob-divider"></div>
+
+            <!-- Berita & Galeri -->
+            <div class="mob-section">
+                <div class="mob-section-label">
+                    <span class="mob-section-text" style="color:#64748b;">Konten</span>
+                    <div class="mob-section-line" style="background:linear-gradient(to right,#94a3b8,transparent);"></div>
+                </div>
+                <a href="{{ route('pesantren.berita') }}" class="mob-link {{ request()->is('pesantren/berita*') ? 'active-mob' : '' }}">
+                    <span class="mob-icon" style="background:#faf5ff;color:#7c3aed;"><i class="bi bi-newspaper"></i></span>
+                    Berita & Informasi
+                    <i class="bi bi-chevron-right mob-arrow"></i>
+                </a>
+                <a href="{{ route('galeri.index') }}" class="mob-link {{ request()->is('galeri*') ? 'active-mob' : '' }}">
+                    <span class="mob-icon" style="background:#fff7ed;color:#ea580c;"><i class="bi bi-images"></i></span>
+                    Galeri Foto
+                    <i class="bi bi-chevron-right mob-arrow"></i>
+                </a>
+            </div>
+
+            <div class="mob-divider"></div>
+
+            <!-- CTA -->
+            <div class="mob-cta">
+                <a href="{{ route('pesantren.pendaftaran') }}" class="mob-cta-ppdb">PPDB 2026 →</a>
+            </div>
+
         </div>
     </div>
 
@@ -345,17 +688,16 @@
     <!-- ===== FOOTER ===== -->
     <footer class="site-footer">
         <div class="container">
-            <div class="row g-5 mb-4">
+            <div class="row g-4 align-items-start">
+
                 <!-- Brand Col -->
-                <div class="col-lg-4">
-                    <div class="d-flex align-items-center gap-2 mb-4">
-                        <div class="nav-logo-box">E</div>
+                <div class="col-lg-3 col-md-6">
+                    <div class="d-flex align-items-center gap-2 mb-2">
+                        <div class="nav-logo-box" style="width:30px;height:30px;font-size:0.85rem;">E</div>
                         <span class="footer-brand">Educate<span style="color:var(--c-cyan);">.</span></span>
                     </div>
-                    <p style="color:#64748b;font-size:0.9rem;line-height:1.8;max-width:300px;">
-                        Membangun generasi cerdas, berakhlak mulia, dan tangguh di era global melalui pendidikan terpadu Pesantren dan Madrasah.
-                    </p>
-                    <div class="d-flex gap-2 mt-4">
+                    <p class="footer-tagline">Pendidikan terpadu Pesantren &amp; Madrasah — membentuk generasi berakhlak &amp; berwawasan global.</p>
+                    <div class="d-flex gap-2 mt-3">
                         <a href="#" class="social-btn"><i class="bi bi-facebook"></i></a>
                         <a href="#" class="social-btn"><i class="bi bi-instagram"></i></a>
                         <a href="#" class="social-btn"><i class="bi bi-youtube"></i></a>
@@ -364,52 +706,40 @@
                 </div>
 
                 <!-- Pesantren -->
-                <div class="col-lg-2 col-6">
-                    <div class="footer-heading">Pesantren</div>
-                    <a href="{{ route('pesantren.index') }}" class="footer-link">Tentang Kami</a>
+                <div class="col-lg-2 col-md-3 col-6">
+                    <div class="footer-col-title">Pesantren</div>
+                    <a href="{{ route('pesantren.index') }}" class="footer-link">Portal Pesantren</a>
                     <a href="{{ route('pesantren.pendaftaran') }}" class="footer-link">Pendaftaran</a>
-                    <a href="{{ route('pesantren.donasi') }}" class="footer-link">Investasi Akhirat</a>
+                    <a href="{{ route('pesantren.donasi') }}" class="footer-link">Donasi</a>
                     <a href="{{ route('pesantren.berita') }}" class="footer-link">Berita</a>
+                    <a href="{{ route('galeri.index') }}" class="footer-link">Galeri</a>
                 </div>
 
                 <!-- Madrasah -->
-                <div class="col-lg-2 col-6">
-                    <div class="footer-heading">Madrasah</div>
-                    <a href="{{ route('madrasah.index') }}" class="footer-link">Tentang Kami</a>
+                <div class="col-lg-2 col-md-3 col-6">
+                    <div class="footer-col-title">Madrasah</div>
+                    <a href="{{ route('madrasah.index') }}" class="footer-link">Portal Madrasah</a>
                     <a href="{{ route('madrasah.pendaftaran') }}" class="footer-link">Pendaftaran</a>
                     <a href="{{ route('madrasah.fasilitas') }}" class="footer-link">Fasilitas</a>
                 </div>
 
-                <!-- Contact -->
-                <div class="col-lg-4">
-                    <div class="footer-heading">Hubungi Kami</div>
-                    <div class="footer-contact">
-                        <div class="footer-contact-icon"><i class="bi bi-geo-alt-fill"></i></div>
-                        <span>Jl. Pendidikan No. 1, Pesantren Terpadu, Jawa Timur</span>
-                    </div>
-                    <div class="footer-contact">
-                        <div class="footer-contact-icon"><i class="bi bi-telephone-fill"></i></div>
-                        <span>+62 812 3456 7890</span>
-                    </div>
-                    <div class="footer-contact">
-                        <div class="footer-contact-icon"><i class="bi bi-envelope-fill"></i></div>
-                        <span>info@educateportal.sch.id</span>
-                    </div>
-                    <div class="footer-contact">
-                        <div class="footer-contact-icon"><i class="bi bi-clock-fill"></i></div>
-                        <span>Senin – Jumat, 08.00 – 16.00 WIB</span>
-                    </div>
+                <!-- Kontak -->
+                <div class="col-lg-5 col-md-12">
+                    <div class="footer-col-title">Kontak</div>
+                    <div class="footer-contact-row"><i class="bi bi-geo-alt-fill"></i> Jl. Pendidikan No. 1, Pesantren Terpadu, Jawa Timur</div>
+                    <div class="footer-contact-row"><i class="bi bi-telephone-fill"></i> +62 812 3456 7890</div>
+                    <div class="footer-contact-row"><i class="bi bi-envelope-fill"></i> info@educateportal.sch.id</div>
+                    <div class="footer-contact-row"><i class="bi bi-clock-fill"></i> Senin – Jumat, 08.00 – 16.00 WIB</div>
                 </div>
+
             </div>
 
             <hr class="footer-divider">
-            <div class="d-flex flex-column flex-md-row justify-content-between align-items-center gap-3">
-                <p class="mb-0" style="font-size:0.82rem;color:#475569;">
-                    &copy; {{ date('Y') }} Educate Portal — Pesantren &amp; Madrasah Terpadu. All Rights Reserved.
-                </p>
-                <div class="d-flex gap-3" style="font-size:0.82rem;">
-                    <a href="#" class="footer-link" style="padding:0;">Kebijakan Privasi</a>
-                    <a href="#" class="footer-link" style="padding:0;">Syarat &amp; Ketentuan</a>
+            <div class="footer-bottom">
+                <span class="footer-copy">&copy; {{ date('Y') }} Educate Portal — Pesantren &amp; Madrasah Terpadu. All Rights Reserved.</span>
+                <div class="footer-bottom-links">
+                    <a href="#">Kebijakan Privasi</a>
+                    <a href="#">Syarat &amp; Ketentuan</a>
                 </div>
             </div>
         </div>
@@ -421,22 +751,13 @@
     <!-- Navbar Scroll Effect -->
     <script>
         const navbar = document.getElementById('main-navbar');
-        // Detect any dark-background hero section for transparent navbar
-        const heroSection = document.querySelector('.hero-home, .donasi-hero, .hero-pesantren, .berita-hero, .hero-madrasah, .pendaftaran-hero, .profil-hero');
 
         function updateNav() {
             if (window.scrollY > 20) {
                 navbar.classList.add('scrolled');
             } else {
                 navbar.classList.remove('scrolled');
-                // If no hero on page, always show scrolled style
-                if (!heroSection) navbar.classList.add('scrolled');
             }
-        }
-
-        // Non-hero pages: always show solid navbar
-        if (!heroSection) {
-            navbar.classList.add('scrolled');
         }
 
         window.addEventListener('scroll', updateNav, { passive: true });

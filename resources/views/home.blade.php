@@ -623,7 +623,7 @@
                     </div>
                     <h4 class="fw-bold text-dark mb-3">Galeri Prestasi</h4>
                     <p class="text-secondary mb-4" style="line-height:1.7;">Dokumentasi pencapaian membanggakan para santri dan siswa dalam berbagai kompetisi regional, nasional, hingga internasional.</p>
-                    <a href="#" class="text-decoration-none fw-semibold" style="color:#ef4444;">Lihat Galeri <i class="bi bi-arrow-right"></i></a>
+                    <a href="{{ route('galeri.index') }}" class="text-decoration-none fw-semibold" style="color:#ef4444;">Lihat Galeri <i class="bi bi-arrow-right"></i></a>
                 </div>
             </div>
 

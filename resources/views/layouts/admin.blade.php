@@ -100,7 +100,7 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a href="#" class="nav-link">
+                <a href="{{ route('admin.galeri.index') }}" class="nav-link {{ request()->is('admin/galeri*') ? 'active' : '' }}">
                     <i class="bi bi-images"></i> Galeri
                 </a>
             </li>
@@ -131,5 +131,7 @@
         @yield('content')
     </div>
 
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+@stack('scripts')
 </body>
 </html>
