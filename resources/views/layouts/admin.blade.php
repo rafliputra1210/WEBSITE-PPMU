@@ -105,7 +105,12 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a href="#" class="nav-link">
+                <a href="{{ route('admin.fasilitas.index') }}" class="nav-link {{ request()->is('admin/fasilitas*') ? 'active' : '' }}">
+                    <i class="bi bi-building-check"></i> Fasilitas
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="{{ route('admin.pendaftaran.index') }}" class="nav-link {{ request()->is('admin/pendaftaran*') ? 'active' : '' }}">
                     <i class="bi bi-person-lines-fill"></i> Pendaftaran
                 </a>
             </li>

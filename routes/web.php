@@ -6,63 +6,61 @@ use App\Http\Controllers\BeritaController;
 use App\Http\Controllers\PendaftaranController;
 use App\Http\Controllers\GaleriController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\FasilitasController;
 
-// 1. Rute Beranda (Halaman Utama)
+// 1. Rute Beranda
 Route::get('/', function () {
     return view('home');
 })->name('home');
 
-// 2. Kumpulan Rute Portal Pesantren
+// 2. Portal Pesantren
 Route::prefix('pesantren')->name('pesantren.')->group(function () {
-    Route::get('/', function () { 
-        return view('pesantren.index'); 
+    Route::get('/', function () {
+        return view('pesantren.index');
     })->name('index');
-    
+
     Route::get('/berita', [BeritaController::class, 'index'])->name('berita');
     Route::get('/berita/{slug}', [BeritaController::class, 'show'])->name('berita.detail');
-    
-    Route::get('/pendaftaran', function () { 
-        return view('pesantren.pendaftaran'); 
-    })->name('pendaftaran');
 
-    // POST: simpan form pendaftaran pesantren
+    // Pendaftaran Santri
+    Route::get('/pendaftaran', function () {
+        return view('pesantren.pendaftaran');
+    })->name('pendaftaran');
     Route::post('/pendaftaran', [PendaftaranController::class, 'store'])->name('pendaftaran.store');
 
-    // Donasi / Investasi Akhirat
+    // Donasi
     Route::get('/donasi', [DonasiController::class, 'index'])->name('donasi');
     Route::post('/donasi', [DonasiController::class, 'store'])->name('donasi.store');
 });
 
-// 3. Kumpulan Rute Portal Madrasah
+// 3. Portal Madrasah
 Route::prefix('madrasah')->name('madrasah.')->group(function () {
-    Route::get('/', function () { 
-        return view('madrasah.index'); 
+    Route::get('/', function () {
+        return view('madrasah.index');
     })->name('index');
-    
-    Route::get('/pendaftaran', function () { 
-        return view('madrasah.pendaftaran'); 
+
+    Route::get('/pendaftaran', function () {
+        return view('madrasah.pendaftaran');
     })->name('pendaftaran');
 
-    // POST: simpan form pendaftaran madrasah
-    Route::post('/pendaftaran', [PendaftaranController::class, 'store'])->name('pendaftaran.store');
-
-    Route::get('/fasilitas', function () { 
-        return view('madrasah.fasilitas'); 
+    Route::get('/fasilitas', function () {
+        $fasilitas = \App\Models\Fasilitas::where('entitas', 'madrasah')->latest()->get();
+        return view('madrasah.fasilitas', compact('fasilitas'));
     })->name('fasilitas');
 
-    Route::get('/profil', function () { 
-        return view('madrasah.profil'); 
+    Route::get('/profil', function () {
+        return view('madrasah.profil');
     })->name('profil');
 });
 
-// 4. Rute Publik Galeri
+// 4. Galeri Publik
 Route::get('/galeri', [GaleriController::class, 'index'])->name('galeri.index');
 
-// 5. Kumpulan Rute Admin / Pengelola
+// 5. Admin
 Route::prefix('admin')->name('admin.')->group(function () {
     Route::get('/', [AdminController::class, 'dashboard'])->name('dashboard');
-    
-    // CRUD Berita
+
+    // Berita
     Route::prefix('berita')->name('berita.')->group(function () {
         Route::get('/', [AdminController::class, 'beritaIndex'])->name('index');
         Route::get('/create', [AdminController::class, 'beritaCreate'])->name('create');
@@ -72,7 +70,7 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::delete('/{berita}', [AdminController::class, 'beritaDestroy'])->name('destroy');
     });
 
-    // CRUD Galeri
+    // Galeri
     Route::prefix('galeri')->name('galeri.')->group(function () {
         Route::get('/', [AdminController::class, 'galeriIndex'])->name('index');
         Route::get('/create', [AdminController::class, 'galeriCreate'])->name('create');
@@ -82,9 +80,19 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::delete('/{galeri}', [AdminController::class, 'galeriDestroy'])->name('destroy');
     });
 
-    // Manajemen Data Pendaftaran
+    // Pendaftaran Santri
     Route::prefix('pendaftaran')->name('pendaftaran.')->group(function () {
         Route::get('/', [PendaftaranController::class, 'adminIndex'])->name('index');
         Route::delete('/{pendaftaran}', [PendaftaranController::class, 'adminDestroy'])->name('destroy');
+    });
+
+    // Fasilitas
+    Route::prefix('fasilitas')->name('fasilitas.')->group(function () {
+        Route::get('/', [FasilitasController::class, 'index'])->name('index');
+        Route::get('/create', [FasilitasController::class, 'create'])->name('create');
+        Route::post('/', [FasilitasController::class, 'store'])->name('store');
+        Route::get('/{fasilitas}/edit', [FasilitasController::class, 'edit'])->name('edit');
+        Route::put('/{fasilitas}', [FasilitasController::class, 'update'])->name('update');
+        Route::delete('/{fasilitas}', [FasilitasController::class, 'destroy'])->name('destroy');
     });
 });

@@ -1,16 +1,16 @@
 @extends('layouts.app')
 
-@section('title', 'Pendaftaran PPDB 2026 — Pesantren PPMU')
+@section('title', 'Pendaftaran Santri Baru — PPMU')
 
 @section('styles')
 <style>
-    .reg-hero {
+    .pendaftaran-hero {
         background: linear-gradient(135deg, #0a0f2e 0%, #1a1040 60%, #0d2137 100%);
-        padding: calc(var(--nav-h) + 40px) 0 60px;
+        padding: calc(var(--nav-h) + 50px) 0 60px;
         position: relative;
         overflow: hidden;
     }
-    .reg-hero::before {
+    .pendaftaran-hero::before {
         content: '';
         position: absolute;
         width: 500px; height: 500px;
@@ -19,31 +19,19 @@
         top: -100px; right: -100px;
         pointer-events: none;
     }
-    .reg-badge {
+    .hero-badge {
         display: inline-flex;
         align-items: center;
         gap: 8px;
         background: rgba(99,102,241,0.15);
         border: 1px solid rgba(99,102,241,0.3);
         color: #a5b4fc;
-        font-size: 0.78rem;
-        font-weight: 700;
-        letter-spacing: 1px;
-        text-transform: uppercase;
-        padding: 6px 14px;
+        padding: 6px 16px;
         border-radius: 100px;
-        margin-bottom: 18px;
-    }
-    .reg-hero h1 {
-        color: #fff;
-        font-weight: 800;
-        font-size: clamp(1.8rem, 4vw, 2.6rem);
-        line-height: 1.2;
-        margin-bottom: 12px;
-    }
-    .reg-hero p {
-        color: rgba(255,255,255,0.65);
-        font-size: 1rem;
+        font-size: 0.8rem;
+        font-weight: 600;
+        letter-spacing: 0.5px;
+        margin-bottom: 20px;
     }
     .form-card {
         background: #fff;
@@ -52,39 +40,19 @@
         overflow: hidden;
     }
     .form-card-header {
-        background: linear-gradient(135deg, #6366f1, #8b5cf6);
-        padding: 22px 30px;
-        display: flex;
-        align-items: center;
-        gap: 14px;
+        background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+        padding: 28px 36px;
     }
-    .form-card-header .icon-wrap {
-        width: 44px; height: 44px;
-        background: rgba(255,255,255,0.2);
-        border-radius: 12px;
-        display: flex; align-items: center; justify-content: center;
-        font-size: 1.3rem; color: #fff;
-        flex-shrink: 0;
+    .form-card-body {
+        padding: 36px;
     }
-    .form-card-header h5 {
-        color: #fff;
-        font-weight: 700;
-        margin: 0;
-        font-size: 1.1rem;
-    }
-    .form-card-header p {
-        color: rgba(255,255,255,0.75);
-        margin: 0;
-        font-size: 0.82rem;
-    }
-    .form-card-body { padding: 30px; }
     .form-section-title {
         font-size: 0.72rem;
         font-weight: 800;
         text-transform: uppercase;
-        letter-spacing: 1.2px;
-        color: #94a3b8;
-        margin-bottom: 14px;
+        letter-spacing: 1.5px;
+        color: #6366f1;
+        margin-bottom: 16px;
         display: flex;
         align-items: center;
         gap: 10px;
@@ -93,7 +61,7 @@
         content: '';
         flex: 1;
         height: 1px;
-        background: #e2e8f0;
+        background: linear-gradient(to right, #e2e8f0, transparent);
     }
     .form-label {
         font-weight: 600;
@@ -102,12 +70,12 @@
         margin-bottom: 6px;
     }
     .form-control, .form-select {
+        border: 1.5px solid #e5e7eb;
         border-radius: 10px;
-        border: 1.5px solid #e2e8f0;
         padding: 10px 14px;
         font-size: 0.9rem;
+        transition: all 0.2s;
         color: #1e293b;
-        transition: border-color 0.2s, box-shadow 0.2s;
     }
     .form-control:focus, .form-select:focus {
         border-color: #6366f1;
@@ -116,107 +84,135 @@
     }
     .form-control.is-invalid, .form-select.is-invalid {
         border-color: #ef4444;
+        box-shadow: 0 0 0 3px rgba(239,68,68,0.1);
     }
-    .invalid-feedback { font-size: 0.8rem; }
-    .btn-submit-reg {
-        background: linear-gradient(135deg, #6366f1, #8b5cf6);
+    .invalid-feedback { font-size: 0.78rem; }
+    .btn-submit {
+        background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
         color: #fff;
         border: none;
         border-radius: 12px;
-        padding: 13px 30px;
+        padding: 14px 40px;
         font-weight: 700;
-        font-size: 1rem;
-        width: 100%;
+        font-size: 0.95rem;
+        letter-spacing: 0.3px;
         transition: all 0.3s;
-        box-shadow: 0 6px 20px rgba(99,102,241,0.35);
+        box-shadow: 0 4px 20px rgba(99,102,241,0.3);
+        width: 100%;
     }
-    .btn-submit-reg:hover {
+    .btn-submit:hover {
         transform: translateY(-2px);
-        box-shadow: 0 10px 30px rgba(99,102,241,0.45);
+        box-shadow: 0 8px 30px rgba(99,102,241,0.45);
         color: #fff;
     }
-    .info-card {
-        background: #f8fafc;
-        border: 1px solid #e2e8f0;
+    .alert-success-custom {
+        background: linear-gradient(135deg, #ecfdf5, #d1fae5);
+        border: 1px solid #6ee7b7;
         border-radius: 14px;
-        padding: 20px;
+        padding: 20px 24px;
+        color: #065f46;
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        margin-bottom: 24px;
+    }
+    .alert-success-custom .check-icon {
+        width: 44px; height: 44px;
+        background: #10b981;
+        border-radius: 50%;
+        display: flex; align-items: center; justify-content: center;
+        color: #fff;
+        font-size: 1.2rem;
+        flex-shrink: 0;
+    }
+    .info-card {
+        background: linear-gradient(135deg, #f8faff, #eef2ff);
+        border: 1px solid #e0e7ff;
+        border-radius: 16px;
+        padding: 24px;
     }
     .info-item {
         display: flex;
         align-items: flex-start;
         gap: 12px;
-        margin-bottom: 14px;
+        margin-bottom: 16px;
     }
     .info-item:last-child { margin-bottom: 0; }
     .info-icon {
         width: 36px; height: 36px;
-        border-radius: 10px;
+        border-radius: 9px;
         display: flex; align-items: center; justify-content: center;
         font-size: 1rem;
         flex-shrink: 0;
     }
-    .info-item p { margin: 0; font-size: 0.85rem; color: #475569; line-height: 1.5; }
-    .info-item strong { color: #1e293b; display: block; font-size: 0.88rem; margin-bottom: 2px; }
-    .alert-success-custom {
-        background: linear-gradient(135deg, rgba(16,185,129,0.08), rgba(5,150,105,0.08));
-        border: 1px solid rgba(16,185,129,0.3);
-        border-radius: 12px;
-        padding: 16px 20px;
-        color: #065f46;
-        font-weight: 600;
-        display: flex;
+    .step-badge {
+        display: inline-flex;
         align-items: center;
-        gap: 12px;
-        margin-bottom: 20px;
+        justify-content: center;
+        width: 28px; height: 28px;
+        border-radius: 50%;
+        background: #6366f1;
+        color: #fff;
+        font-size: 0.78rem;
+        font-weight: 700;
+        flex-shrink: 0;
     }
 </style>
 @endsection
 
 @section('content')
 
-{{-- Hero --}}
-<section class="reg-hero">
+<!-- Hero -->
+<div class="pendaftaran-hero">
     <div class="container">
-        <div class="row align-items-center">
-            <div class="col-lg-7">
-                <span class="reg-badge"><i class="bi bi-mortarboard-fill"></i> PPDB 2026 / 2027</span>
-                <h1>Daftar Sekarang,<br>Raih Masa Depan Gemilang</h1>
-                <p>Bergabunglah bersama ribuan santri dan siswa di Pesantren &amp; Madrasah PPMU. Isi formulir di bawah ini dan tim kami akan segera menghubungi Anda.</p>
+        <div class="text-center">
+            <div class="hero-badge">
+                <i class="bi bi-person-plus-fill"></i>
+                PPDB 2026 / 2027
             </div>
+            <h1 class="display-5 fw-bold text-white mb-3">Formulir Pendaftaran Santri</h1>
+            <p class="text-light opacity-75 mb-0" style="max-width:520px;margin:auto;font-size:1rem;">
+                Isi data dengan lengkap dan benar. Tim kami akan menghubungi Anda melalui WhatsApp setelah pendaftaran diterima.
+            </p>
         </div>
     </div>
-</section>
+</div>
 
-{{-- Form Section --}}
-<section style="background:#f8fafc; padding: 60px 0 80px;">
-    <div class="container">
-        <div class="row g-4">
+<!-- Content -->
+<div class="page-padded-top" style="padding-top:0;background:#f8fafc;padding-bottom:80px;">
+    <div class="container" style="margin-top:-40px;">
+        <div class="row g-4 justify-content-center">
 
-            {{-- Form Pendaftaran --}}
+            <!-- Form -->
             <div class="col-lg-8">
                 <div class="form-card">
                     <div class="form-card-header">
-                        <div class="icon-wrap"><i class="bi bi-pencil-square"></i></div>
-                        <div>
-                            <h5>Formulir Pendaftaran Santri / Siswa Baru</h5>
-                            <p>Isi semua data dengan lengkap dan benar</p>
-                        </div>
+                        <h2 class="h5 fw-bold text-white mb-1">
+                            <i class="bi bi-clipboard-check me-2"></i>Data Pendaftaran
+                        </h2>
+                        <p class="text-white opacity-75 mb-0" style="font-size:0.85rem;">
+                            Semua field bertanda <span class="text-warning fw-bold">*</span> wajib diisi
+                        </p>
                     </div>
                     <div class="form-card-body">
 
                         {{-- Alert Sukses --}}
                         @if(session('success'))
                         <div class="alert-success-custom">
-                            <i class="bi bi-check-circle-fill" style="font-size:1.3rem;color:#10b981;flex-shrink:0;"></i>
-                            {{ session('success') }}
+                            <div class="check-icon"><i class="bi bi-check-lg"></i></div>
+                            <div>
+                                <div class="fw-bold" style="font-size:0.95rem;">Pendaftaran Berhasil!</div>
+                                <div style="font-size:0.85rem;margin-top:3px;">{{ session('success') }}</div>
+                            </div>
                         </div>
                         @endif
 
-                        {{-- Alert Error --}}
+                        {{-- Alert Validasi Error --}}
                         @if($errors->any())
-                        <div class="alert alert-danger rounded-3 mb-4">
-                            <strong><i class="bi bi-exclamation-triangle me-2"></i>Mohon perbaiki kesalahan berikut:</strong>
-                            <ul class="mb-0 mt-2">
+                        <div class="alert alert-danger rounded-3 mb-4" style="font-size:0.85rem;">
+                            <i class="bi bi-exclamation-triangle-fill me-2"></i>
+                            <strong>Terdapat kesalahan:</strong>
+                            <ul class="mb-0 mt-1 ps-3">
                                 @foreach($errors->all() as $error)
                                     <li>{{ $error }}</li>
                                 @endforeach
@@ -224,19 +220,23 @@
                         </div>
                         @endif
 
-                        <form action="{{ route('pesantren.pendaftaran.store') }}" method="POST" id="form-pendaftaran">
+                        <form action="{{ route('pesantren.pendaftaran.store') }}" method="POST">
                             @csrf
 
-                            {{-- Data Diri --}}
-                            <div class="form-section-title">Data Calon Santri / Siswa</div>
+                            <!-- Data Diri -->
+                            <div class="form-section-title">
+                                <i class="bi bi-person-circle"></i> Data Diri Calon Santri
+                            </div>
 
                             <div class="mb-3">
                                 <label class="form-label">Nama Lengkap <span class="text-danger">*</span></label>
                                 <input type="text" name="nama_lengkap"
                                        class="form-control @error('nama_lengkap') is-invalid @enderror"
-                                       placeholder="Masukkan nama lengkap sesuai akta"
-                                       value="{{ old('nama_lengkap') }}" required>
-                                @error('nama_lengkap')<div class="invalid-feedback">{{ $message }}</div>@enderror
+                                       placeholder="Nama sesuai akta kelahiran"
+                                       value="{{ old('nama_lengkap') }}">
+                                @error('nama_lengkap')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
                             </div>
 
                             <div class="row g-3 mb-3">
@@ -245,67 +245,92 @@
                                     <input type="text" name="tempat_lahir"
                                            class="form-control @error('tempat_lahir') is-invalid @enderror"
                                            placeholder="Kota / Kabupaten"
-                                           value="{{ old('tempat_lahir') }}" required>
-                                    @error('tempat_lahir')<div class="invalid-feedback">{{ $message }}</div>@enderror
+                                           value="{{ old('tempat_lahir') }}">
+                                    @error('tempat_lahir')
+                                        <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
                                 </div>
                                 <div class="col-md-6">
                                     <label class="form-label">Tanggal Lahir <span class="text-danger">*</span></label>
-                                    <input type="date" name="tanggal_lahir"
+                                    <input type="text" name="tanggal_lahir"
                                            class="form-control @error('tanggal_lahir') is-invalid @enderror"
-                                           value="{{ old('tanggal_lahir') }}" required>
-                                    @error('tanggal_lahir')<div class="invalid-feedback">{{ $message }}</div>@enderror
+                                           placeholder="Contoh: 15-08-2010"
+                                           value="{{ old('tanggal_lahir') }}">
+                                    @error('tanggal_lahir')
+                                        <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
                                 </div>
                             </div>
 
-                            <div class="mb-3">
+                            <div class="mb-4">
                                 <label class="form-label">Asal Sekolah <span class="text-danger">*</span></label>
                                 <input type="text" name="asal_sekolah"
                                        class="form-control @error('asal_sekolah') is-invalid @enderror"
-                                       placeholder="Nama sekolah sebelumnya (SD / SMP / MTs)"
-                                       value="{{ old('asal_sekolah') }}" required>
-                                @error('asal_sekolah')<div class="invalid-feedback">{{ $message }}</div>@enderror
+                                       placeholder="Nama sekolah sebelumnya (SD/SMP/MTs)"
+                                       value="{{ old('asal_sekolah') }}">
+                                @error('asal_sekolah')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
+                            </div>
+
+                            <!-- Tujuan Pendaftaran -->
+                            <div class="form-section-title">
+                                <i class="bi bi-building"></i> Tujuan Pendaftaran
                             </div>
 
                             <div class="mb-4">
                                 <label class="form-label">Mendaftar Ke <span class="text-danger">*</span></label>
-                                <select name="mendaftar_ke" class="form-select @error('mendaftar_ke') is-invalid @enderror" required>
-                                    <option value="" disabled {{ old('mendaftar_ke') ? '' : 'selected' }}>-- Pilih tujuan pendaftaran --</option>
-                                    <option value="pesantren" {{ old('mendaftar_ke') == 'pesantren' ? 'selected' : '' }}>🕌 Pesantren PPMU</option>
-                                    <option value="madrasah" {{ old('mendaftar_ke') == 'madrasah' ? 'selected' : '' }}>🏫 Madrasah PPMU</option>
+                                <select name="mendaftar_ke"
+                                        class="form-select @error('mendaftar_ke') is-invalid @enderror">
+                                    <option value="" disabled {{ old('mendaftar_ke') ? '' : 'selected' }}>-- Pilih Tujuan --</option>
+                                    <option value="pesantren" {{ old('mendaftar_ke') == 'pesantren' ? 'selected' : '' }}>
+                                        🕌 Pondok Pesantren Mahasiswa Universal (PPMU)
+                                    </option>
+                                    <option value="madrasah" {{ old('mendaftar_ke') == 'madrasah' ? 'selected' : '' }}>
+                                        🏫 Madrasah / Sekolah Formal
+                                    </option>
                                 </select>
-                                @error('mendaftar_ke')<div class="invalid-feedback">{{ $message }}</div>@enderror
+                                @error('mendaftar_ke')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
                             </div>
 
-                            {{-- Data Wali --}}
-                            <div class="form-section-title">Data Orang Tua / Wali</div>
+                            <!-- Data Wali -->
+                            <div class="form-section-title">
+                                <i class="bi bi-people"></i> Data Orang Tua / Wali
+                            </div>
 
                             <div class="row g-3 mb-4">
                                 <div class="col-md-6">
-                                    <label class="form-label">Nama Wali <span class="text-danger">*</span></label>
+                                    <label class="form-label">Nama Wali / Orang Tua <span class="text-danger">*</span></label>
                                     <input type="text" name="nama_wali"
                                            class="form-control @error('nama_wali') is-invalid @enderror"
-                                           placeholder="Nama orang tua / wali"
-                                           value="{{ old('nama_wali') }}" required>
-                                    @error('nama_wali')<div class="invalid-feedback">{{ $message }}</div>@enderror
+                                           placeholder="Nama lengkap orang tua / wali"
+                                           value="{{ old('nama_wali') }}">
+                                    @error('nama_wali')
+                                        <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
                                 </div>
                                 <div class="col-md-6">
                                     <label class="form-label">Nomor WhatsApp Aktif <span class="text-danger">*</span></label>
                                     <div class="input-group">
-                                        <span class="input-group-text" style="border-radius:10px 0 0 10px;border:1.5px solid #e2e8f0;border-right:0;background:#f8fafc;color:#475569;font-size:0.85rem;">
-                                            <i class="bi bi-whatsapp text-success me-1"></i> +62
+                                        <span class="input-group-text" style="border-radius:10px 0 0 10px;border:1.5px solid #e5e7eb;background:#f8fafc;">
+                                            <i class="bi bi-whatsapp text-success"></i>
                                         </span>
                                         <input type="text" name="no_wa"
                                                class="form-control @error('no_wa') is-invalid @enderror"
-                                               placeholder="8xxxxxxxxxx"
-                                               value="{{ old('no_wa') }}"
-                                               style="border-radius:0 10px 10px 0;" required>
-                                        @error('no_wa')<div class="invalid-feedback">{{ $message }}</div>@enderror
+                                               style="border-radius:0 10px 10px 0;"
+                                               placeholder="08xxxxxxxxxx"
+                                               value="{{ old('no_wa') }}">
+                                        @error('no_wa')
+                                            <div class="invalid-feedback">{{ $message }}</div>
+                                        @enderror
                                     </div>
                                 </div>
                             </div>
 
-                            <button type="submit" class="btn-submit-reg">
-                                <i class="bi bi-send-fill me-2"></i>Kirim Formulir Pendaftaran
+                            <button type="submit" class="btn-submit">
+                                <i class="bi bi-send-fill me-2"></i>Kirim Pendaftaran
                             </button>
                         </form>
 
@@ -313,52 +338,71 @@
                 </div>
             </div>
 
-            {{-- Sidebar Info --}}
+            <!-- Info Samping -->
             <div class="col-lg-4">
-                <div class="info-card mb-3">
-                    <div class="form-section-title" style="margin-bottom:16px;">Informasi Pendaftaran</div>
+                <!-- Alur Pendaftaran -->
+                <div class="info-card mb-4">
+                    <div class="fw-bold text-dark mb-3" style="font-size:0.9rem;">
+                        <i class="bi bi-list-ol me-2 text-primary"></i>Alur Pendaftaran
+                    </div>
                     <div class="info-item">
-                        <div class="info-icon" style="background:#eef2ff;color:#6366f1;"><i class="bi bi-calendar-check-fill"></i></div>
+                        <div class="step-badge">1</div>
                         <div>
-                            <strong>Periode Pendaftaran</strong>
-                            <p>1 Januari – 30 Juni 2026</p>
+                            <div class="fw-semibold" style="font-size:0.85rem;">Isi Formulir Online</div>
+                            <div class="text-muted" style="font-size:0.78rem;">Lengkapi semua data dengan benar</div>
                         </div>
                     </div>
                     <div class="info-item">
-                        <div class="info-icon" style="background:#f0fdf4;color:#16a34a;"><i class="bi bi-cash-coin"></i></div>
+                        <div class="step-badge">2</div>
                         <div>
-                            <strong>Biaya Pendaftaran</strong>
-                            <p>Gratis — tidak dipungut biaya apapun</p>
+                            <div class="fw-semibold" style="font-size:0.85rem;">Konfirmasi WhatsApp</div>
+                            <div class="text-muted" style="font-size:0.78rem;">Tim kami menghubungi dalam 1x24 jam</div>
                         </div>
                     </div>
                     <div class="info-item">
-                        <div class="info-icon" style="background:#fff7ed;color:#ea580c;"><i class="bi bi-whatsapp"></i></div>
+                        <div class="step-badge">3</div>
                         <div>
-                            <strong>Konfirmasi via WhatsApp</strong>
-                            <p>Tim kami akan menghubungi dalam 1×24 jam</p>
+                            <div class="fw-semibold" style="font-size:0.85rem;">Seleksi & Wawancara</div>
+                            <div class="text-muted" style="font-size:0.78rem;">Datang ke pesantren untuk wawancara</div>
                         </div>
                     </div>
                     <div class="info-item">
-                        <div class="info-icon" style="background:#faf5ff;color:#7c3aed;"><i class="bi bi-file-earmark-text-fill"></i></div>
+                        <div class="step-badge" style="background:#10b981;">4</div>
                         <div>
-                            <strong>Dokumen yang Disiapkan</strong>
-                            <p>Fotocopy KK, Akta Kelahiran, Ijazah / SKHUN terakhir</p>
+                            <div class="fw-semibold" style="font-size:0.85rem;">Diterima & Registrasi</div>
+                            <div class="text-muted" style="font-size:0.78rem;">Selesaikan administrasi daftar ulang</div>
                         </div>
                     </div>
                 </div>
 
-                <div class="info-card" style="background:linear-gradient(135deg,#0a0f2e,#1a1040);border-color:rgba(255,255,255,0.08);">
-                    <p style="color:rgba(255,255,255,0.6);font-size:0.82rem;margin-bottom:10px;">Ada pertanyaan?</p>
-                    <p style="color:#fff;font-weight:700;font-size:0.95rem;margin-bottom:14px;">Hubungi kami langsung via WhatsApp</p>
-                    <a href="https://wa.me/6281234567890" target="_blank"
-                       style="display:flex;align-items:center;justify-content:center;gap:8px;background:#25d366;color:#fff;border-radius:100px;padding:10px 20px;text-decoration:none;font-weight:700;font-size:0.9rem;transition:all 0.25s;">
-                        <i class="bi bi-whatsapp"></i> Chat WhatsApp
-                    </a>
+                <!-- Kontak -->
+                <div class="info-card">
+                    <div class="fw-bold text-dark mb-3" style="font-size:0.9rem;">
+                        <i class="bi bi-headset me-2 text-primary"></i>Butuh Bantuan?
+                    </div>
+                    <div class="info-item">
+                        <div class="info-icon" style="background:#ecfdf5;color:#059669;">
+                            <i class="bi bi-whatsapp"></i>
+                        </div>
+                        <div>
+                            <div class="fw-semibold text-dark" style="font-size:0.82rem;">WhatsApp</div>
+                            <div class="text-muted" style="font-size:0.78rem;">+62 812 3456 7890</div>
+                        </div>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-icon" style="background:#fef3c7;color:#d97706;">
+                            <i class="bi bi-clock"></i>
+                        </div>
+                        <div>
+                            <div class="fw-semibold text-dark" style="font-size:0.82rem;">Jam Layanan</div>
+                            <div class="text-muted" style="font-size:0.78rem;">Senin – Jumat, 08.00 – 16.00</div>
+                        </div>
+                    </div>
                 </div>
             </div>
 
         </div>
     </div>
-</section>
+</div>
 
 @endsection

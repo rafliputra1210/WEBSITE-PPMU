@@ -6,5 +6,12 @@ use Illuminate\Database\Eloquent\Model;
 
 class Fasilitas extends Model
 {
-    //
+    protected $table = 'fasilitas';
+
+    protected $fillable = [
+        'entitas',
+        'nama_fasilitas',
+        'deskripsi',
+        'gambar',
+    ];
 }
