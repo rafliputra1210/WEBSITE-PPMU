@@ -242,7 +242,7 @@
         /* ======= FOOTER ======= */
         .site-footer {
             background: #080d1f;
-            color: #94a3b8;
+            color: #cbd5e1;
             padding: 40px 0 0;
             margin-top: 0;
             border-top: 1px solid rgba(255,255,255,0.06);
@@ -251,7 +251,7 @@
         .footer-brand { font-weight: 800; color: #f1f5f9; font-size: 1.05rem; }
 
         .footer-tagline {
-            color: #475569;
+            color: #94a3b8;
             font-size: 0.8rem;
             line-height: 1.6;
             margin-top: 6px;
@@ -259,7 +259,7 @@
         }
 
         .footer-col-title {
-            color: #cbd5e1;
+            color: #ffffff;
             font-weight: 700;
             font-size: 0.72rem;
             text-transform: uppercase;
@@ -269,7 +269,7 @@
 
         .footer-link {
             display: block;
-            color: #475569;
+            color: #94a3b8;
             text-decoration: none;
             font-size: 0.82rem;
             padding: 3px 0;
@@ -282,7 +282,7 @@
             align-items: center;
             gap: 8px;
             font-size: 0.8rem;
-            color: #475569;
+            color: #94a3b8;
             margin-bottom: 8px;
         }
         .footer-contact-row i {
@@ -307,7 +307,7 @@
 
         .footer-copy {
             font-size: 0.75rem;
-            color: #334155;
+            color: #64748b;
         }
 
         .footer-bottom-links {
@@ -316,7 +316,7 @@
         }
         .footer-bottom-links a {
             font-size: 0.75rem;
-            color: #334155;
+            color: #64748b;
             text-decoration: none;
             transition: color 0.2s;
         }
@@ -519,6 +519,7 @@
                        href="#" data-bs-toggle="dropdown" role="button">Pesantren</a>
                     <ul class="dropdown-menu">
                         <li><a class="dropdown-item" href="{{ route('pesantren.index') }}"><i class="bi bi-house-heart me-2 text-success"></i>Portal Pesantren</a></li>
+                        <li><a class="dropdown-item" href="{{ route('pesantren.profil') }}"><i class="bi bi-journal-text me-2 text-primary"></i>Profil & Sejarah</a></li>
                         <li><a class="dropdown-item" href="{{ route('pesantren.donasi') }}"><i class="bi bi-heart me-2 text-danger"></i>Investasi Akhirat</a></li>
                         <li><a class="dropdown-item" href="{{ route('pesantren.pendaftaran') }}"><i class="bi bi-person-plus me-2 text-primary"></i>Pendaftaran</a></li>
                     </ul>
@@ -529,6 +530,7 @@
                        href="#" data-bs-toggle="dropdown" role="button">Madrasah</a>
                     <ul class="dropdown-menu">
                         <li><a class="dropdown-item" href="{{ route('madrasah.index') }}"><i class="bi bi-building me-2 text-primary"></i>Portal Madrasah</a></li>
+                        <li><a class="dropdown-item" href="{{ route('madrasah.profil') }}"><i class="bi bi-journal-text me-2 text-info"></i>Profil & Sejarah</a></li>
                         <li><a class="dropdown-item" href="{{ route('madrasah.fasilitas') }}"><i class="bi bi-building-check me-2 text-warning"></i>Fasilitas</a></li>
                         <li><a class="dropdown-item" href="{{ route('madrasah.pendaftaran') }}"><i class="bi bi-person-plus me-2 text-success"></i>Pendaftaran</a></li>
                     </ul>
@@ -613,6 +615,11 @@
                     Portal Pesantren
                     <i class="bi bi-chevron-right mob-arrow"></i>
                 </a>
+                <a href="{{ route('pesantren.profil') }}" class="mob-link {{ request()->is('pesantren/profil') ? 'active-mob' : '' }}">
+                    <span class="mob-icon" style="background:#f1f5f9;color:#475569;"><i class="bi bi-journal-text"></i></span>
+                    Profil & Sejarah
+                    <i class="bi bi-chevron-right mob-arrow"></i>
+                </a>
                 <a href="{{ route('pesantren.donasi') }}" class="mob-link {{ request()->is('pesantren/donasi*') ? 'active-mob' : '' }}">
                     <span class="mob-icon" style="background:#fef2f2;color:#ef4444;"><i class="bi bi-heart-fill"></i></span>
                     Investasi Akhirat
@@ -636,6 +643,11 @@
                 <a href="{{ route('madrasah.index') }}" class="mob-link {{ request()->is('madrasah') ? 'active-mob' : '' }}">
                     <span class="mob-icon" style="background:#ecfeff;color:#0891b2;"><i class="bi bi-building-fill"></i></span>
                     Portal Madrasah
+                    <i class="bi bi-chevron-right mob-arrow"></i>
+                </a>
+                <a href="{{ route('madrasah.profil') }}" class="mob-link {{ request()->is('madrasah/profil') ? 'active-mob' : '' }}">
+                    <span class="mob-icon" style="background:#f1f5f9;color:#0891b2;"><i class="bi bi-journal-text"></i></span>
+                    Profil & Sejarah
                     <i class="bi bi-chevron-right mob-arrow"></i>
                 </a>
                 <a href="{{ route('madrasah.fasilitas') }}" class="mob-link {{ request()->is('madrasah/fasilitas') ? 'active-mob' : '' }}">
@@ -664,7 +676,7 @@
                     <i class="bi bi-chevron-right mob-arrow"></i>
                 </a>
                 <a href="{{ route('galeri.index') }}" class="mob-link {{ request()->is('galeri*') ? 'active-mob' : '' }}">
-                    <span class="mob-icon" style="background:#fff7ed;color:#ea580c;"><i class="bi bi-images"></i></span>
+                    <span class="mob-icon" style="background:#fff7ed;color:#ea580c;"><i class="bi bi-image"></i></span>
                     Galeri Foto
                     <i class="bi bi-chevron-right mob-arrow"></i>
                 </a>

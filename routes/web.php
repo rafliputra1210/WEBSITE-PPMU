@@ -9,9 +9,7 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\FasilitasController;
 
 // 1. Rute Beranda
-Route::get('/', function () {
-    return view('home');
-})->name('home');
+Route::get('/', [\App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 // 2. Portal Pesantren
 Route::prefix('pesantren')->name('pesantren.')->group(function () {
@@ -21,6 +19,8 @@ Route::prefix('pesantren')->name('pesantren.')->group(function () {
 
     Route::get('/berita', [BeritaController::class, 'index'])->name('berita');
     Route::get('/berita/{slug}', [BeritaController::class, 'show'])->name('berita.detail');
+
+    Route::get('/profil', [\App\Http\Controllers\ProfileController::class, 'showPesantren'])->name('profil');
 
     // Pendaftaran Santri
     Route::get('/pendaftaran', function () {
@@ -48,9 +48,7 @@ Route::prefix('madrasah')->name('madrasah.')->group(function () {
         return view('madrasah.fasilitas', compact('fasilitas'));
     })->name('fasilitas');
 
-    Route::get('/profil', function () {
-        return view('madrasah.profil');
-    })->name('profil');
+    Route::get('/profil', [\App\Http\Controllers\ProfileController::class, 'showMadrasah'])->name('profil');
 });
 
 // 4. Galeri Publik
@@ -94,5 +92,21 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::get('/{fasilitas}/edit', [FasilitasController::class, 'edit'])->name('edit');
         Route::put('/{fasilitas}', [FasilitasController::class, 'update'])->name('update');
         Route::delete('/{fasilitas}', [FasilitasController::class, 'destroy'])->name('destroy');
+    });
+
+    // Program Unggulan
+    Route::prefix('program')->name('program.')->group(function () {
+        Route::get('/', [\App\Http\Controllers\ProgramController::class, 'index'])->name('index');
+        Route::get('/create', [\App\Http\Controllers\ProgramController::class, 'create'])->name('create');
+        Route::post('/', [\App\Http\Controllers\ProgramController::class, 'store'])->name('store');
+        Route::get('/{program}/edit', [\App\Http\Controllers\ProgramController::class, 'edit'])->name('edit');
+        Route::put('/{program}', [\App\Http\Controllers\ProgramController::class, 'update'])->name('update');
+        Route::delete('/{program}', [\App\Http\Controllers\ProgramController::class, 'destroy'])->name('destroy');
+    });
+
+    // Profile Settings (Sejarah, Visi, Misi)
+    Route::prefix('profile')->name('profile.')->group(function () {
+        Route::get('/', [\App\Http\Controllers\ProfileController::class, 'adminIndex'])->name('index');
+        Route::put('/{id}', [\App\Http\Controllers\ProfileController::class, 'update'])->name('update');
     });
 });

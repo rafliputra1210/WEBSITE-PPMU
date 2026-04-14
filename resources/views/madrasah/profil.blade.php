@@ -1,70 +1,121 @@
 @extends('layouts.app')
 
-@section('title', 'Profil Madrasah — Educate')
+@section('title', 'Profil Madrasah - Educate Portal')
 
 @section('content')
 <style>
     .profil-hero {
-        background: linear-gradient(135deg, rgba(59, 130, 246, 0.08) 0%, rgba(37, 99, 235, 0.1) 100%);
-        padding: 60px 0;
-        border-radius: 0 0 40px 40px;
-        margin-bottom: -40px;
+        background: linear-gradient(135deg, #f0f7ff 0%, #e0f2fe 100%);
+        padding: 160px 0 80px;
+        position: relative;
+    }
+    .section-profil { padding: 80px 0; }
+    .card-visi-misi {
+        border: none;
+        border-radius: 24px;
+        background: #ffffff;
+        box-shadow: 0 10px 30px rgba(59, 130, 246, 0.05);
+        padding: 40px;
+    }
+    .visi-title {
+        font-size: 2.5rem;
+        font-weight: 800;
+        background: linear-gradient(135deg, #3b82f6, #06b6d4);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        margin-bottom: 20px;
+    }
+    .misi-list { list-style: none; padding: 0; }
+    .misi-list li {
+        position: relative;
+        padding-left: 35px;
+        margin-bottom: 20px;
+        font-size: 1.1rem;
+        line-height: 1.7;
+        color: #475569;
+    }
+    .misi-list li::before {
+        content: '\F26A';
+        font-family: 'bootstrap-icons';
+        position: absolute;
+        left: 0;
+        top: 2px;
+        color: #3b82f6;
+        font-size: 1.3rem;
+    }
+    .sejarah-text {
+        font-size: 1.15rem;
+        line-height: 1.8;
+        color: #334155;
+        white-space: pre-line;
     }
 </style>
 
-<div class="page-padded-top">
-    <section class="profil-hero text-center mb-5 pb-5">
-        <div class="container">
-            <span class="badge bg-white text-primary px-3 py-2 rounded-pill shadow-sm mb-3">Tentang Kami</span>
-            <h1 class="display-5 fw-bold text-dark">Profil Madrasah</h1>
-            <p class="text-muted mx-auto" style="max-width: 600px;">
-                Mengenal lebih dekat lembaga pendidikan kami yang berdedikasi menciptakan generasi masa depan gemilang.
-            </p>
-        </div>
-    </section>
+<div class="profil-hero">
+    <div class="container text-center">
+        <span class="badge bg-primary-subtle text-primary px-4 py-2 rounded-pill mb-4 fw-bold">PROFIL MADRASAH</span>
+        <h1 class="display-3 fw-black text-dark mb-0">Sejarah, Visi & Misi</h1>
+        <nav aria-label="breadcrumb" class="mt-4">
+            <ol class="breadcrumb justify-content-center">
+                <li class="breadcrumb-item"><a href="{{ route('home') }}" class="text-decoration-none text-primary">Beranda</a></li>
+                <li class="breadcrumb-item"><a href="{{ route('madrasah.index') }}" class="text-decoration-none text-primary">Madrasah</a></li>
+                <li class="breadcrumb-item active">Profil</li>
+            </ol>
+        </nav>
+    </div>
+</div>
 
-    <div class="container py-5 mt-4">
-        <div class="row align-items-center flex-row-reverse g-5">
-            <div class="col-lg-6 mb-4 mb-lg-0">
-                <div class="position-relative">
-                    <img src="https://images.unsplash.com/photo-1523050854058-8df90110c9f1?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" 
-                         class="img-fluid rounded-4 shadow-lg border border-4 border-white" alt="Profil Madrasah">
-                    <div class="position-absolute bottom-0 start-0 translate-middle-y bg-white p-3 rounded-4 shadow-sm border border-light ms-n3" style="max-width: 250px;">
-                        <h6 class="fw-bold mb-1"><i class="bi bi-star-fill text-warning me-2"></i>Mencetak 10.000+</h6>
-                        <p class="mb-0 text-muted small">Alumni Berprestasi</p>
+<section class="section-profil bg-white">
+    <div class="container">
+        <div class="row g-5 align-items-center mb-5">
+            <div class="col-lg-6 order-lg-2">
+                @if($profile && $profile->gambar)
+                    <img src="{{ asset('storage/' . $profile->gambar) }}" class="img-fluid rounded-5 shadow-lg w-100" style="object-fit: cover; height: 450px;">
+                @else
+                    <img src="https://images.unsplash.com/photo-1577896851231-70ef18881754?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" class="img-fluid rounded-5 shadow-lg w-100" style="object-fit: cover; height: 450px;">
+                @endif
+            </div>
+            <div class="col-lg-6 order-lg-1">
+                <div class="pe-lg-4">
+                    <h2 class="fw-bold text-dark mb-4" style="font-size: 2.5rem;">Sejarah Madrasah</h2>
+                    <div class="sejarah-text">
+                        {{ $profile && $profile->sejarah ? $profile->sejarah : 'Informasi sejarah madrasah sedang disusun oleh tim redaksi. Nantikan pembaruan segera.' }}
                     </div>
                 </div>
             </div>
-            
-            <div class="col-lg-6 pe-lg-5">
-                <h6 class="text-primary text-uppercase fw-bold tracking-wide mb-2">Visi & Misi Kami</h6>
-                <h2 class="display-6 fw-bold mb-4" style="letter-spacing:-0.5px;">Mencetak Generasi Cerdas & Beradab</h2>
-                
-                <p class="lead text-muted" style="font-size:1.05rem; line-height:1.7;">Madrasah kami memadukan kurikulum nasional yang komprehensif dengan pendidikan karakter islami yang kuat sejak tahun berdiri.</p>
-                <p class="text-muted" style="line-height:1.7;">Dengan tenaga pendidik bersertifikasi dan lingkungan belajar yang interaktif, kami membekali siswa dengan kompetensi sains, teknologi, serta pemahaman agama yang inklusif untuk menyambut masa depan yang penuh tantangan global.</p>
-                
-                <div class="row mt-5 g-4">
-                    <div class="col-sm-6">
-                        <div class="d-flex align-items-center p-3 rounded-3" style="background:#eff6ff;">
-                            <i class="bi bi-book display-6 text-primary me-3"></i>
-                            <div>
-                                <h5 class="fw-bold mb-0">Kurikulum</h5>
-                                <small class="text-muted">Terintegrasi Nasional</small>
+        </div>
+
+        <div class="row g-4 mt-5 text-center">
+            <div class="col-lg-12 mb-4">
+                <div class="card-visi-misi">
+                    <h3 class="visi-title">Visi Madrasah</h3>
+                    <p class="fs-3 text-secondary leading-relaxed mb-0 px-lg-5">
+                        "{{ $profile && $profile->visi ? $profile->visi : 'Terwujudnya Peserta Didik yang Berakhlakul Karimah, Cerdas, dan Berwawasan Global.' }}"
+                    </p>
+                </div>
+            </div>
+            <div class="col-lg-12">
+                <div class="card-visi-misi text-start">
+                    <h3 class="visi-title text-center mb-4">Misi Strategis</h3>
+                    @if($profile && $profile->misi)
+                        <div class="row justify-content-center">
+                            <div class="col-lg-10">
+                                <ul class="misi-list">
+                                    @foreach(explode("\n", $profile->misi) as $m)
+                                        @if(trim($m))
+                                            <li>{{ trim($m) }}</li>
+                                        @endif
+                                    @endforeach
+                                </ul>
                             </div>
                         </div>
-                    </div>
-                    <div class="col-sm-6">
-                        <div class="d-flex align-items-center p-3 rounded-3" style="background:#eff6ff;">
-                            <i class="bi bi-trophy display-6 text-primary me-3"></i>
-                            <div>
-                                <h5 class="fw-bold mb-0">Akreditasi A</h5>
-                                <small class="text-muted">Standar Pendidikan Tinggi</small>
-                            </div>
-                        </div>
-                    </div>
+                    @else
+                        <p class="text-muted text-center">Informasi misi sedang dalam tahap finalisasi.</p>
+                    @endif
                 </div>
             </div>
         </div>
     </div>
-</div>
+</section>
+
 @endsection

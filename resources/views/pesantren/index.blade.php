@@ -88,10 +88,10 @@
 
 <section class="py-5 bg-white" style="margin-top: -40px; position: relative; z-index: 20; border-radius: 40px 40px 0 0;">
     <div class="container py-4">
-        <div class="row g-4">
+        <div class="row g-4 justify-content-center">
             
-            <div class="col-md-4 col-sm-6">
-                <a href="#" class="text-decoration-none">
+            <div class="col-md-6">
+                <a href="{{ route('pesantren.profil') }}" class="text-decoration-none">
                     <div class="card card-menu h-100 p-4 bg-white shadow-sm text-center">
                         <div class="icon-wrapper bg-primary-subtle text-primary mx-auto">
                             <i class="bi bi-journal-text fs-2"></i>
@@ -102,7 +102,7 @@
                 </a>
             </div>
 
-            <div class="col-md-4 col-sm-6">
+            <div class="col-md-6">
                 <a href="#" class="text-decoration-none">
                     <div class="card card-menu h-100 p-4 bg-white shadow-sm text-center">
                         <div class="icon-wrapper bg-info-subtle text-info mx-auto">
@@ -110,49 +110,6 @@
                         </div>
                         <h5 class="fw-bold text-dark mb-2">Fasilitas & Asrama</h5>
                         <p class="text-muted small font-light mb-0">Lihat sarana prasarana yang mendukung kenyamanan belajar dan menetap santri.</p>
-                    </div>
-                </a>
-            </div>
-
-            <div class="col-md-4 col-sm-6">
-                <a href="#" class="text-decoration-none">
-                    <div class="card card-menu h-100 p-4 bg-white shadow-sm text-center">
-                        <div class="icon-wrapper bg-warning-subtle text-warning mx-auto">
-                            <i class="bi bi-trophy fs-2"></i>
-                        </div>
-                        <h5 class="fw-bold text-dark mb-2">Galeri Prestasi</h5>
-                        <p class="text-muted small font-light mb-0">Kumpulan medali, penghargaan, dan pencapaian membanggakan santri.</p>
-                    </div>
-                </a>
-            </div>
-
-            <div class="col-md-4 col-sm-6">
-                <a href="#" class="text-decoration-none">
-                    <div class="card card-menu h-100 p-4 bg-white shadow-sm text-center">
-                        <div class="icon-wrapper bg-secondary-subtle text-secondary mx-auto">
-                            <i class="bi bi-images fs-2"></i>
-                        </div>
-                        <h5 class="fw-bold text-dark mb-2">Potret Pesantren</h5>
-                        <p class="text-muted small font-light mb-0">Dokumentasi kegiatan harian, kajian kitab, dan momen berharga lainnya.</p>
-                    </div>
-                </a>
-            </div>
-
-            <div class="col-md-8 col-sm-12">
-                <a href="{{ route('pesantren.donasi') }}" class="text-decoration-none">
-                    <div class="card card-menu h-100 p-4 shadow-sm border-0" style="background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%); border: 1px solid #bbf7d0 !important;">
-                        <div class="row align-items-center h-100">
-                            <div class="col-sm-8 text-start p-lg-4">
-                                <span class="badge bg-success-subtle text-success mb-3 fw-bold rounded-pill px-3 py-2">Salurkan Kebaikan</span>
-                                <h4 class="fw-bold text-dark mb-2">Investasi Akhirat</h4>
-                                <p class="text-muted font-light mb-0">Dukung pembangunan fasilitas, operasional pesantren, dan beasiswa santri. Setiap donasi Anda adalah amal jariyah yang tak terputus.</p>
-                            </div>
-                            <div class="col-sm-4 text-center mt-4 mt-sm-0">
-                                <div class="bg-success text-white rounded-circle d-inline-flex align-items-center justify-content-center shadow-lg" style="width: 90px; height: 90px;">
-                                    <i class="bi bi-heart-fill fs-1"></i>
-                                </div>
-                            </div>
-                        </div>
                     </div>
                 </a>
             </div>

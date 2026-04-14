@@ -514,24 +514,13 @@
                     </a>
                 </div>
                 <div class="hero-stats">
-                    <div class="hero-stat-item">
-                        <h3>1.2K+</h3>
-                        <p>Santri Aktif</p>
-                    </div>
-                    <div class="hero-stat-item">
-                        <h3>85+</h3>
-                        <p>Asatidz</p>
-                    </div>
-                    <div class="hero-stat-item">
-                        <h3>15+</h3>
-                        <p>Tahun Berdiri</p>
-                    </div>
+                    
                 </div>
             </div>
             <div class="col-lg-6 d-none d-lg-block">
                 <div class="hero-visual">
                     <div class="hero-img-wrapper">
-                        <img src="https://images.unsplash.com/photo-1544717305-2782549b5136?ixlib=rb-4.0.3&auto=format&fit=crop&w=900&q=80"
+                        <img src="{{ asset('images/foto1.jpeg') }}"
                              alt="Santri belajar bersama di pesantren">
                         <div class="overlay-dark" style="position:absolute;inset:0;background:linear-gradient(180deg,transparent 50%,rgba(10,15,46,0.6));"></div>
                     </div>
@@ -651,61 +640,47 @@
         </div>
 
         <div class="row g-4">
+            @forelse($programs as $prog)
             <div class="col-md-6 col-lg-4">
-                <div class="program-card position-relative shadow-sm">
+                <div class="program-card position-relative shadow-sm h-100">
                     <div style="position:relative;">
-                        <img src="https://images.unsplash.com/photo-1578496780929-60dc9c6b4ee9?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80"
-                             class="program-card-img" alt="Program Tahfidz">
-                        <span class="program-badge bg-success text-white">⭐ Unggulan</span>
+                        <img src="{{ asset('storage/' . $prog->gambar) }}"
+                             class="program-card-img" alt="{{ $prog->nama }}">
+                        @if($prog->badge_teks)
+                        <span class="program-badge {{ $prog->badge_warna ?: 'bg-success text-white' }}">
+                            {{ $prog->badge_teks }}
+                        </span>
+                        @endif
                     </div>
-                    <div class="p-4">
-                        <h5 class="fw-bold text-dark mb-2">Program Tahfidz Al-Qur'an</h5>
-                        <p class="text-secondary small mb-3" style="line-height:1.6;">Hafalan 30 Juz dengan metode setoran harian dan muraja'ah terstruktur bimbingan asatidz berpengalaman.</p>
-                        <div class="d-flex align-items-center justify-content-between">
+                    <div class="p-4 d-flex flex-column h-100">
+                        <h5 class="fw-bold text-dark mb-2">{{ $prog->nama }}</h5>
+                        <p class="text-secondary small mb-3 flex-grow-1" style="line-height:1.6;">{{ $prog->deskripsi }}</p>
+                        <div class="d-flex align-items-center justify-content-between mt-auto">
                             <div class="d-flex gap-2">
-                                <span class="badge bg-success-subtle text-success rounded-pill px-3 py-2 small fw-semibold">Pesantren</span>
+                                <span class="badge {{ $prog->kategori == 'Pesantren' ? 'bg-success-subtle text-success' : 'bg-info-subtle text-info' }} rounded-pill px-3 py-2 small fw-semibold">
+                                    {{ $prog->kategori }}
+                                </span>
                             </div>
-                            <a href="{{ route('pesantren.pendaftaran') }}" class="text-primary fw-bold small text-decoration-none">Daftar →</a>
+                            @php
+                                $link = '#';
+                                if($prog->link_daftar) {
+                                    if(Route::has($prog->link_daftar)) {
+                                        $link = route($prog->link_daftar);
+                                    } else {
+                                        $link = $prog->link_daftar;
+                                    }
+                                }
+                            @endphp
+                            <a href="{{ $link }}" class="text-primary fw-bold small text-decoration-none">Daftar →</a>
                         </div>
                     </div>
                 </div>
             </div>
-
-            <div class="col-md-6 col-lg-4">
-                <div class="program-card position-relative shadow-sm">
-                    <div style="position:relative;">
-                        <img src="https://images.unsplash.com/photo-1509062522246-3755977927d7?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80"
-                             class="program-card-img" alt="Madrasah Ibtidaiyah">
-                        <span class="program-badge" style="background:rgba(99,102,241,0.9);color:#fff;">Formal</span>
-                    </div>
-                    <div class="p-4">
-                        <h5 class="fw-bold text-dark mb-2">Madrasah Ibtidaiyah</h5>
-                        <p class="text-secondary small mb-3" style="line-height:1.6;">Pendidikan dasar berbasis kurikulum nasional plus diniyah yang membentuk fondasi ilmu dan akhlak sejak dini.</p>
-                        <div class="d-flex align-items-center justify-content-between">
-                            <span class="badge" style="background:rgba(99,102,241,0.1);color:#6366f1;border-radius:100px;padding:7px 14px;font-size:0.75rem;font-weight:600;">Madrasah</span>
-                            <a href="{{ route('madrasah.pendaftaran') }}" class="text-primary fw-bold small text-decoration-none">Daftar →</a>
-                        </div>
-                    </div>
-                </div>
+            @empty
+            <div class="col-12 text-center py-4">
+                <p class="text-muted">Belum ada program unggulan.</p>
             </div>
-
-            <div class="col-md-6 col-lg-4">
-                <div class="program-card position-relative shadow-sm">
-                    <div style="position:relative;">
-                        <img src="https://images.unsplash.com/photo-1627556704302-624286467c65?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80"
-                             class="program-card-img" alt="Kajian Kitab Kuning">
-                        <span class="program-badge" style="background:rgba(245,158,11,0.9);color:#fff;">Tradisional</span>
-                    </div>
-                    <div class="p-4">
-                        <h5 class="fw-bold text-dark mb-2">Kajian Kitab Kuning</h5>
-                        <p class="text-secondary small mb-3" style="line-height:1.6;">Mendalami khazanah keilmuan Islam klasik melalui kajian kitab-kitab para ulama salaf yang otoritatif.</p>
-                        <div class="d-flex align-items-center justify-content-between">
-                            <span class="badge rounded-pill px-3 py-2 small fw-semibold" style="background:rgba(245,158,11,0.1);color:#f59e0b;">Pesantren</span>
-                            <a href="{{ route('pesantren.pendaftaran') }}" class="text-primary fw-bold small text-decoration-none">Daftar →</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            @endforelse
         </div>
     </div>
 </section>

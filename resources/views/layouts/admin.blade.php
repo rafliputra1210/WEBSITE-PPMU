@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Dashboard - Educate Portal</title>
+    <title>Admin Dashboard - ADMIN PPMU</title>
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
     <!-- Bootstrap -->
@@ -80,7 +80,7 @@
     <!-- Sidebar -->
     <div class="sidebar d-flex flex-column">
         <a href="{{ route('admin.dashboard') }}" class="logo-text text-decoration-none">
-            Educate<span class="text-primary">Admin</span>
+            PPMU<span class="text-primary">Admin</span>
         </a>
         
         <ul class="nav flex-column mb-auto">
@@ -107,6 +107,16 @@
             <li class="nav-item">
                 <a href="{{ route('admin.fasilitas.index') }}" class="nav-link {{ request()->is('admin/fasilitas*') ? 'active' : '' }}">
                     <i class="bi bi-building-check"></i> Fasilitas
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="{{ route('admin.program.index') }}" class="nav-link {{ request()->is('admin/program*') ? 'active' : '' }}">
+                    <i class="bi bi-star-fill"></i> Program
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="{{ route('admin.profile.index') }}" class="nav-link {{ request()->is('admin/profile*') ? 'active' : '' }}">
+                    <i class="bi bi-person-workspace"></i> Pengaturan Profil
                 </a>
             </li>
             <li class="nav-item">
