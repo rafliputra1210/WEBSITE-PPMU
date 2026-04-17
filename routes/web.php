@@ -78,6 +78,16 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::delete('/{galeri}', [AdminController::class, 'galeriDestroy'])->name('destroy');
     });
 
+    // Donasi
+    Route::prefix('donasi')->name('donasi.')->group(function () {
+        Route::get('/', [AdminController::class, 'donasiIndex'])->name('index');
+        Route::get('/create', [AdminController::class, 'donasiCreate'])->name('create');
+        Route::post('/', [AdminController::class, 'donasiStore'])->name('store');
+        Route::get('/{donasi}/edit', [AdminController::class, 'donasiEdit'])->name('edit');
+        Route::put('/{donasi}', [AdminController::class, 'donasiUpdate'])->name('update');
+        Route::delete('/{donasi}', [AdminController::class, 'donasiDestroy'])->name('destroy');
+    });
+
     // Pendaftaran Santri
     Route::prefix('pendaftaran')->name('pendaftaran.')->group(function () {
         Route::get('/', [PendaftaranController::class, 'adminIndex'])->name('index');

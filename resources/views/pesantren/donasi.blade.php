@@ -487,8 +487,30 @@
                             @enderror
                         </div>
 
+                        {{-- NO WA --}}
+                        <div class="mb-4">
+                            <label class="form-label">Nomor WhatsApp <span style="font-weight:400;color:#94a3b8;">(Opsional)</span></label>
+                            <input type="text" name="no_wa" class="form-control @error('no_wa') is-invalid @enderror"
+                                   placeholder="Contoh: 081234567890" value="{{ old('no_wa') }}">
+                            @error('no_wa')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
+                        </div>
+
+                        {{-- JENIS DONASI --}}
+                        <div class="mb-4">
+                            <label class="form-label">Jenis Donasi</label>
+                            <select name="jenis_donasi" id="jenis_donasi" class="form-control @error('jenis_donasi') is-invalid @enderror" onchange="toggleNominal(this.value)">
+                                <option value="nominal" {{ old('jenis_donasi') == 'nominal' ? 'selected' : '' }}>Donasi Uang (Nominal)</option>
+                                <option value="material" {{ old('jenis_donasi') == 'material' ? 'selected' : '' }}>Donasi Barang (Material)</option>
+                            </select>
+                            @error('jenis_donasi')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
+                        </div>
+
                         {{-- NOMINAL QUICK SELECT --}}
-                        <div class="mb-3">
+                        <div class="mb-3" id="nominal_quick_select">
                             <label class="form-label">Pilih Nominal</label>
                             <div class="row g-2">
                                 <div class="col-4 col-md-3">
@@ -535,11 +557,11 @@
                         </div>
 
                         {{-- NOMINAL INPUT --}}
-                        <div class="mb-4">
+                        <div class="mb-4" id="nominal_input_group">
                             <label class="form-label">Nominal Donasi (Rp)</label>
                             <input type="number" name="jumlah_donasi" id="jumlah_donasi"
                                    class="form-control @error('jumlah_donasi') is-invalid @enderror"
-                                   placeholder="Minimal Rp 10.000" value="{{ old('jumlah_donasi') }}" min="10000" required>
+                                   placeholder="Minimal Rp 10.000" value="{{ old('jumlah_donasi') }}" min="10000">
                             @error('jumlah_donasi')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
@@ -600,6 +622,20 @@
                             </button>
                         </div>
                     </div>
+
+                    <div class="rekening-card mt-3">
+                        <div class="d-flex align-items-center gap-3">
+                            <div class="bank-logo" style="width: 56px; height: 56px;"><img src="https://upload.wikimedia.org/wikipedia/commons/d/d0/QRIS_logo.svg" alt="QRIS" style="width:100%;"></div>
+                            <div class="flex-grow-1">
+                                <div style="font-size:0.75rem;color:#059669;font-weight:700;text-transform:uppercase;letter-spacing:0.5px;">Scan QRIS</div>
+                                <div style="font-size:1rem;font-weight:800;color:#064e3b;letter-spacing:0.5px;">Gunakan Aplikasi E-Wallet/M-Banking</div>
+                                <div style="font-size:0.78rem;color:#64748b;">a.n. Yayasan Pesantren Terpadu</div>
+                            </div>
+                            <button class="copy-btn py-2 px-3" style="background:#0f172a;" onclick="alert('Silakan scan QRIS dengan aplikasi M-Banking atau E-Wallet Anda.')">
+                                <i class="bi bi-qr-code-scan me-1"></i> Scan
+                            </button>
+                        </div>
+                    </div>
                 </div>
 
                 {{-- DONATUR TERBARU --}}
@@ -616,10 +652,19 @@
                             </div>
                             <div class="flex-grow-1">
                                 <div style="font-weight:700;color:#1e293b;font-size:0.9rem;">{{ $d->nama_donatur }}</div>
-                                <div style="font-size:0.78rem;color:#94a3b8;">{{ $d->tanggal_donasi->diffForHumans() }}</div>
+                                <div style="font-size:0.78rem;color:#94a3b8;">
+                                    {{ $d->tanggal_donasi->diffForHumans() }} 
+                                    @if($d->no_wa)
+                                        | WA: {{ substr($d->no_wa, 0, 4) . '***' . substr($d->no_wa, -2) }}
+                                    @endif
+                                </div>
                             </div>
                             <div style="font-weight:800;color:#059669;font-size:0.9rem;">
-                                Rp {{ number_format($d->jumlah_donasi, 0, ',', '.') }}
+                                @if($d->jenis_donasi == 'material')
+                                    <span class="badge bg-success bg-opacity-25 text-success px-2 py-1">Donasi Material</span>
+                                @else
+                                    Rp {{ number_format($d->jumlah_donasi, 0, ',', '.') }}
+                                @endif
                             </div>
                         </div>
                     @empty
@@ -631,6 +676,89 @@
                         </div>
                     @endforelse
                 </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+{{-- ===================== LEADERBOARD DONASI ===================== --}}
+<section style="padding:60px 0;background:#f8fafb;border-top:1px solid #f1f5f9;">
+    <div class="container">
+        <div class="text-center mb-5">
+             <span class="section-chip-green">Transparansi</span>
+             <h2 style="font-size:clamp(1.8rem,4vw,2.4rem);font-weight:800;color:#0f172a;letter-spacing:-0.5px;">
+                 Leaderboard Donasi
+             </h2>
+             <p style="color:#64748b;font-size:1rem;max-width:520px;margin:12px auto 0;">
+                 Daftar hamba Allah yang telah menyisihkan sebagian hartanya untuk pembangunan pesantren.
+             </p>
+        </div>
+
+        <div class="form-card mx-auto" style="max-width:900px; padding:1.5rem;">
+            <div class="table-responsive">
+                <table class="table table-hover align-middle mb-0" style="min-width: 600px;">
+                    <thead style="background: rgba(16,185,129,0.05);">
+                        <tr>
+                            <th class="ps-3 py-3 rounded-start" style="font-size:0.85rem;color:#64748b;font-weight:700;text-transform:uppercase;letter-spacing:1px;border-bottom:none;">Rank</th>
+                            <th class="py-3" style="font-size:0.85rem;color:#64748b;font-weight:700;text-transform:uppercase;letter-spacing:1px;border-bottom:none;">Nama Donatur</th>
+                            <th class="py-3" style="font-size:0.85rem;color:#64748b;font-weight:700;text-transform:uppercase;letter-spacing:1px;border-bottom:none;">Jenis Donasi</th>
+                            <th class="py-3" style="font-size:0.85rem;color:#64748b;font-weight:700;text-transform:uppercase;letter-spacing:1px;border-bottom:none;">Nomor WA</th>
+                            <th class="pe-3 py-3 rounded-end text-end" style="font-size:0.85rem;color:#64748b;font-weight:700;text-transform:uppercase;letter-spacing:1px;border-bottom:none;">Nominal</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @forelse($leaderboardDonasi as $index => $donatur)
+                        <tr style="border-bottom: 1px solid #f1f5f9;">
+                            <td class="ps-3 py-3">
+                                @if($index == 0)
+                                    <span class="badge" style="background:#f59e0b;color:#fff;font-size:1rem;padding:0.4rem 0.6rem;"><i class="bi bi-trophy-fill"></i> 1</span>
+                                @elseif($index == 1)
+                                    <span class="badge" style="background:#94a3b8;color:#fff;font-size:0.9rem;padding:0.35rem 0.55rem;"><i class="bi bi-trophy-fill"></i> 2</span>
+                                @elseif($index == 2)
+                                    <span class="badge" style="background:#b45309;color:#fff;font-size:0.85rem;padding:0.3rem 0.5rem;"><i class="bi bi-trophy-fill"></i> 3</span>
+                                @else
+                                    <span style="font-weight:800;color:#94a3b8;margin-left:10px;">{{ $index + 1 }}</span>
+                                @endif
+                            </td>
+                            <td class="py-3">
+                                <div style="font-weight:700;color:#1e293b;font-size:0.95rem;">{{ $donatur->nama_donatur }}</div>
+                                <div style="font-size:0.75rem;color:#94a3b8;">{{ $donatur->tanggal_donasi->format('d M Y') }}</div>
+                            </td>
+                            <td class="py-3">
+                                @if($donatur->jenis_donasi == 'material')
+                                    <span class="badge bg-success bg-opacity-25 text-success">Barang/Material</span>
+                                @else
+                                    <span class="badge bg-primary bg-opacity-25 text-primary">Uang/Nominal</span>
+                                @endif
+                            </td>
+                            <td class="py-3">
+                                <span style="font-family:monospace;font-size:0.9rem;color:#64748b;">
+                                    @if($donatur->no_wa)
+                                        {{ substr($donatur->no_wa, 0, 4) . '***' . substr($donatur->no_wa, -2) }}
+                                    @else
+                                        -
+                                    @endif
+                                </span>
+                            </td>
+                            <td class="pe-3 py-3 text-end">
+                                <div style="font-weight:800;color:#059669;font-size:0.95rem;">
+                                    @if($donatur->jenis_donasi == 'material')
+                                        -
+                                    @else
+                                        Rp {{ number_format($donatur->jumlah_donasi, 0, ',', '.') }}
+                                    @endif
+                                </div>
+                            </td>
+                        </tr>
+                        @empty
+                        <tr>
+                            <td colspan="5" class="text-center py-5">
+                                <div style="color:#94a3b8;font-size:0.9rem;">Belum ada data donatur...</div>
+                            </td>
+                        </tr>
+                        @endforelse
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>
@@ -735,6 +863,29 @@
         document.querySelectorAll('.nominal-btn').forEach(b => {
             b.classList.toggle('active', parseInt(b.dataset.nominal) === val);
         });
+    });
+
+    // Toggle Nominal/Material
+    function toggleNominal(jenis) {
+        const quickSelect = document.getElementById('nominal_quick_select');
+        const inputGroup = document.getElementById('nominal_input_group');
+        const inputField = document.getElementById('jumlah_donasi');
+        
+        if (jenis === 'material') {
+            quickSelect.style.display = 'none';
+            inputGroup.style.display = 'none';
+            inputField.removeAttribute('required');
+        } else {
+            quickSelect.style.display = 'block';
+            inputGroup.style.display = 'block';
+            inputField.setAttribute('required', 'required');
+        }
+    }
+    
+    // Init state on load
+    window.addEventListener('DOMContentLoaded', () => {
+        const val = document.getElementById('jenis_donasi').value;
+        toggleNominal(val);
     });
 </script>
 @endsection

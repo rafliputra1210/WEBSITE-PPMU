@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Berita;
 use App\Models\Galeri;
+use App\Models\Donatur;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Storage;
 
@@ -177,5 +178,81 @@ class AdminController extends Controller
         $galeri->delete();
 
         return redirect()->route('admin.galeri.index')->with('success', 'Foto galeri berhasil dihapus.');
+    }
+
+    // ==========================================
+    // CRUD DONASI
+    // ==========================================
+
+    public function donasiIndex()
+    {
+        $donaturs = Donatur::latest('id')->paginate(10);
+        return view('admin.donasi.index', compact('donaturs'));
+    }
+
+    public function donasiCreate()
+    {
+        return view('admin.donasi.create');
+    }
+
+    public function donasiStore(Request $request)
+    {
+        $request->validate([
+            'nama_donatur' => 'required|string|max:255',
+            'jenis_donasi' => 'required|in:nominal,material',
+            'no_wa'        => 'nullable|string|max:20',
+            'jumlah_donasi'=> 'required_if:jenis_donasi,nominal|numeric|min:0',
+            'pesan'        => 'nullable|string',
+            'tanggal_donasi'=> 'required|date',
+            'status'       => 'required|in:pending,berhasil',
+        ]);
+
+        Donatur::create([
+            'nama_donatur' => $request->nama_donatur,
+            'jenis_donasi' => $request->jenis_donasi,
+            'no_wa'        => $request->no_wa,
+            'jumlah_donasi'=> $request->jumlah_donasi ?? 0,
+            'pesan'        => $request->pesan,
+            'tanggal_donasi'=> $request->tanggal_donasi,
+            'status'       => $request->status,
+        ]);
+
+        return redirect()->route('admin.donasi.index')->with('success', 'Data Donasi berhasil ditambahkan.');
+    }
+
+    public function donasiEdit(Donatur $donasi)
+    {
+        return view('admin.donasi.edit', compact('donasi'));
+    }
+
+    public function donasiUpdate(Request $request, Donatur $donasi)
+    {
+        $request->validate([
+            'nama_donatur' => 'required|string|max:255',
+            'jenis_donasi' => 'required|in:nominal,material',
+            'no_wa'        => 'nullable|string|max:20',
+            'jumlah_donasi'=> 'required_if:jenis_donasi,nominal|numeric|min:0',
+            'pesan'        => 'nullable|string',
+            'tanggal_donasi'=> 'required|date',
+            'status'       => 'required|in:pending,berhasil',
+        ]);
+
+        $donasi->update([
+            'nama_donatur' => $request->nama_donatur,
+            'jenis_donasi' => $request->jenis_donasi,
+            'no_wa'        => $request->no_wa,
+            'jumlah_donasi'=> $request->jumlah_donasi ?? 0,
+            'pesan'        => $request->pesan,
+            'tanggal_donasi'=> $request->tanggal_donasi,
+            'status'       => $request->status,
+        ]);
+
+        return redirect()->route('admin.donasi.index')->with('success', 'Data Donasi berhasil diperbarui.');
+    }
+
+    public function donasiDestroy(Donatur $donasi)
+    {
+        $donasi->delete();
+        return redirect()->route('admin.donasi.index')->with('success', 'Data Donasi berhasil dihapus.');
     }
 }

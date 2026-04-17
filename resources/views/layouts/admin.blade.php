@@ -95,7 +95,7 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a href="#" class="nav-link">
+                <a href="{{ route('admin.donasi.index') }}" class="nav-link {{ request()->is('admin/donasi*') ? 'active' : '' }}">
                     <i class="bi bi-heart-fill"></i> Donasi & Donatur
                 </a>
             </li>

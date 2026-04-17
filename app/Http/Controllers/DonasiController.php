@@ -24,12 +24,19 @@ class DonasiController extends Controller
             ->limit(10)
             ->get();
 
+        // Ambil donatur untuk leaderboard
+        $leaderboardDonasi = Donatur::where('status', 'berhasil')
+            ->orderBy('jumlah_donasi', 'desc')
+            ->orderBy('tanggal_donasi', 'desc')
+            ->get();
+
         return view('pesantren.donasi', compact(
             'totalTerkumpul',
             'targetDonasi',
             'persentase',
             'jumlahDonatur',
-            'donaturTerbaru'
+            'donaturTerbaru',
+            'leaderboardDonasi'
         ));
     }
 
@@ -40,13 +47,17 @@ class DonasiController extends Controller
     {
         $validated = $request->validate([
             'nama_donatur' => 'nullable|string|max:255',
-            'jumlah_donasi' => 'required|numeric|min:10000',
+            'jenis_donasi' => 'required|in:nominal,material',
+            'no_wa' => 'nullable|string|max:20',
+            'jumlah_donasi' => 'nullable|required_if:jenis_donasi,nominal|numeric|min:10000',
             'pesan' => 'nullable|string|max:1000',
         ]);
 
         Donatur::create([
             'nama_donatur' => $validated['nama_donatur'] ?: 'Hamba Allah',
-            'jumlah_donasi' => $validated['jumlah_donasi'],
+            'jenis_donasi' => $validated['jenis_donasi'],
+            'no_wa' => $validated['no_wa'],
+            'jumlah_donasi' => $validated['jumlah_donasi'] ?? 0,
             'pesan' => $validated['pesan'],
             'tanggal_donasi' => now()->toDateString(),
             'status' => 'pending', // Admin akan mengonfirmasi setelah pembayaran
