@@ -6,17 +6,17 @@
 <style>
     /* ==================== HERO MADRASAH ==================== */
     .hero-madrasah {
-        background: linear-gradient(135deg, rgba(59, 130, 246, 0.08) 0%, rgba(37, 99, 235, 0.1) 100%);
+        background: linear-gradient(135deg, rgba(16, 185, 129, 0.08) 0%, rgba(5, 150, 105, 0.1) 100%);
         padding-top: 180px;
         padding-bottom: 100px;
         position: relative;
     }
     
     .btn-madrasah {
-        background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+        background: linear-gradient(135deg, #10b981 0%, #059669 100%);
         color: white;
         border: none;
-        box-shadow: 0 4px 15px rgba(59, 130, 246, 0.25);
+        box-shadow: 0 4px 15px rgba(16, 185, 129, 0.25);
     }
     
     .btn-madrasah:hover {
@@ -34,8 +34,8 @@
 
     .card-menu:hover {
         transform: translateY(-8px);
-        box-shadow: 0 15px 35px rgba(59, 130, 246, 0.1) !important;
-        border-color: rgba(59, 130, 246, 0.2);
+        box-shadow: 0 15px 35px rgba(16, 185, 129, 0.1) !important;
+        border-color: rgba(16, 185, 129, 0.2);
     }
 
     .icon-wrapper {
@@ -53,11 +53,11 @@
     <div class="container relative z-10">
         <div class="row align-items-center justify-content-between g-5">
             <div class="col-lg-6 text-center text-lg-start">
-                <span class="badge bg-white text-primary px-4 py-2 rounded-pill shadow-sm mb-4 border border-primary-subtle fw-semibold tracking-wide">
+                <span class="badge bg-white text-success px-4 py-2 rounded-pill shadow-sm mb-4 border border-success-subtle fw-semibold tracking-wide">
                     📘 Madrasah Berprestasi Terdepan
                 </span>
                 <h1 class="display-4 fw-extrabold mb-4 text-dark leading-tight" style="letter-spacing: -1px;">
-                    Portal <span class="text-primary" style="background: linear-gradient(135deg, #3b82f6, #2563eb); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Madrasah</span>
+                    Portal <span class="text-success" style="background: linear-gradient(135deg, #10b981, #059669); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Madrasah</span>
                 </h1>
                 <p class="lead text-secondary mb-5 font-light" style="font-size: 1.1rem; max-width: 500px;">
                     Pendidikan formal unggulan dengan kurikulum integrasi nasional dan nilai-nilai keislaman. Menyiapkan generasi cerdas dan berakhlak mulia.
@@ -73,7 +73,7 @@
                     
                     <div class="position-absolute top-50 start-0 translate-middle-x bg-white p-3 rounded-4 shadow-lg text-start border border-light" style="width: 200px;">
                         <div class="d-flex align-items-center gap-3">
-                            <div class="bg-primary-subtle text-primary rounded-circle d-flex align-items-center justify-content-center" style="width: 45px; height: 45px;">
+                            <div class="bg-success-subtle text-success rounded-circle d-flex align-items-center justify-content-center" style="width: 45px; height: 45px;">
                                 <i class="bi bi-award fs-5"></i>
                             </div>
                             <div>
@@ -96,7 +96,7 @@
             <div class="col-md-4 col-sm-6">
                 <a href="{{ route('madrasah.profil') }}" class="text-decoration-none">
                     <div class="card card-menu h-100 p-4 bg-white shadow-sm text-center border-0">
-                        <div class="icon-wrapper bg-primary-subtle text-primary mx-auto">
+                        <div class="icon-wrapper bg-success-subtle text-success mx-auto">
                             <i class="bi bi-journal-text fs-2"></i>
                         </div>
                         <h5 class="fw-bold text-dark mb-2">Profil Madrasah</h5>
@@ -130,15 +130,15 @@
             </div>
             
             <div class="col-md-8 col-sm-12 mt-4">
-                <div class="card p-4 shadow-sm border-0" style="background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%); border: 1px solid #bfdbfe !important; border-radius: var(--radius-lg);">
+                <div class="card p-4 shadow-sm border-0" style="background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%); border: 1px solid #bbf7d0 !important; border-radius: var(--radius-lg);">
                     <div class="row align-items-center h-100">
                         <div class="col-sm-8 text-start p-lg-4">
-                            <span class="badge bg-primary-subtle text-primary mb-3 fw-bold rounded-pill px-3 py-2">E-Learning & LMS</span>
+                            <span class="badge bg-success-subtle text-success mb-3 fw-bold rounded-pill px-3 py-2">E-Learning & LMS</span>
                             <h4 class="fw-bold text-dark mb-2">Portal Akademik Siswa</h4>
                             <p class="text-muted font-light mb-0">Akses ujian online, materi belajar, dan raport digital untuk mempermudah monitoring perkembangan siswa.</p>
                         </div>
                         <div class="col-sm-4 text-center mt-4 mt-sm-0">
-                            <div class="bg-primary text-white rounded-circle d-inline-flex align-items-center justify-content-center shadow-lg" style="width: 90px; height: 90px;">
+                            <div class="bg-success text-white rounded-circle d-inline-flex align-items-center justify-content-center shadow-lg" style="width: 90px; height: 90px;">
                                 <i class="bi bi-laptop fs-1"></i>
                             </div>
                         </div>

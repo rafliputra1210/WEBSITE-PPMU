@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Program;
 use App\Models\Berita;
+use App\Models\Banner;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -12,7 +13,8 @@ class HomeController extends Controller
     {
         $programs = Program::latest()->take(3)->get();
         $beritas = Berita::latest('tanggal_publikasi')->take(3)->get();
+        $banners = Banner::where('is_active', true)->orderBy('order', 'asc')->get();
 
-        return view('home', compact('programs', 'beritas'));
+        return view('home', compact('programs', 'beritas', 'banners'));
     }
 }

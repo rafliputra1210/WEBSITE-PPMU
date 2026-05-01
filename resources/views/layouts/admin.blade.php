@@ -90,6 +90,11 @@
                 </a>
             </li>
             <li class="nav-item">
+                <a href="{{ route('admin.banner.index') }}" class="nav-link {{ request()->is('admin/banner*') ? 'active' : '' }}">
+                    <i class="bi bi-images"></i> Banner Utama
+                </a>
+            </li>
+            <li class="nav-item">
                 <a href="{{ route('admin.berita.index') }}" class="nav-link {{ request()->is('admin/berita*') ? 'active' : '' }}">
                     <i class="bi bi-newspaper"></i> Berita
                 </a>
@@ -107,6 +112,11 @@
             <li class="nav-item">
                 <a href="{{ route('admin.fasilitas.index') }}" class="nav-link {{ request()->is('admin/fasilitas*') ? 'active' : '' }}">
                     <i class="bi bi-building-check"></i> Fasilitas
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="{{ route('admin.progres.index') }}" class="nav-link {{ request()->is('admin/progres*') ? 'active' : '' }}">
+                    <i class="bi bi-graph-up-arrow"></i> Hasil Progres
                 </a>
             </li>
             <li class="nav-item">

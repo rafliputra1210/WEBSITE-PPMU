@@ -5,17 +5,18 @@
 @section('styles')
 <style>
     .pendaftaran-hero {
-        background: linear-gradient(135deg, #0a0f2e 0%, #1a1040 60%, #0d2137 100%);
+        background: linear-gradient(135deg, #ffffff 0%, #f0fdf4 100%);
         padding: calc(var(--nav-h) + 50px) 0 60px;
         position: relative;
         overflow: hidden;
+        border-bottom: 1px solid rgba(16, 185, 129, 0.1);
     }
     .pendaftaran-hero::before {
         content: '';
         position: absolute;
         width: 500px; height: 500px;
         border-radius: 50%;
-        background: radial-gradient(circle, rgba(99,102,241,0.15) 0%, transparent 70%);
+        background: radial-gradient(circle, rgba(16, 185, 129, 0.1) 0%, transparent 70%);
         top: -100px; right: -100px;
         pointer-events: none;
     }
@@ -23,9 +24,9 @@
         display: inline-flex;
         align-items: center;
         gap: 8px;
-        background: rgba(99,102,241,0.15);
-        border: 1px solid rgba(99,102,241,0.3);
-        color: #a5b4fc;
+        background: rgba(16, 185, 129, 0.08);
+        border: 1px solid rgba(16, 185, 129, 0.2);
+        color: #064e3b;
         padding: 6px 16px;
         border-radius: 100px;
         font-size: 0.8rem;
@@ -40,7 +41,7 @@
         overflow: hidden;
     }
     .form-card-header {
-        background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+        background: linear-gradient(135deg, #10b981 0%, #059669 100%);
         padding: 28px 36px;
     }
     .form-card-body {
@@ -51,7 +52,7 @@
         font-weight: 800;
         text-transform: uppercase;
         letter-spacing: 1.5px;
-        color: #6366f1;
+        color: #10b981;
         margin-bottom: 16px;
         display: flex;
         align-items: center;
@@ -78,8 +79,8 @@
         color: #1e293b;
     }
     .form-control:focus, .form-select:focus {
-        border-color: #6366f1;
-        box-shadow: 0 0 0 3px rgba(99,102,241,0.12);
+        border-color: #10b981;
+        box-shadow: 0 0 0 3px rgba(16,185,129,0.12);
         outline: none;
     }
     .form-control.is-invalid, .form-select.is-invalid {
@@ -88,7 +89,7 @@
     }
     .invalid-feedback { font-size: 0.78rem; }
     .btn-submit {
-        background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+        background: linear-gradient(135deg, #10b981 0%, #059669 100%);
         color: #fff;
         border: none;
         border-radius: 12px;
@@ -97,12 +98,12 @@
         font-size: 0.95rem;
         letter-spacing: 0.3px;
         transition: all 0.3s;
-        box-shadow: 0 4px 20px rgba(99,102,241,0.3);
+        box-shadow: 0 4px 20px rgba(16,185,129,0.2);
         width: 100%;
     }
     .btn-submit:hover {
         transform: translateY(-2px);
-        box-shadow: 0 8px 30px rgba(99,102,241,0.45);
+        box-shadow: 0 8px 30px rgba(16,185,129,0.35);
         color: #fff;
     }
     .alert-success-custom {
@@ -126,10 +127,11 @@
         flex-shrink: 0;
     }
     .info-card {
-        background: linear-gradient(135deg, #f8faff, #eef2ff);
-        border: 1px solid #e0e7ff;
+        background: linear-gradient(135deg, #ffffff, #f0fdf4);
+        border: 1px solid #dcfce7;
         border-radius: 16px;
         padding: 24px;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.03);
     }
     .info-item {
         display: flex;
@@ -151,7 +153,7 @@
         justify-content: center;
         width: 28px; height: 28px;
         border-radius: 50%;
-        background: #6366f1;
+        background: #10b981;
         color: #fff;
         font-size: 0.78rem;
         font-weight: 700;
@@ -170,8 +172,8 @@
                 <i class="bi bi-person-plus-fill"></i>
                 PPDB 2026 / 2027
             </div>
-            <h1 class="display-5 fw-bold text-white mb-3">Formulir Pendaftaran Santri</h1>
-            <p class="text-light opacity-75 mb-0" style="max-width:520px;margin:auto;font-size:1rem;">
+            <h1 class="display-5 fw-bold text-dark mb-3">Formulir Pendaftaran Santri</h1>
+            <p class="text-secondary mb-0" style="max-width:520px;margin:auto;font-size:1rem;">
                 Isi data dengan lengkap dan benar. Tim kami akan menghubungi Anda melalui WhatsApp setelah pendaftaran diterima.
             </p>
         </div>
@@ -378,7 +380,7 @@
                 <!-- Kontak -->
                 <div class="info-card">
                     <div class="fw-bold text-dark mb-3" style="font-size:0.9rem;">
-                        <i class="bi bi-headset me-2 text-primary"></i>Butuh Bantuan?
+                        <i class="bi bi-headset me-2 text-success"></i>Butuh Bantuan?
                     </div>
                     <div class="info-item">
                         <div class="info-icon" style="background:#ecfdf5;color:#059669;">

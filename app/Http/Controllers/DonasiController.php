@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Donatur;
+use App\Models\Setting;
 use Illuminate\Http\Request;
 
 class DonasiController extends Controller
@@ -14,7 +15,7 @@ class DonasiController extends Controller
     {
         // Hitung total donasi yang berstatus 'berhasil'
         $totalTerkumpul = Donatur::where('status', 'berhasil')->sum('jumlah_donasi');
-        $targetDonasi = 500000000; // Rp 500 juta
+        $targetDonasi = Setting::get('donasi_target', 500000000); // Rp 500 juta default
         $persentase = $targetDonasi > 0 ? min(round(($totalTerkumpul / $targetDonasi) * 100), 100) : 0;
         $jumlahDonatur = Donatur::where('status', 'berhasil')->count();
 
@@ -30,13 +31,17 @@ class DonasiController extends Controller
             ->orderBy('tanggal_donasi', 'desc')
             ->get();
 
+        // Ambil data progres terbaru
+        $progres = \App\Models\Progres::latest()->get();
+
         return view('pesantren.donasi', compact(
             'totalTerkumpul',
             'targetDonasi',
             'persentase',
             'jumlahDonatur',
             'donaturTerbaru',
-            'leaderboardDonasi'
+            'leaderboardDonasi',
+            'progres'
         ));
     }
 

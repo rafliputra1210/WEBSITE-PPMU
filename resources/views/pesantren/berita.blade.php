@@ -5,16 +5,18 @@
 @section('content')
 <style>
     :root {
-        --primary-gradient: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%);
+        --primary-gradient: linear-gradient(135deg, #10b981 0%, #059669 100%);
         --berita-bg: #f8fafc;
+        --c-dark-green: #064e3b;
     }
 
     /* ============ HERO SECTION ============ */
     .berita-hero {
-        background: #0f172a;
+        background: linear-gradient(135deg, #ffffff 0%, #f0fdf4 100%);
         padding: 160px 0 100px;
         position: relative;
         overflow: hidden;
+        border-bottom: 1px solid rgba(16, 185, 129, 0.1);
     }
 
     .berita-hero::before {
@@ -22,7 +24,7 @@
         position: absolute;
         width: 600px;
         height: 600px;
-        background: radial-gradient(circle, rgba(79, 70, 229, 0.15) 0%, transparent 70%);
+        background: radial-gradient(circle, rgba(16, 185, 129, 0.1) 0%, transparent 70%);
         top: -200px;
         right: -100px;
         border-radius: 50%;
@@ -38,11 +40,11 @@
 
     .hero-label {
         display: inline-block;
-        background: rgba(255, 255, 255, 0.05);
-        border: 1px solid rgba(255, 255, 255, 0.1);
+        background: rgba(16, 185, 129, 0.08);
+        border: 1px solid rgba(16, 185, 129, 0.2);
         padding: 8px 24px;
         border-radius: 100px;
-        color: #e2e8f0;
+        color: var(--c-dark-green);
         font-size: 0.85rem;
         font-weight: 600;
         letter-spacing: 1px;
@@ -52,7 +54,7 @@
     .berita-hero h1 {
         font-size: clamp(2.5rem, 6vw, 4rem);
         font-weight: 900;
-        color: #fff;
+        color: var(--c-dark-green);
         line-height: 1.1;
         letter-spacing: -2px;
         margin-bottom: 1.5rem;
@@ -60,7 +62,7 @@
 
     .berita-hero p {
         font-size: 1.15rem;
-        color: #94a3b8;
+        color: #475569;
         line-height: 1.6;
         margin-bottom: 3rem;
     }
@@ -78,13 +80,15 @@
         padding: 8px;
         display: flex;
         align-items: center;
-        box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+        box-shadow: 0 15px 35px rgba(0,0,0,0.08);
         transition: all 0.3s;
+        border: 1px solid #e2e8f0;
     }
 
     .search-box:focus-within {
         transform: translateY(-2px);
-        box-shadow: 0 25px 50px rgba(79, 70, 229, 0.2);
+        box-shadow: 0 20px 40px rgba(16, 185, 129, 0.15);
+        border-color: #10b981;
     }
 
     .search-box input {
@@ -126,9 +130,9 @@
     .cat-item {
         padding: 10px 24px;
         border-radius: 100px;
-        background: rgba(255, 255, 255, 0.03);
-        border: 1px solid rgba(255, 255, 255, 0.1);
-        color: #94a3b8;
+        background: rgba(16, 185, 129, 0.04);
+        border: 1px solid rgba(16, 185, 129, 0.1);
+        color: #475569;
         font-size: 0.9rem;
         font-weight: 600;
         text-decoration: none;
@@ -136,10 +140,11 @@
     }
 
     .cat-item:hover, .cat-item.active {
-        background: #ffffff;
-        color: #1e293b;
-        border-color: #ffffff;
+        background: #10b981;
+        color: #ffffff;
+        border-color: #10b981;
         transform: translateY(-2px);
+        box-shadow: 0 10px 20px rgba(16, 185, 129, 0.2);
     }
 
     /* ============ MAIN GRID ============ */
@@ -192,7 +197,7 @@
         border-radius: 100px;
         font-size: 0.75rem;
         font-weight: 800;
-        color: #4f46e5;
+        color: #10b981;
         text-transform: uppercase;
         letter-spacing: 0.5px;
         box-shadow: 0 4px 10px rgba(0,0,0,0.1);
@@ -240,7 +245,7 @@
 
     .btn-read {
         padding: 0;
-        color: #4f46e5;
+        color: #10b981;
         font-weight: 700;
         text-decoration: none;
         display: flex;
@@ -310,7 +315,7 @@
         background: var(--primary-gradient);
         color: #fff;
         border-color: transparent;
-        box-shadow: 0 10px 20px rgba(79, 70, 229, 0.2);
+        box-shadow: 0 10px 20px rgba(16, 185, 129, 0.2);
     }
 
     @media (max-width: 991px) {
@@ -389,9 +394,9 @@
         <div class="mb-5 border-bottom pb-4">
             <h4 class="fw-bold">
                 @if(request('q'))
-                    Hasil pencarian untuk <span class="text-primary">"{{ request('q') }}"</span>
+                    Hasil pencarian untuk <span class="text-success">"{{ request('q') }}"</span>
                 @else
-                    Kategori <span class="text-primary">{{ request('kategori') }}</span>
+                    Kategori <span class="text-success">{{ request('kategori') }}</span>
                 @endif
             </h4>
             <p class="text-muted mb-0">Ditemukan {{ $beritaList->total() }} berita yang relevan.</p>
@@ -438,7 +443,7 @@
             </div>
             <h3 class="fw-bold">Belum Ada Berita</h3>
             <p class="text-muted">Maaf, kami tidak menemukan berita yang cocok dengan kriteria Anda.</p>
-            <a href="{{ route('pesantren.berita') }}" class="btn btn-primary rounded-pill px-4 mt-3">Lihat Semua Berita</a>
+            <a href="{{ route('pesantren.berita') }}" class="btn btn-success rounded-pill px-4 mt-3">Lihat Semua Berita</a>
         </div>
         @endif
 

@@ -7,6 +7,8 @@ use App\Http\Controllers\PendaftaranController;
 use App\Http\Controllers\GaleriController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\FasilitasController;
+use App\Http\Controllers\AuthController;
+use App\Http\Controllers\BannerController;
 
 // 1. Rute Beranda
 Route::get('/', [\App\Http\Controllers\HomeController::class, 'index'])->name('home');
@@ -31,6 +33,11 @@ Route::prefix('pesantren')->name('pesantren.')->group(function () {
     // Donasi
     Route::get('/donasi', [DonasiController::class, 'index'])->name('donasi');
     Route::post('/donasi', [DonasiController::class, 'store'])->name('donasi.store');
+
+    Route::get('/fasilitas', function () {
+        $fasilitas = \App\Models\Fasilitas::where('entitas', 'pesantren')->latest()->get();
+        return view('pesantren.fasilitas', compact('fasilitas'));
+    })->name('fasilitas');
 });
 
 // 3. Portal Madrasah
@@ -54,9 +61,29 @@ Route::prefix('madrasah')->name('madrasah.')->group(function () {
 // 4. Galeri Publik
 Route::get('/galeri', [GaleriController::class, 'index'])->name('galeri.index');
 
-// 5. Admin
-Route::prefix('admin')->name('admin.')->group(function () {
+// Temporary route to setup admin user
+Route::get('/setup-admin', function () {
+    \App\Models\User::updateOrCreate(
+        ['email' => 'admin@ppmu.com'],
+        [
+            'name' => 'Admin PPMU',
+            'password' => \Illuminate\Support\Facades\Hash::make('password123')
+        ]
+    );
+    return 'Akun admin berhasil dibuat! Email: admin@ppmu.com | Password: password123. Silakan <a href="/login">Login di sini</a>';
+});
+
+// 5. Autentikasi
+Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
+Route::post('/login', [AuthController::class, 'login'])->name('login.post');
+Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
+
+// 6. Admin (Dilindungi Auth Middleware)
+Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function () {
     Route::get('/', [AdminController::class, 'dashboard'])->name('dashboard');
+
+    // Banner
+    Route::resource('banner', BannerController::class)->except(['show']);
 
     // Berita
     Route::prefix('berita')->name('berita.')->group(function () {
@@ -81,6 +108,11 @@ Route::prefix('admin')->name('admin.')->group(function () {
     // Donasi
     Route::prefix('donasi')->name('donasi.')->group(function () {
         Route::get('/', [AdminController::class, 'donasiIndex'])->name('index');
+
+        // Pengaturan Halaman Donasi
+        Route::get('/settings', [AdminController::class, 'donasiSettings'])->name('settings');
+        Route::post('/settings', [AdminController::class, 'donasiSettingsUpdate'])->name('settings.update');
+
         Route::get('/create', [AdminController::class, 'donasiCreate'])->name('create');
         Route::post('/', [AdminController::class, 'donasiStore'])->name('store');
         Route::get('/{donasi}/edit', [AdminController::class, 'donasiEdit'])->name('edit');
@@ -102,6 +134,16 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::get('/{fasilitas}/edit', [FasilitasController::class, 'edit'])->name('edit');
         Route::put('/{fasilitas}', [FasilitasController::class, 'update'])->name('update');
         Route::delete('/{fasilitas}', [FasilitasController::class, 'destroy'])->name('destroy');
+    });
+
+    // Progres Pembangunan / Hasil Progres
+    Route::prefix('progres')->name('progres.')->group(function () {
+        Route::get('/', [\App\Http\Controllers\ProgresController::class, 'index'])->name('index');
+        Route::get('/create', [\App\Http\Controllers\ProgresController::class, 'create'])->name('create');
+        Route::post('/', [\App\Http\Controllers\ProgresController::class, 'store'])->name('store');
+        Route::get('/{id}/edit', [\App\Http\Controllers\ProgresController::class, 'editById'])->name('edit');
+        Route::put('/{id}', [\App\Http\Controllers\ProgresController::class, 'update'])->name('update');
+        Route::delete('/{id}', [\App\Http\Controllers\ProgresController::class, 'destroy'])->name('destroy');
     });
 
     // Program Unggulan

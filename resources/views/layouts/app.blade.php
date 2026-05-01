@@ -14,21 +14,25 @@
     <!-- Bootstrap & Icons -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    
+    <!-- AOS Animations -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 
     <style>
         * { box-sizing: border-box; }
 
         :root {
             --font-main: 'Plus Jakarta Sans', sans-serif;
-            --c-primary: #6366f1;
-            --c-violet: #8b5cf6;
-            --c-cyan: #06b6d4;
-            --c-green: #10b981;
-            --grad-primary: linear-gradient(135deg, #6366f1 0%, #8b5cf6 50%, #06b6d4 100%);
-            --grad-hero: linear-gradient(135deg, #0a0f2e 0%, #1a1040 50%, #0d2137 100%);
+            --c-primary: #059669;
+            --c-primary-light: #10b981;
+            --c-dark-green: #064e3b;
+            --c-accent: #047857;
+            --grad-primary: linear-gradient(135deg, #059669 0%, #047857 100%);
+            --grad-hero: linear-gradient(135deg, #ffffff 0%, #f0fdf4 50%, #dcfce7 100%);
             --nav-h: 72px;
             --radius-lg: 20px;
             --radius-xl: 28px;
+            --pattern-islamic: url("data:image/svg+xml,%3Csvg width='80' height='80' viewBox='0 0 80 80' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23059669' fill-opacity='0.03'%3E%3Cpath d='M40 0l40 40-40 40-40-40z'/%3E%3C/g%3E%3C/svg%3E");
         }
 
         body {
@@ -47,28 +51,28 @@
             right: 0;
             z-index: 1000;
             height: var(--nav-h);
-            transition: all 0.35s ease;
-            background: linear-gradient(135deg, #0a0f2e 0%, #111827 100%);
-            border-bottom: 1px solid rgba(255,255,255,0.06);
+            transition: all 0.4s cubic-bezier(.4,0,.2,1);
+            background: rgba(255, 255, 255, 0.65);
+            backdrop-filter: blur(24px) saturate(200%);
+            -webkit-backdrop-filter: blur(24px) saturate(200%);
+            border-bottom: 1px solid rgba(5, 150, 105, 0.08);
         }
 
         #main-navbar.scrolled {
-            background: linear-gradient(135deg, #0a0f2e 0%, #111827 100%);
-            backdrop-filter: blur(20px) saturate(180%);
-            -webkit-backdrop-filter: blur(20px) saturate(180%);
-            box-shadow: 0 4px 30px rgba(0,0,0,0.35);
-            border-bottom: 1px solid rgba(255,255,255,0.08);
+            background: rgba(255, 255, 255, 0.97);
+            box-shadow: 0 1px 3px rgba(0,0,0,0.04), 0 8px 32px rgba(5,150,105,0.07);
+            border-bottom: 1px solid rgba(5, 150, 105, 0.12);
         }
 
-        /* Semua state: teks selalu putih */
-        #main-navbar .brand-text { color: #ffffff; font-weight: 800; font-size: 1.15rem; letter-spacing: -0.5px; transition: color 0.3s; }
-        #main-navbar .nav-link { color: rgba(255,255,255,0.85) !important; font-weight: 600; font-size: 0.9rem; padding: 0.4rem 0.9rem !important; border-radius: 8px; transition: all 0.2s; }
-        #main-navbar .nav-link:hover { color: #fff !important; background: rgba(255,255,255,0.1); }
-        #main-navbar .nav-link.active-nav { color: #fff !important; background: rgba(99,102,241,0.25); }
-        #main-navbar.scrolled .nav-link { color: rgba(255,255,255,0.85) !important; }
-        #main-navbar.scrolled .brand-text { color: #ffffff !important; }
+        /* Teks navbar */
+        #main-navbar .brand-text { color: var(--c-dark-green); font-weight: 800; font-size: 1.15rem; letter-spacing: -0.5px; transition: color 0.3s; }
+        #main-navbar .nav-link { color: #475569 !important; font-weight: 600; font-size: 0.9rem; padding: 0.4rem 0.9rem !important; border-radius: 8px; transition: all 0.2s; }
+        #main-navbar .nav-link:hover { color: var(--c-primary) !important; background: rgba(16, 185, 129, 0.08); }
+        #main-navbar .nav-link.active-nav { color: var(--c-primary) !important; background: rgba(16, 185, 129, 0.12); }
+        #main-navbar.scrolled .nav-link { color: #334155 !important; }
+        #main-navbar.scrolled .brand-text { color: var(--c-dark-green) !important; }
         #main-navbar.scrolled .nav-link:hover,
-        #main-navbar.scrolled .nav-link.active-nav { color: #fff !important; }
+        #main-navbar.scrolled .nav-link.active-nav { color: var(--c-primary) !important; }
 
         .nav-logo-box {
             width: 36px;
@@ -88,20 +92,20 @@
             background: var(--grad-primary);
             color: #fff !important;
             border: none;
-            padding: 8px 22px;
+            padding: 9px 24px;
             border-radius: 100px;
             font-weight: 700;
             font-size: 0.85rem;
             text-decoration: none;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 15px rgba(99,102,241,0.35);
+            transition: all 0.3s cubic-bezier(.4,0,.2,1);
+            box-shadow: 0 4px 14px rgba(5,150,105,0.3);
             display: inline-block;
         }
 
         .btn-nav-ppdb:hover {
             color: #fff !important;
             transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(99,102,241,0.5);
+            box-shadow: 0 8px 24px rgba(5,150,105,0.4);
         }
 
         .btn-nav-login {
@@ -164,7 +168,7 @@
             text-transform: uppercase;
         }
         #main-navbar.scrolled .nav-madrasah-label {
-            color: #0f172a;
+            color: var(--c-dark-green);
         }
         /* Hide text label on medium screens, show only logo */
         @media (max-width: 1199px) {
@@ -232,7 +236,7 @@
         }
 
         .dropdown-item:hover {
-            background: rgba(99,102,241,0.08);
+            background: rgba(5,150,105,0.08);
             color: var(--c-primary);
         }
 
@@ -241,11 +245,12 @@
 
         /* ======= FOOTER ======= */
         .site-footer {
-            background: #080d1f;
-            color: #cbd5e1;
-            padding: 40px 0 0;
+            background: linear-gradient(180deg, #064e3b 0%, #022c22 100%);
+            background-image: var(--pattern-islamic);
+            color: #ecfdf5;
+            padding: 60px 0 0;
             margin-top: 0;
-            border-top: 1px solid rgba(255,255,255,0.06);
+            border-top: 3px solid var(--c-primary);
         }
 
         .footer-brand { font-weight: 800; color: #f1f5f9; font-size: 1.05rem; }
@@ -275,7 +280,7 @@
             padding: 3px 0;
             transition: color 0.2s;
         }
-        .footer-link:hover { color: #a5b4fc; }
+        .footer-link:hover { color: #6ee7b7; }
 
         .footer-contact-row {
             display: flex;
@@ -286,7 +291,7 @@
             margin-bottom: 8px;
         }
         .footer-contact-row i {
-            color: #6366f1;
+            color: #34d399;
             font-size: 0.85rem;
             flex-shrink: 0;
         }
@@ -320,7 +325,7 @@
             text-decoration: none;
             transition: color 0.2s;
         }
-        .footer-bottom-links a:hover { color: #a5b4fc; }
+        .footer-bottom-links a:hover { color: #6ee7b7; }
 
         .social-btn {
             width: 32px;
@@ -341,6 +346,7 @@
             border-color: var(--c-primary);
             color: #fff;
             transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(5,150,105,0.4);
         }
 
         /* ======= PAGE PADDING FOR NON-HERO PAGES ======= */
@@ -356,7 +362,7 @@
             align-items: center;
             justify-content: space-between;
             padding: 18px 20px;
-            background: linear-gradient(135deg, #0a0f2e 0%, #1a1040 100%);
+            background: linear-gradient(135deg, #064e3b 0%, #047857 100%);
             border-bottom: none !important;
         }
         .mob-close-btn {
@@ -417,7 +423,7 @@
             transform: translateX(3px);
         }
         .mob-link.active-mob {
-            background: rgba(99,102,241,0.08);
+            background: rgba(5,150,105,0.08);
             color: var(--c-primary);
         }
         .mob-link .mob-icon {
@@ -473,14 +479,68 @@
             background: var(--grad-primary);
             color: #fff;
             text-decoration: none;
-            box-shadow: 0 4px 15px rgba(99,102,241,0.35);
+            box-shadow: 0 4px 15px rgba(5,150,105,0.35);
             transition: all 0.3s;
         }
         .mob-cta-ppdb:hover {
             color: #fff;
             transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(99,102,241,0.45);
+            box-shadow: 0 8px 25px rgba(5,150,105,0.45);
         }
+        /* ======= FLOATING BUTTONS ======= */
+        .floating-controls {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            z-index: 1050;
+        }
+
+        .btn-float {
+            width: 54px;
+            height: 54px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: white;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            text-decoration: none;
+            border: none;
+        }
+
+        .btn-float:hover {
+            transform: scale(1.1) translateY(-5px);
+            color: white;
+        }
+
+        .btn-wa {
+            background: #25d366;
+            box-shadow: 0 10px 25px rgba(37, 211, 102, 0.3);
+        }
+
+        .btn-back-to-top {
+            background: var(--c-primary);
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(20px);
+        }
+
+        .btn-back-to-top.show {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #f0fdf4; }
+        ::-webkit-scrollbar-thumb { background: #a7f3d0; border-radius: 10px; border: 2px solid #f0fdf4; }
+        ::-webkit-scrollbar-thumb:hover { background: #6ee7b7; }
     </style>
 
     @yield('styles')
@@ -500,7 +560,7 @@
                 </a>
 
                 <!-- Divider -->
-                <div style="width:1px;height:28px;background:rgba(255,255,255,0.2);" id="nav-logo-divider"></div>
+                <div style="width:1px;height:28px;background:rgba(16, 185, 129, 0.2);" id="nav-logo-divider"></div>
 
                 <!-- Brand Educate -->
                 <a href="{{ url('/') }}" class="d-flex align-items-center gap-2 text-decoration-none">
@@ -520,7 +580,7 @@
                     <ul class="dropdown-menu">
                         <li><a class="dropdown-item" href="{{ route('pesantren.index') }}"><i class="bi bi-house-heart me-2 text-success"></i>Portal Pesantren</a></li>
                         <li><a class="dropdown-item" href="{{ route('pesantren.profil') }}"><i class="bi bi-journal-text me-2 text-primary"></i>Profil & Sejarah</a></li>
-                        <li><a class="dropdown-item" href="{{ route('pesantren.donasi') }}"><i class="bi bi-heart me-2 text-danger"></i>Investasi Akhirat</a></li>
+                        <li><a class="dropdown-item" href="{{ route('pesantren.fasilitas') }}"><i class="bi bi-building-check me-2 text-warning"></i>Fasilitas</a></li>
                         <li><a class="dropdown-item" href="{{ route('pesantren.pendaftaran') }}"><i class="bi bi-person-plus me-2 text-primary"></i>Pendaftaran</a></li>
                     </ul>
                 </li>
@@ -534,6 +594,10 @@
                         <li><a class="dropdown-item" href="{{ route('madrasah.fasilitas') }}"><i class="bi bi-building-check me-2 text-warning"></i>Fasilitas</a></li>
                         <li><a class="dropdown-item" href="{{ route('madrasah.pendaftaran') }}"><i class="bi bi-person-plus me-2 text-success"></i>Pendaftaran</a></li>
                     </ul>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link {{ request()->is('pesantren/donasi*') ? 'active-nav' : '' }}" href="{{ route('pesantren.donasi') }}">Investasi Akhirat</a>
                 </li>
 
                 <li class="nav-item">
@@ -600,6 +664,11 @@
                     Beranda
                     <i class="bi bi-chevron-right mob-arrow"></i>
                 </a>
+                <a href="{{ route('pesantren.donasi') }}" class="mob-link {{ request()->is('pesantren/donasi*') ? 'active-mob' : '' }}">
+                    <span class="mob-icon" style="background:#fef2f2;color:#ef4444;"><i class="bi bi-heart-fill"></i></span>
+                    Investasi Akhirat
+                    <i class="bi bi-chevron-right mob-arrow"></i>
+                </a>
             </div>
 
             <div class="mob-divider"></div>
@@ -607,11 +676,11 @@
             <!-- Pesantren Section -->
             <div class="mob-section">
                 <div class="mob-section-label">
-                    <span class="mob-section-text" style="color:#6366f1;">Pesantren</span>
-                    <div class="mob-section-line" style="background:linear-gradient(to right,#6366f1,#8b5cf6,transparent);"></div>
+                    <span class="mob-section-text" style="color:#059669;">Pesantren</span>
+                    <div class="mob-section-line" style="background:linear-gradient(to right,#059669,#10b981,transparent);"></div>
                 </div>
                 <a href="{{ route('pesantren.index') }}" class="mob-link {{ request()->is('pesantren') ? 'active-mob' : '' }}">
-                    <span class="mob-icon" style="background:#eef2ff;color:#6366f1;"><i class="bi bi-house-heart-fill"></i></span>
+                    <span class="mob-icon" style="background:#ecfdf5;color:#059669;"><i class="bi bi-house-heart-fill"></i></span>
                     Portal Pesantren
                     <i class="bi bi-chevron-right mob-arrow"></i>
                 </a>
@@ -620,9 +689,9 @@
                     Profil & Sejarah
                     <i class="bi bi-chevron-right mob-arrow"></i>
                 </a>
-                <a href="{{ route('pesantren.donasi') }}" class="mob-link {{ request()->is('pesantren/donasi*') ? 'active-mob' : '' }}">
-                    <span class="mob-icon" style="background:#fef2f2;color:#ef4444;"><i class="bi bi-heart-fill"></i></span>
-                    Investasi Akhirat
+                <a href="{{ route('pesantren.fasilitas') }}" class="mob-link {{ request()->is('pesantren/fasilitas') ? 'active-mob' : '' }}">
+                    <span class="mob-icon" style="background:#fffbeb;color:#d97706;"><i class="bi bi-building-check"></i></span>
+                    Fasilitas
                     <i class="bi bi-chevron-right mob-arrow"></i>
                 </a>
                 <a href="{{ route('pesantren.pendaftaran') }}" class="mob-link {{ request()->is('pesantren/pendaftaran') ? 'active-mob' : '' }}">
@@ -757,25 +826,56 @@
         </div>
     </footer>
 
+    <!-- Floating Controls -->
+    <div class="floating-controls">
+        <a href="https://wa.me/6281234567890" target="_blank" class="btn-float btn-wa" title="Hubungi Kami via WhatsApp">
+            <i class="bi bi-whatsapp"></i>
+        </a>
+        <button onclick="scrollToTop()" class="btn-float btn-back-to-top" title="Kembali ke Atas">
+            <i class="bi bi-arrow-up"></i>
+        </button>
+    </div>
+
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
-    <!-- Navbar Scroll Effect -->
+    @yield('scripts')
+
+    <!-- AOS JS -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
+        // Initialize AOS
+        AOS.init({
+            duration: 800,
+            once: true,
+            mirror: false,
+            offset: 100
+        });
+
+        // Back to Top & Nav Scroll
+        const backToTop = document.querySelector('.btn-back-to-top');
         const navbar = document.getElementById('main-navbar');
 
-        function updateNav() {
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 300) {
+                backToTop.classList.add('show');
+            } else {
+                backToTop.classList.remove('show');
+            }
+
             if (window.scrollY > 20) {
                 navbar.classList.add('scrolled');
             } else {
                 navbar.classList.remove('scrolled');
             }
+        }, { passive: true });
+
+        function scrollToTop() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
         }
-
-        window.addEventListener('scroll', updateNav, { passive: true });
-        updateNav();
     </script>
-
-    @yield('scripts')
 </body>
 </html>

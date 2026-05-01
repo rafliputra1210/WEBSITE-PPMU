@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Berita;
 use App\Models\Galeri;
 use App\Models\Donatur;
+use App\Models\Setting;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Storage;
 
@@ -254,5 +255,68 @@ class AdminController extends Controller
     {
         $donasi->delete();
         return redirect()->route('admin.donasi.index')->with('success', 'Data Donasi berhasil dihapus.');
+    }
+
+    // ==========================================
+    // PENGATURAN HALAMAN DONASI (INVESTASI AKHIRAT)
+    // ==========================================
+
+    public function donasiSettings()
+    {
+        try {
+            $settings = [
+                'donasi_target' => Setting::get('donasi_target', 500000000),
+                'donasi_hero_poster' => Setting::get('donasi_hero_poster'),
+                'donasi_rekening_bsi' => Setting::get('donasi_rekening_bsi', '7172 8399 01'),
+                'donasi_rekening_bri' => Setting::get('donasi_rekening_bri', '0123 0456 7890 123'),
+                'donasi_rekening_nama' => Setting::get('donasi_rekening_nama', 'Yayasan Pesantren Terpadu'),
+                'donasi_qris' => Setting::get('donasi_qris'),
+            ];
+            
+            return view('admin.donasi.settings', compact('settings'));
+        } catch (\Exception $e) {
+            return redirect()->route('admin.donasi.index')->with('error', 'Tabel pengaturan belum dibuat. Silakan jalankan php artisan migrate terlebih dahulu.');
+        }
+    }
+
+    public function donasiSettingsUpdate(Request $request)
+    {
+        $request->validate([
+            'donasi_target' => 'required|numeric|min:0',
+            'donasi_rekening_bsi' => 'nullable|string',
+            'donasi_rekening_bri' => 'nullable|string',
+            'donasi_rekening_nama' => 'nullable|string',
+            'donasi_hero_poster' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:4096',
+            'donasi_qris' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:4096',
+        ]);
+
+        try {
+            Setting::set('donasi_target', $request->donasi_target, 'number', 'Target Donasi');
+            Setting::set('donasi_rekening_bsi', $request->donasi_rekening_bsi, 'string', 'Rekening BSI');
+            Setting::set('donasi_rekening_bri', $request->donasi_rekening_bri, 'string', 'Rekening BRI');
+            Setting::set('donasi_rekening_nama', $request->donasi_rekening_nama, 'string', 'Nama Atas Nama Rekening');
+
+            if ($request->hasFile('donasi_hero_poster')) {
+                $oldPath = Setting::get('donasi_hero_poster');
+                if ($oldPath && Storage::disk('public')->exists($oldPath)) {
+                    Storage::disk('public')->delete($oldPath);
+                }
+                $path = $request->file('donasi_hero_poster')->store('settings', 'public');
+                Setting::set('donasi_hero_poster', $path, 'image', 'Hero Poster');
+            }
+
+            if ($request->hasFile('donasi_qris')) {
+                $oldPath = Setting::get('donasi_qris');
+                if ($oldPath && Storage::disk('public')->exists($oldPath)) {
+                    Storage::disk('public')->delete($oldPath);
+                }
+                $path = $request->file('donasi_qris')->store('settings', 'public');
+                Setting::set('donasi_qris', $path, 'image', 'QRIS');
+            }
+
+            return redirect()->back()->with('success', 'Pengaturan halaman donasi berhasil diperbarui.');
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', 'Gagal menyimpan pengaturan. Pastikan tabel database sudah dibuat (php artisan migrate).');
+        }
     }
 }

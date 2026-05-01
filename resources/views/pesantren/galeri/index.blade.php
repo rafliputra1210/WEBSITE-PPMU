@@ -6,31 +6,31 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/glightbox/dist/css/glightbox.min.css">
 <style>
     :root {
-        --primary: #16a34a;
-        --primary-dark: #166534;
-        --accent: #f59e0b;
+        --primary: #10b981;
+        --primary-dark: #064e3b;
+        --accent: #fbbf24;
         --dark: #0f172a;
-        --text-muted: #64748b;
+        --text-muted: #475569;
     }
 
     /* ===== HERO ===== */
     .gallery-hero {
-        background: linear-gradient(135deg, var(--primary-dark) 0%, #14532d 50%, #0f172a 100%);
+        background: linear-gradient(135deg, #ffffff 0%, #f0fdf4 100%);
         padding: 110px 0 80px;
         position: relative;
         overflow: hidden;
+        border-bottom: 1px solid rgba(16, 185, 129, 0.1);
     }
     .gallery-hero::before {
         content: '';
         position: absolute;
         inset: 0;
-        background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.04'%3E%3Ccircle cx='30' cy='30' r='4'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E") repeat;
+        background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%2310b981' fill-opacity='0.04'%3E%3Ccircle cx='30' cy='30' r='4'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E") repeat;
     }
     .gallery-hero .badge-pill {
-        background: rgba(255,255,255,0.15);
-        backdrop-filter: blur(10px);
-        border: 1px solid rgba(255,255,255,0.2);
-        color: #fff;
+        background: rgba(16, 185, 129, 0.08);
+        border: 1px solid rgba(16, 185, 129, 0.2);
+        color: var(--primary-dark);
         border-radius: 50px;
         padding: 6px 18px;
         font-size: 0.78rem;
@@ -41,12 +41,12 @@
     .gallery-hero h1 {
         font-size: clamp(1.9rem, 5vw, 3.5rem);
         font-weight: 800;
-        color: #fff;
+        color: var(--primary-dark);
         line-height: 1.2;
     }
-    .gallery-hero h1 span { color: #6ee7b7; }
+    .gallery-hero h1 span { color: var(--primary); }
     .gallery-hero p {
-        color: rgba(255,255,255,0.75);
+        color: var(--text-muted);
         font-size: clamp(0.9rem, 2.5vw, 1.05rem);
         line-height: 1.7;
     }
@@ -60,11 +60,11 @@
         margin-top: 1.5rem;
     }
     .stat-pill {
-        background: rgba(255,255,255,0.12);
-        border: 1px solid rgba(255,255,255,0.2);
+        background: rgba(16, 185, 129, 0.04);
+        border: 1px solid rgba(16, 185, 129, 0.15);
         border-radius: 50px;
         padding: 10px 22px;
-        color: #fff;
+        color: var(--primary-dark);
         font-size: 0.85rem;
         backdrop-filter: blur(10px);
         text-align: center;
@@ -130,7 +130,7 @@
         border-color: var(--primary);
         color: #fff;
         transform: translateY(-1px);
-        box-shadow: 0 4px 12px rgba(22, 163, 74, 0.3);
+        box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
     }
     .filter-btn.active-gold {
         background: var(--accent);

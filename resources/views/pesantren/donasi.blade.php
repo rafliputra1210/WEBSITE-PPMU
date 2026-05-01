@@ -4,79 +4,9 @@
 
 @section('content')
 <style>
-    /* ==================== DONASI HERO ==================== */
-    .donasi-hero {
-        background: linear-gradient(135deg, #064e3b 0%, #065f46 40%, #047857 100%);
-        padding-top: 140px;
-        padding-bottom: 80px;
-        position: relative;
-        overflow: hidden;
-    }
+    /* ==================== DONASI STYLE ==================== */
 
-    .donasi-hero::before {
-        content: '';
-        position: absolute;
-        width: 500px;
-        height: 500px;
-        background: radial-gradient(circle, rgba(16,185,129,0.25) 0%, transparent 70%);
-        top: -200px;
-        right: -150px;
-        border-radius: 50%;
-        animation: glowPulse 10s ease-in-out infinite;
-    }
-
-    .donasi-hero::after {
-        content: '';
-        position: absolute;
-        width: 350px;
-        height: 350px;
-        background: radial-gradient(circle, rgba(52,211,153,0.15) 0%, transparent 70%);
-        bottom: -100px;
-        left: -100px;
-        border-radius: 50%;
-    }
-
-    @keyframes glowPulse {
-        0%, 100% { transform: scale(1); opacity: 0.6; }
-        50% { transform: scale(1.15); opacity: 1; }
-    }
-
-    .donasi-hero .hero-badge {
-        display: inline-flex;
-        align-items: center;
-        gap: 8px;
-        background: rgba(255,255,255,0.1);
-        border: 1px solid rgba(255,255,255,0.15);
-        backdrop-filter: blur(10px);
-        padding: 8px 20px;
-        border-radius: 100px;
-        color: #6ee7b7;
-        font-size: 0.8rem;
-        font-weight: 700;
-        letter-spacing: 0.5px;
-        margin-bottom: 1.2rem;
-    }
-
-    .donasi-hero h1 {
-        font-size: clamp(2.2rem, 5vw, 3.5rem);
-        font-weight: 800;
-        color: #ffffff;
-        line-height: 1.15;
-        letter-spacing: -1.5px;
-    }
-
-    .donasi-hero h1 .gradient-text {
-        background: linear-gradient(135deg, #6ee7b7 0%, #34d399 50%, #a7f3d0 100%);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-    }
-
-    .donasi-hero p {
-        color: #a7f3d0;
-        font-size: 1.05rem;
-        line-height: 1.7;
-        max-width: 520px;
-    }
+    /* CLEANED */
 
     /* ==================== PROGRESS CARD ==================== */
     .progress-card {
@@ -365,50 +295,81 @@
         letter-spacing: 1.5px;
         margin-bottom: 16px;
     }
+
+    /* ==================== DONASI HERO ==================== */
+    .donasi-hero {
+        background: linear-gradient(135deg, #ffffff 0%, #f0fdf4 100%);
+        padding-top: calc(var(--nav-h) + 40px);
+        padding-bottom: 120px;
+        position: relative;
+        overflow: hidden;
+        border-bottom: 1px solid rgba(16, 185, 129, 0.1);
+    }
+
+    .donasi-hero::before {
+        content: '';
+        position: absolute;
+        width: 40vw;
+        height: 40vw;
+        background: radial-gradient(circle, rgba(16,185,129,0.15) 0%, transparent 70%);
+        top: -10vw;
+        right: -10vw;
+        border-radius: 50%;
+    }
+
+    .donasi-hero::after {
+        content: '';
+        position: absolute;
+        width: 30vw;
+        height: 30vw;
+        background: radial-gradient(circle, rgba(52,211,153,0.1) 0%, transparent 70%);
+        bottom: -5vw;
+        left: -5vw;
+        border-radius: 50%;
+    }
+
+    .hero-poster-wrapper {
+        position: relative;
+        z-index: 2;
+        max-width: 1100px;
+        margin: 0 auto;
+        border-radius: 24px;
+        overflow: hidden;
+        box-shadow: 0 30px 70px rgba(0,0,0,0.12);
+        border: 1px solid rgba(16, 185, 129, 0.1);
+        transition: transform 0.4s ease;
+    }
+
+    .hero-poster-wrapper:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 40px 70px rgba(0,0,0,0.5);
+    }
+    
+    .hero-poster {
+        width: 100%;
+        height: auto;
+        display: block;
+    }
+
+    /* ==================== PROGRESS CARD ==================== */
 </style>
 
 {{-- ===================== DONASI HERO ===================== --}}
-<section class="donasi-hero">
+<section class="donasi-hero px-3">
     <div class="container position-relative" style="z-index:2;">
-        <div class="row align-items-center g-5">
-            <div class="col-lg-7">
-                <div class="hero-badge">
-                    <i class="bi bi-heart-pulse-fill"></i>
-                    Investasi Akhirat — Amal Jariyah
-                </div>
-                <h1>
-                    Salurkan Kebaikan,<br>
-                    <span class="gradient-text">Raih Pahala Abadi</span>
-                </h1>
-                <p class="mt-3 mb-0">
-                    Setiap rupiah yang Anda donasikan akan menjadi amal jariyah yang pahalanya terus mengalir.
-                    Mari bersama membangun fasilitas pendidikan yang lebih baik untuk generasi penerus umat.
-                </p>
-            </div>
-            <div class="col-lg-5 d-none d-lg-flex justify-content-center">
-                <div style="position:relative;">
-                    <div style="width:280px;height:280px;border-radius:50%;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);display:flex;align-items:center;justify-content:center;">
-                        <div style="width:200px;height:200px;border-radius:50%;background:rgba(255,255,255,0.08);display:flex;align-items:center;justify-content:center;flex-direction:column;">
-                            <i class="bi bi-heart-fill" style="font-size:3.5rem;color:#6ee7b7;margin-bottom:8px;"></i>
-                            <span style="color:#a7f3d0;font-size:0.85rem;font-weight:700;">Investasi Akhirat</span>
-                        </div>
-                    </div>
-                    <!-- Floating Tags -->
-                    <div style="position:absolute;top:10px;right:-30px;background:rgba(255,255,255,0.12);backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,0.15);border-radius:12px;padding:10px 16px;color:#d1fae5;font-size:0.78rem;font-weight:600;animation: float 6s ease-in-out infinite;">
-                        <i class="bi bi-mosque me-1"></i> Pembangunan Masjid
-                    </div>
-                    <div style="position:absolute;bottom:20px;left:-40px;background:rgba(255,255,255,0.12);backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,0.15);border-radius:12px;padding:10px 16px;color:#d1fae5;font-size:0.78rem;font-weight:600;animation: float 8s ease-in-out infinite reverse;">
-                        <i class="bi bi-book me-1"></i> Beasiswa Santri
-                    </div>
-                </div>
-            </div>
+        <div class="hero-poster-wrapper">
+            @php
+                $heroPoster = \App\Models\Setting::get('donasi_hero_poster');
+            @endphp
+            <img src="{{ $heroPoster ? asset('storage/' . $heroPoster) : asset('images/Stiker Investasi.png') }}" 
+                 alt="Poster Investasi Akhirat" class="hero-poster">
         </div>
     </div>
 </section>
 
 {{-- ===================== PROGRESS SECTION ===================== --}}
 <section class="container">
-    <div class="progress-card">
+    <div class="progress-card" data-aos="fade-up">
         {{-- Flash Message --}}
         @if(session('success'))
         <div class="alert-donasi mb-4">
@@ -463,7 +424,7 @@
         <div class="row g-5">
             {{-- FORM COLUMN --}}
             <div class="col-lg-7">
-                <div class="form-card">
+                <div class="form-card" data-aos="fade-right">
                     <div class="d-flex align-items-center gap-3 mb-4">
                         <div style="width:48px;height:48px;background:linear-gradient(135deg,#10b981,#059669);border-radius:14px;display:flex;align-items:center;justify-content:center;color:#fff;font-size:1.2rem;">
                             <i class="bi bi-pencil-square"></i>
@@ -590,7 +551,7 @@
             {{-- SIDEBAR COLUMN --}}
             <div class="col-lg-5">
                 {{-- REKENING INFO --}}
-                <div class="form-card mb-4">
+                <div class="form-card mb-4" data-aos="fade-left" data-aos-delay="100">
                     <h5 style="font-weight:800;color:#0f172a;margin-bottom:1.2rem;font-size:1.05rem;">
                         <i class="bi bi-bank me-2 text-success"></i>Informasi Rekening
                     </h5>
@@ -600,8 +561,10 @@
                             <div class="bank-logo">BSI</div>
                             <div class="flex-grow-1">
                                 <div style="font-size:0.75rem;color:#059669;font-weight:700;text-transform:uppercase;letter-spacing:0.5px;">Bank Syariah Indonesia</div>
-                                <div style="font-size:1.15rem;font-weight:800;color:#064e3b;letter-spacing:1px;" id="rek-bsi">7172 8399 01</div>
-                                <div style="font-size:0.78rem;color:#64748b;">a.n. Yayasan Pesantren Terpadu</div>
+                                <div style="font-size:1.15rem;font-weight:800;color:#064e3b;letter-spacing:1px;" id="rek-bsi">
+                                    {{ \App\Models\Setting::get('donasi_rekening_bsi', '7172 8399 01') }}
+                                </div>
+                                <div style="font-size:0.78rem;color:#64748b;">a.n. {{ \App\Models\Setting::get('donasi_rekening_nama', 'Yayasan Pesantren Terpadu') }}</div>
                             </div>
                             <button class="copy-btn" onclick="copyRek('rek-bsi')">
                                 <i class="bi bi-clipboard me-1"></i>Salin
@@ -614,8 +577,10 @@
                             <div class="bank-logo">BRI</div>
                             <div class="flex-grow-1">
                                 <div style="font-size:0.75rem;color:#059669;font-weight:700;text-transform:uppercase;letter-spacing:0.5px;">Bank Rakyat Indonesia</div>
-                                <div style="font-size:1.15rem;font-weight:800;color:#064e3b;letter-spacing:1px;" id="rek-bri">0123 0456 7890 123</div>
-                                <div style="font-size:0.78rem;color:#64748b;">a.n. Yayasan Pesantren Terpadu</div>
+                                <div style="font-size:1.15rem;font-weight:800;color:#064e3b;letter-spacing:1px;" id="rek-bri">
+                                    {{ \App\Models\Setting::get('donasi_rekening_bri', '0123 0456 7890 123') }}
+                                </div>
+                                <div style="font-size:0.78rem;color:#64748b;">a.n. {{ \App\Models\Setting::get('donasi_rekening_nama', 'Yayasan Pesantren Terpadu') }}</div>
                             </div>
                             <button class="copy-btn" onclick="copyRek('rek-bri')">
                                 <i class="bi bi-clipboard me-1"></i>Salin
@@ -625,11 +590,15 @@
 
                     <div class="rekening-card mt-3">
                         <div class="d-flex align-items-center gap-3">
-                            <div class="bank-logo" style="width: 56px; height: 56px;"><img src="https://upload.wikimedia.org/wikipedia/commons/d/d0/QRIS_logo.svg" alt="QRIS" style="width:100%;"></div>
+                            @php $qris = \App\Models\Setting::get('donasi_qris'); @endphp
+                            <div class="bank-logo" style="width: 56px; height: 56px;">
+                                <img src="{{ $qris ? asset('storage/' . $qris) : 'https://upload.wikimedia.org/wikipedia/commons/d/d0/QRIS_logo.svg' }}" 
+                                     alt="QRIS" style="width:100%; height:100%; object-fit:contain;">
+                            </div>
                             <div class="flex-grow-1">
                                 <div style="font-size:0.75rem;color:#059669;font-weight:700;text-transform:uppercase;letter-spacing:0.5px;">Scan QRIS</div>
                                 <div style="font-size:1rem;font-weight:800;color:#064e3b;letter-spacing:0.5px;">Gunakan Aplikasi E-Wallet/M-Banking</div>
-                                <div style="font-size:0.78rem;color:#64748b;">a.n. Yayasan Pesantren Terpadu</div>
+                                <div style="font-size:0.78rem;color:#64748b;">a.n. {{ \App\Models\Setting::get('donasi_rekening_nama', 'Yayasan Pesantren Terpadu') }}</div>
                             </div>
                             <button class="copy-btn py-2 px-3" style="background:#0f172a;" onclick="alert('Silakan scan QRIS dengan aplikasi M-Banking atau E-Wallet Anda.')">
                                 <i class="bi bi-qr-code-scan me-1"></i> Scan
@@ -639,7 +608,7 @@
                 </div>
 
                 {{-- DONATUR TERBARU --}}
-                <div class="form-card">
+                <div class="form-card" data-aos="fade-left" data-aos-delay="200">
                     <h5 style="font-weight:800;color:#0f172a;margin-bottom:1rem;font-size:1.05rem;">
                         <i class="bi bi-people-fill me-2 text-success"></i>Donatur Terbaru
                     </h5>
@@ -694,7 +663,7 @@
              </p>
         </div>
 
-        <div class="form-card mx-auto" style="max-width:900px; padding:1.5rem;">
+        <div class="form-card mx-auto" style="max-width:900px; padding:1.5rem;" data-aos="fade-up">
             <div class="table-responsive">
                 <table class="table table-hover align-middle mb-0" style="min-width: 600px;">
                     <thead style="background: rgba(16,185,129,0.05);">
@@ -830,6 +799,50 @@
         </div>
     </div>
 </section>
+
+{{-- ===================== HASIL PROGRES ===================== --}}
+@if($progres->count() > 0)
+<section style="padding:80px 0;background:#f8fafb;border-top:1px solid #f1f5f9;">
+    <div class="container">
+        <div class="text-center mb-5">
+             <span class="section-chip-green">Laporan</span>
+             <h2 style="font-size:clamp(1.8rem,4vw,2.4rem);font-weight:800;color:#0f172a;letter-spacing:-0.5px;">
+                 Hasil Progres Pembangunan
+             </h2>
+             <p style="color:#64748b;font-size:1rem;max-width:520px;margin:12px auto 0;">
+                 Informasi terbaru mengenai progres pembangunan dan pemanfaatan dana donasi.
+             </p>
+        </div>
+
+        <div class="row g-4 justify-content-center">
+            @foreach($progres as $item)
+            <div class="col-md-6 col-lg-4">
+                <div class="card border-0 shadow-sm h-100" style="border-radius:20px;overflow:hidden;">
+                    @if($item->foto)
+                    <img src="{{ asset('storage/' . $item->foto) }}" class="card-img-top" alt="{{ $item->judul }}" style="height:250px;object-fit:cover;">
+                    @else
+                    <div class="bg-light d-flex align-items-center justify-content-center" style="height:250px;">
+                        <i class="bi bi-image text-muted" style="font-size:3rem;"></i>
+                    </div>
+                    @endif
+                    <div class="card-body p-4 flex-grow-1">
+                        <small class="text-muted d-block mb-2" style="font-size:0.8rem;font-weight:600;">
+                            <i class="bi bi-calendar3 me-1"></i> {{ $item->created_at->format('d M Y') }}
+                        </small>
+                        <h5 class="fw-bold mb-3" style="color:#0f172a;">{{ $item->judul }}</h5>
+                        @if($item->keterangan)
+                        <p class="text-muted mb-0" style="font-size:0.9rem;line-height:1.6;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;">
+                            {{ $item->keterangan }}
+                        </p>
+                        @endif
+                    </div>
+                </div>
+            </div>
+            @endforeach
+        </div>
+    </div>
+</section>
+@endif
 
 @endsection
 
