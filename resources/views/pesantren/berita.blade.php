@@ -379,7 +379,7 @@
                     <p class="article-excerpt">{{ $beritaUtama->ringkasan ?? Str::limit(strip_tags($beritaUtama->konten), 180) }}</p>
                     <div class="article-meta mt-auto">
                         <span><i class="bi bi-person-circle me-1"></i> {{ $beritaUtama->penulis }}</span>
-                        <span><i class="bi bi-calendar3 me-1"></i> {{ $beritaUtama->tanggal_publikasi->translatedFormat('d M Y') }}</span>
+                        <span><i class="bi bi-calendar3 me-1"></i> {{ ($beritaUtama->tanggal_publikasi ?? $beritaUtama->created_at)->translatedFormat('d M Y') }}</span>
                     </div>
                     <a href="{{ route('pesantren.berita.detail', $beritaUtama->slug) }}" class="btn-read mt-4">
                         Baca Selengkapnya <i class="bi bi-arrow-right"></i>
@@ -415,7 +415,7 @@
                     </div>
                     <div class="article-body">
                         <div class="article-meta">
-                            <span><i class="bi bi-calendar3"></i> {{ $b->tanggal_publikasi->translatedFormat('d M Y') }}</span>
+                            <span><i class="bi bi-calendar3"></i> {{ ($b->tanggal_publikasi ?? $b->created_at)->translatedFormat('d M Y') }}</span>
                         </div>
                         <h3 class="article-title">{{ $b->judul }}</h3>
                         <p class="article-excerpt">{{ $b->ringkasan ?? Str::limit(strip_tags($b->konten), 100) }}</p>

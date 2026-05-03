@@ -12,6 +12,8 @@ class Donatur extends Model
         'no_wa',
         'jumlah_donasi',
         'pesan',
+        'metode_pembayaran',
+        'bukti_pembayaran',
         'tanggal_donasi',
         'status',
     ];

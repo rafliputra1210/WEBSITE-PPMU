@@ -147,17 +147,41 @@
         font-size: 1rem;
         flex-shrink: 0;
     }
-    .step-badge {
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        width: 28px; height: 28px;
-        border-radius: 50%;
+    .rekening-card {
+        background: #fff;
+        border: 1px solid #e2e8f0;
+        border-radius: 16px;
+        padding: 16px;
+        transition: all 0.3s ease;
+        position: relative;
+    }
+    .rekening-card:hover {
+        border-color: #10b981;
+        box-shadow: 0 8px 20px rgba(16,185,129,0.06);
+    }
+    .bank-logo {
+        width: 48px; height: 48px;
+        background: #f8fafc;
+        border-radius: 12px;
+        display: flex; align-items: center; justify-content: center;
+        font-weight: 800; color: #10b981; font-size: 0.9rem;
+        flex-shrink: 0;
+        border: 1px solid #f1f5f9;
+    }
+    .copy-btn {
         background: #10b981;
         color: #fff;
-        font-size: 0.78rem;
+        border: none;
+        padding: 6px 12px;
+        border-radius: 8px;
+        font-size: 0.72rem;
         font-weight: 700;
-        flex-shrink: 0;
+        cursor: pointer;
+        transition: all 0.2s;
+    }
+    .copy-btn:hover {
+        background: #059669;
+        transform: scale(1.05);
     }
 </style>
 @endsection
@@ -401,6 +425,71 @@
                         </div>
                     </div>
                 </div>
+
+                {{-- Informasi Pembayaran --}}
+                @if($rekeningList->count() > 0 || $qrisList->count() > 0)
+                <div class="info-card mt-4">
+                    <div class="fw-bold text-dark mb-3" style="font-size:0.9rem;">
+                        <i class="bi bi-credit-card me-2 text-success"></i>Informasi Pembayaran (Biaya Pendaftaran)
+                    </div>
+
+                    @foreach($rekeningList as $rek)
+                    <div class="rekening-card mb-3">
+                        <div class="d-flex align-items-center gap-3">
+                            <div class="bank-logo">{{ strtoupper(substr($rek->nama_bank, 0, 3)) }}</div>
+                            <div class="flex-grow-1">
+                                <div style="font-size:0.7rem;color:#059669;font-weight:700;text-transform:uppercase;letter-spacing:0.5px;">{{ $rek->nama_bank }}</div>
+                                <div style="font-size:1.1rem;font-weight:800;color:#064e3b;letter-spacing:1px;" id="rek-{{ $rek->id }}">{{ $rek->no_rekening }}</div>
+                                <div style="font-size:0.78rem;color:#64748b;">a.n. {{ $rek->atas_nama }}</div>
+                            </div>
+                            <button class="copy-btn" onclick="copyToClipboard('{{ $rek->no_rekening }}', this)">
+                                <i class="bi bi-clipboard me-1"></i>Salin
+                            </button>
+                        </div>
+                        @if($rek->keterangan)
+                        <div style="font-size:0.75rem;color:#475569;background:#f8fafc;border-radius:8px;padding:8px 10px;margin-top:10px;border-left:3px solid #10b981;">
+                            {{ $rek->keterangan }}
+                        </div>
+                        @endif
+                    </div>
+                    @endforeach
+
+                    @foreach($qrisList as $qris)
+                    <div class="rekening-card mb-3">
+                        <div class="d-flex align-items-center gap-3">
+                            <div class="bank-logo p-1">
+                                <img src="{{ asset('storage/' . $qris->gambar) }}" alt="QRIS" style="width:100%;height:100%;object-fit:contain;">
+                            </div>
+                            <div class="flex-grow-1">
+                                <div style="font-size:0.7rem;color:#059669;font-weight:700;text-transform:uppercase;letter-spacing:0.5px;">Bayar via QRIS</div>
+                                <div style="font-size:1rem;font-weight:800;color:#064e3b;">{{ $qris->nama ?: 'Scan Kode QRIS' }}</div>
+                            </div>
+                            <button class="copy-btn px-3" style="background:#0f172a;" onclick="window.open('{{ asset('storage/' . $qris->gambar) }}', '_blank')">
+                                <i class="bi bi-arrows-fullscreen"></i>
+                            </button>
+                        </div>
+                    </div>
+                    @endforeach
+
+                    <div class="alert alert-info py-2 px-3 mt-2 border-0 rounded-3" style="font-size: 0.75rem;">
+                        <i class="bi bi-info-circle-fill me-1"></i> Simpan bukti transfer untuk dikonfirmasi via WhatsApp.
+                    </div>
+                </div>
+                @endif
+
+                <script>
+                    function copyToClipboard(text, btn) {
+                        navigator.clipboard.writeText(text).then(() => {
+                            const originalContent = btn.innerHTML;
+                            btn.innerHTML = '<i class="bi bi-check2"></i> Tersalin';
+                            btn.style.background = '#064e3b';
+                            setTimeout(() => {
+                                btn.innerHTML = originalContent;
+                                btn.style.background = '#10b981';
+                            }, 2000);
+                        });
+                    }
+                </script>
             </div>
 
         </div>

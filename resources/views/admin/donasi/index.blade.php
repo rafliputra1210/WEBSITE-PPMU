@@ -34,6 +34,7 @@
                                 <th scope="col">#</th>
                                 <th scope="col">Nama Donatur</th>
                                 <th scope="col">Jenis/Nominal</th>
+                                <th scope="col">Metode & Bukti</th>
                                 <th scope="col">Tgl Donasi</th>
                                 <th scope="col">Status</th>
                                 <th scope="col">Aksi</th>
@@ -52,6 +53,19 @@
                                             <span class="badge bg-success">Material</span>
                                         @else
                                             <span class="text-primary fw-bold">Rp {{ number_format($item->jumlah_donasi, 0, ',', '.') }}</span>
+                                        @endif
+                                    </td>
+                                    <td>
+                                        @if($item->metode_pembayaran)
+                                            <div class="small fw-bold">{{ $item->metode_pembayaran }}</div>
+                                        @else
+                                            <span class="text-muted">-</span>
+                                        @endif
+                                        
+                                        @if($item->bukti_pembayaran)
+                                            <a href="{{ asset('storage/' . $item->bukti_pembayaran) }}" target="_blank" class="btn btn-sm btn-outline-primary mt-1" style="font-size: 0.75rem;">
+                                                <i class="bi bi-image me-1"></i>Lihat Bukti
+                                            </a>
                                         @endif
                                     </td>
                                     <td>{{ $item->tanggal_donasi->format('d M Y') }}</td>

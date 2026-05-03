@@ -9,6 +9,11 @@
         <h4 class="fw-bold mb-1">Data Pendaftar Santri</h4>
         <p class="text-muted mb-0" style="font-size:0.85rem;">Total: <strong>{{ $pendaftarans->total() }}</strong> pendaftar terdaftar</p>
     </div>
+    <div>
+        <a href="{{ route('admin.pendaftaran.export', request()->query()) }}" class="btn btn-success shadow-sm" style="border-radius:10px;">
+            <i class="bi bi-file-earmark-excel me-2"></i>Export Excel
+        </a>
+    </div>
 </div>
 
 {{-- Alert --}}

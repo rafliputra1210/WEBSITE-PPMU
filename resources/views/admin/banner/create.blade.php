@@ -7,6 +7,16 @@
         <form action="{{ route('admin.banner.store') }}" method="POST" enctype="multipart/form-data">
             @csrf
             
+            @if ($errors->any())
+                <div class="alert alert-danger rounded-3 mb-4">
+                    <ul class="mb-0">
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
+
             <div class="row">
                 <div class="col-md-8">
                     <div class="mb-3">
@@ -52,7 +62,7 @@
                     </div>
 
                     <div class="mb-4 form-check form-switch">
-                        <input class="form-check-input" type="checkbox" role="switch" name="is_active" id="isActive" checked>
+                        <input class="form-check-input" type="checkbox" role="switch" name="is_active" id="isActive" value="1" checked>
                         <label class="form-check-label fw-semibold" for="isActive">Aktif / Tayangkan</label>
                     </div>
 

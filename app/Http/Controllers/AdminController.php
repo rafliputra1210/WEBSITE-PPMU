@@ -7,6 +7,9 @@ use App\Models\Berita;
 use App\Models\Galeri;
 use App\Models\Donatur;
 use App\Models\Setting;
+use App\Models\Qris;
+use App\Models\PembayaranPpdb;
+use App\Models\QrisPpdb;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Storage;
 
@@ -46,6 +49,15 @@ class AdminController extends Controller
         $data = $request->all();
         $data['is_published'] = $request->has('is_published') ? true : false;
         
+        if (empty($data['kategori'])) {
+            $data['kategori'] = 'Umum';
+        }
+        if (empty($data['penulis'])) {
+            $data['penulis'] = 'Admin Sistem';
+        }
+        $data['slug'] = Str::slug($request->judul) . '-' . now()->format('YmdHis');
+        $data['tanggal_publikasi'] = $data['tanggal_publikasi'] ?? now();
+        
         if ($request->hasFile('gambar')) {
             $path = $request->file('gambar')->store('berita', 'public');
             $data['gambar'] = $path;
@@ -74,6 +86,13 @@ class AdminController extends Controller
 
         $data = $request->all();
         $data['is_published'] = $request->has('is_published') ? true : false;
+
+        if (empty($data['kategori'])) {
+            $data['kategori'] = 'Umum';
+        }
+        if (empty($data['penulis'])) {
+            $data['penulis'] = 'Admin Sistem';
+        }
 
         // Auto generete slug ulang jika judul berubah (opsional, tapi dibiarkan sama sementara, atau di update)
         $data['slug'] = Str::slug($request->judul) . '-' . now()->format('YmdHis');
@@ -179,6 +198,55 @@ class AdminController extends Controller
         $galeri->delete();
 
         return redirect()->route('admin.galeri.index')->with('success', 'Foto galeri berhasil dihapus.');
+    }
+
+    // ==========================================
+    // CRUD QRIS
+    // ==========================================
+
+    public function qrisIndex()
+    {
+        $qris = Qris::latest('id')->paginate(10);
+        return view('admin.qris.index', compact('qris'));
+    }
+
+    public function qrisCreate()
+    {
+        return view('admin.qris.create');
+    }
+
+    public function qrisStore(Request $request)
+    {
+        $request->validate([
+            'nama'   => 'nullable|string|max:255',
+            'gambar' => 'required|image|mimes:jpeg,png,jpg,webp|max:4096',
+        ]);
+
+        $path = $request->file('gambar')->store('qris', 'public');
+
+        Qris::create([
+            'nama'      => $request->nama,
+            'gambar'    => $path,
+            'is_active' => true,
+        ]);
+
+        return redirect()->route('admin.qris.index')->with('success', 'QRIS berhasil ditambahkan.');
+    }
+
+    public function qrisToggle(Qris $qris)
+    {
+        $qris->update(['is_active' => !$qris->is_active]);
+        return redirect()->route('admin.qris.index')->with('success', 'Status QRIS berhasil diubah.');
+    }
+
+    public function qrisDestroy(Qris $qris)
+    {
+        if (Storage::disk('public')->exists($qris->gambar)) {
+            Storage::disk('public')->delete($qris->gambar);
+        }
+        $qris->delete();
+
+        return redirect()->route('admin.qris.index')->with('success', 'QRIS berhasil dihapus.');
     }
 
     // ==========================================
@@ -318,5 +386,104 @@ class AdminController extends Controller
         } catch (\Exception $e) {
             return redirect()->back()->with('error', 'Gagal menyimpan pengaturan. Pastikan tabel database sudah dibuat (php artisan migrate).');
         }
+    }
+
+    // ==========================================
+    // PEMBAYARAN PPDB (REKENING BANK)
+    // ==========================================
+
+    public function pembayaranPpdbIndex()
+    {
+        $rekening = PembayaranPpdb::latest('id')->get();
+        return view('admin.pembayaran-ppdb.index', compact('rekening'));
+    }
+
+    public function pembayaranPpdbCreate()
+    {
+        return view('admin.pembayaran-ppdb.create');
+    }
+
+    public function pembayaranPpdbStore(Request $request)
+    {
+        $request->validate([
+            'entitas'     => 'required|in:pesantren,madrasah',
+            'nama_bank'   => 'required|string|max:100',
+            'no_rekening' => 'required|string|max:100',
+            'atas_nama'   => 'required|string|max:200',
+            'keterangan'  => 'nullable|string',
+        ]);
+
+        PembayaranPpdb::create([
+            'entitas'     => $request->entitas,
+            'nama_bank'   => $request->nama_bank,
+            'no_rekening' => $request->no_rekening,
+            'atas_nama'   => $request->atas_nama,
+            'keterangan'  => $request->keterangan,
+            'is_active'   => true,
+        ]);
+
+        return redirect()->route('admin.pembayaran-ppdb.index')->with('success', 'Rekening PPDB berhasil ditambahkan.');
+    }
+
+    public function pembayaranPpdbToggle(PembayaranPpdb $pembayaranPpdb)
+    {
+        $pembayaranPpdb->update(['is_active' => !$pembayaranPpdb->is_active]);
+        return redirect()->route('admin.pembayaran-ppdb.index')->with('success', 'Status rekening berhasil diubah.');
+    }
+
+    public function pembayaranPpdbDestroy(PembayaranPpdb $pembayaranPpdb)
+    {
+        $pembayaranPpdb->delete();
+        return redirect()->route('admin.pembayaran-ppdb.index')->with('success', 'Rekening PPDB berhasil dihapus.');
+    }
+
+    // ==========================================
+    // QRIS PPDB
+    // ==========================================
+
+    public function qrisPpdbIndex()
+    {
+        $qrisPpdb = QrisPpdb::latest('id')->get();
+        return view('admin.qris-ppdb.index', compact('qrisPpdb'));
+    }
+
+    public function qrisPpdbCreate()
+    {
+        return view('admin.qris-ppdb.create');
+    }
+
+    public function qrisPpdbStore(Request $request)
+    {
+        $request->validate([
+            'entitas' => 'required|in:pesantren,madrasah',
+            'nama'    => 'nullable|string|max:255',
+            'gambar'  => 'required|image|mimes:jpeg,png,jpg,webp|max:4096',
+        ]);
+
+        $path = $request->file('gambar')->store('qris-ppdb', 'public');
+
+        QrisPpdb::create([
+            'entitas'   => $request->entitas,
+            'nama'      => $request->nama,
+            'gambar'    => $path,
+            'is_active' => true,
+        ]);
+
+        return redirect()->route('admin.qris-ppdb.index')->with('success', 'QRIS PPDB berhasil ditambahkan.');
+    }
+
+    public function qrisPpdbToggle(QrisPpdb $qrisPpdb)
+    {
+        $qrisPpdb->update(['is_active' => !$qrisPpdb->is_active]);
+        return redirect()->route('admin.qris-ppdb.index')->with('success', 'Status QRIS PPDB berhasil diubah.');
+    }
+
+    public function qrisPpdbDestroy(QrisPpdb $qrisPpdb)
+    {
+        if (Storage::disk('public')->exists($qrisPpdb->gambar)) {
+            Storage::disk('public')->delete($qrisPpdb->gambar);
+        }
+        $qrisPpdb->delete();
+        return redirect()->route('admin.qris-ppdb.index')->with('success', 'QRIS PPDB berhasil dihapus.');
     }
 }

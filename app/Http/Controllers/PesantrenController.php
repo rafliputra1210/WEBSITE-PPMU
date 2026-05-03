@@ -8,9 +8,8 @@ class PesantrenController extends Controller
 {
     public function index()
     {
-        // Di sini nantinya Anda bisa mengambil data dinamis, 
-        // misalnya ringkasan donasi terkumpul atau berita pesantren terbaru.
-        return view('pesantren.index');
+        $banners = \App\Models\PesantrenBanner::where('is_active', true)->orderBy('order', 'asc')->get();
+        return view('pesantren.index', compact('banners'));
     }
 
     // Nanti kita akan tambahkan method untuk profil, donasi, pendaftaran, dll.

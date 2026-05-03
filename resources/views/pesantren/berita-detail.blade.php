@@ -347,7 +347,7 @@
                         <div class="author-avatar">{{ strtoupper(substr($berita->penulis, 0, 1)) }}</div>
                         <div>
                             <div class="author-name">{{ $berita->penulis }}</div>
-                            <div>{{ $berita->tanggal_publikasi->translatedFormat('d F Y') }}</div>
+                            <div>{{ ($berita->tanggal_publikasi ?? $berita->created_at)->translatedFormat('d F Y') }}</div>
                         </div>
                         <span style="margin-left:auto;display:flex;align-items:center;gap:6px;color:#94a3b8;font-size:0.8rem;">
                             <i class="bi bi-clock"></i>
@@ -357,7 +357,7 @@
 
                     {{-- Hero Image --}}
                     @if($berita->gambar)
-                    <img src="{{ $berita->gambar }}" alt="{{ $berita->judul }}" class="hero-img-article">
+                    <img src="{{ asset('storage/' . $berita->gambar) }}" alt="{{ $berita->judul }}" class="hero-img-article">
                     @endif
 
                     {{-- Ringkasan --}}
@@ -432,13 +432,13 @@
                         </div>
                         @forelse($beritaLainnya as $lain)
                         <a href="{{ route('pesantren.berita.detail', $lain->slug) }}" class="related-item">
-                            <img src="{{ $lain->gambar ?? 'https://images.unsplash.com/photo-1532012197267-da84d127e765?w=200' }}"
+                            <img src="{{ $lain->gambar ? asset('storage/' . $lain->gambar) : 'https://images.unsplash.com/photo-1532012197267-da84d127e765?w=200' }}"
                                  class="related-img" alt="{{ $lain->judul }}">
                             <div>
                                 <div class="related-title">{{ $lain->judul }}</div>
                                 <div class="related-date">
                                     <i class="bi bi-calendar3 me-1"></i>
-                                    {{ $lain->tanggal_publikasi->diffForHumans() }}
+                                    {{ ($lain->tanggal_publikasi ?? $lain->created_at)->diffForHumans() }}
                                 </div>
                             </div>
                         </a>

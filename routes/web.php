@@ -9,15 +9,15 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\FasilitasController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\BannerController;
+use App\Http\Controllers\PesantrenBannerController;
+use App\Http\Controllers\TestimoniController;
 
 // 1. Rute Beranda
 Route::get('/', [\App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 // 2. Portal Pesantren
 Route::prefix('pesantren')->name('pesantren.')->group(function () {
-    Route::get('/', function () {
-        return view('pesantren.index');
-    })->name('index');
+    Route::get('/', [\App\Http\Controllers\PesantrenController::class, 'index'])->name('index');
 
     Route::get('/berita', [BeritaController::class, 'index'])->name('berita');
     Route::get('/berita/{slug}', [BeritaController::class, 'show'])->name('berita.detail');
@@ -25,14 +25,15 @@ Route::prefix('pesantren')->name('pesantren.')->group(function () {
     Route::get('/profil', [\App\Http\Controllers\ProfileController::class, 'showPesantren'])->name('profil');
 
     // Pendaftaran Santri
-    Route::get('/pendaftaran', function () {
-        return view('pesantren.pendaftaran');
-    })->name('pendaftaran');
+    Route::get('/pendaftaran', [PendaftaranController::class, 'showForm'])->name('pendaftaran');
     Route::post('/pendaftaran', [PendaftaranController::class, 'store'])->name('pendaftaran.store');
+    Route::get('/pendaftaran/{id}/pembayaran', [PendaftaranController::class, 'pembayaran'])->name('pendaftaran.pembayaran');
 
     // Donasi
     Route::get('/donasi', [DonasiController::class, 'index'])->name('donasi');
     Route::post('/donasi', [DonasiController::class, 'store'])->name('donasi.store');
+    Route::get('/donasi/{id}/pembayaran', [DonasiController::class, 'pembayaran'])->name('donasi.pembayaran');
+    Route::post('/donasi/{id}/upload-bukti', [DonasiController::class, 'uploadBukti'])->name('donasi.uploadBukti');
 
     Route::get('/fasilitas', function () {
         $fasilitas = \App\Models\Fasilitas::where('entitas', 'pesantren')->latest()->get();
@@ -46,9 +47,9 @@ Route::prefix('madrasah')->name('madrasah.')->group(function () {
         return view('madrasah.index');
     })->name('index');
 
-    Route::get('/pendaftaran', function () {
-        return view('madrasah.pendaftaran');
-    })->name('pendaftaran');
+    Route::get('/pendaftaran', [PendaftaranController::class, 'showFormMadrasah'])->name('pendaftaran');
+    Route::post('/pendaftaran', [PendaftaranController::class, 'storeMadrasah'])->name('pendaftaran.store');
+    Route::get('/pendaftaran/{id}/pembayaran', [PendaftaranController::class, 'pembayaranMadrasah'])->name('pendaftaran.pembayaran');
 
     Route::get('/fasilitas', function () {
         $fasilitas = \App\Models\Fasilitas::where('entitas', 'madrasah')->latest()->get();
@@ -84,6 +85,10 @@ Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function () 
 
     // Banner
     Route::resource('banner', BannerController::class)->except(['show']);
+    Route::resource('pesantren-banner', PesantrenBannerController::class)->except(['show']);
+
+    // Testimoni
+    Route::resource('testimoni', TestimoniController::class)->except(['show']);
 
     // Berita
     Route::prefix('berita')->name('berita.')->group(function () {
@@ -105,6 +110,15 @@ Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function () 
         Route::delete('/{galeri}', [AdminController::class, 'galeriDestroy'])->name('destroy');
     });
 
+    // QRIS
+    Route::prefix('qris')->name('qris.')->group(function () {
+        Route::get('/', [AdminController::class, 'qrisIndex'])->name('index');
+        Route::get('/create', [AdminController::class, 'qrisCreate'])->name('create');
+        Route::post('/', [AdminController::class, 'qrisStore'])->name('store');
+        Route::delete('/{qris}', [AdminController::class, 'qrisDestroy'])->name('destroy');
+        Route::put('/{qris}/toggle', [AdminController::class, 'qrisToggle'])->name('toggle');
+    });
+
     // Donasi
     Route::prefix('donasi')->name('donasi.')->group(function () {
         Route::get('/', [AdminController::class, 'donasiIndex'])->name('index');
@@ -123,6 +137,7 @@ Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function () 
     // Pendaftaran Santri
     Route::prefix('pendaftaran')->name('pendaftaran.')->group(function () {
         Route::get('/', [PendaftaranController::class, 'adminIndex'])->name('index');
+        Route::get('/export', [PendaftaranController::class, 'adminExport'])->name('export');
         Route::delete('/{pendaftaran}', [PendaftaranController::class, 'adminDestroy'])->name('destroy');
     });
 
@@ -160,5 +175,23 @@ Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function () 
     Route::prefix('profile')->name('profile.')->group(function () {
         Route::get('/', [\App\Http\Controllers\ProfileController::class, 'adminIndex'])->name('index');
         Route::put('/{id}', [\App\Http\Controllers\ProfileController::class, 'update'])->name('update');
+    });
+
+    // Pembayaran PPDB (Rekening Bank)
+    Route::prefix('pembayaran-ppdb')->name('pembayaran-ppdb.')->group(function () {
+        Route::get('/', [AdminController::class, 'pembayaranPpdbIndex'])->name('index');
+        Route::get('/create', [AdminController::class, 'pembayaranPpdbCreate'])->name('create');
+        Route::post('/', [AdminController::class, 'pembayaranPpdbStore'])->name('store');
+        Route::put('/{pembayaranPpdb}/toggle', [AdminController::class, 'pembayaranPpdbToggle'])->name('toggle');
+        Route::delete('/{pembayaranPpdb}', [AdminController::class, 'pembayaranPpdbDestroy'])->name('destroy');
+    });
+
+    // QRIS PPDB
+    Route::prefix('qris-ppdb')->name('qris-ppdb.')->group(function () {
+        Route::get('/', [AdminController::class, 'qrisPpdbIndex'])->name('index');
+        Route::get('/create', [AdminController::class, 'qrisPpdbCreate'])->name('create');
+        Route::post('/', [AdminController::class, 'qrisPpdbStore'])->name('store');
+        Route::put('/{qrisPpdb}/toggle', [AdminController::class, 'qrisPpdbToggle'])->name('toggle');
+        Route::delete('/{qrisPpdb}', [AdminController::class, 'qrisPpdbDestroy'])->name('destroy');
     });
 });

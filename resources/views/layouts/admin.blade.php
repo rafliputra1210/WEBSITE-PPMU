@@ -24,11 +24,13 @@
             background: #ffffff;
             border-right: 1px solid #e2e8f0;
             padding: 20px;
-            z-index: 100;
+            z-index: 1050;
+            transition: all 0.3s;
         }
         .main-content {
             margin-left: 260px;
             padding: 30px;
+            transition: all 0.3s;
         }
         .nav-link {
             color: #64748b;
@@ -73,9 +75,46 @@
             display: block;
             text-align: center;
         }
+        
+        .sidebar-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: rgba(0,0,0,0.5);
+            z-index: 1040;
+            display: none;
+        }
+
+        .sidebar-overlay.active {
+            display: block;
+        }
+
+        @media (max-width: 768px) {
+            .sidebar {
+                transform: translateX(-100%);
+            }
+            .sidebar.active {
+                transform: translateX(0);
+            }
+            .main-content {
+                margin-left: 0;
+                padding: 15px;
+            }
+            .topbar {
+                padding: 15px;
+            }
+            .topbar h4 {
+                font-size: 1.2rem;
+            }
+        }
     </style>
 </head>
 <body>
+
+    <!-- Overlay -->
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
 
     <!-- Sidebar -->
     <div class="sidebar d-flex flex-column">
@@ -91,7 +130,17 @@
             </li>
             <li class="nav-item">
                 <a href="{{ route('admin.banner.index') }}" class="nav-link {{ request()->is('admin/banner*') ? 'active' : '' }}">
-                    <i class="bi bi-images"></i> Banner Utama
+                    <i class="bi bi-images"></i> Banner Utama (Home)
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="{{ route('admin.pesantren-banner.index') }}" class="nav-link {{ request()->is('admin/pesantren-banner*') ? 'active' : '' }}">
+                    <i class="bi bi-image-fill"></i> Banner Pesantren
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="{{ route('admin.testimoni.index') }}" class="nav-link {{ request()->is('admin/testimoni*') ? 'active' : '' }}">
+                    <i class="bi bi-chat-quote-fill"></i> Testimoni
                 </a>
             </li>
             <li class="nav-item">
@@ -105,8 +154,30 @@
                 </a>
             </li>
             <li class="nav-item">
+                <a href="{{ route('admin.qris.index') }}" class="nav-link {{ request()->is('admin/qris*') ? 'active' : '' }}">
+                    <i class="bi bi-qr-code-scan"></i> Kelola QRIS
+                </a>
+            </li>
+            <li class="nav-item">
                 <a href="{{ route('admin.galeri.index') }}" class="nav-link {{ request()->is('admin/galeri*') ? 'active' : '' }}">
                     <i class="bi bi-images"></i> Galeri
+                </a>
+            </li>
+
+            <li class="nav-header text-uppercase text-xs fw-bold mt-3 mb-1 opacity-50 px-3" style="font-size: 0.7rem;">PPDB (Pendaftaran)</li>
+            <li class="nav-item">
+                <a href="{{ route('admin.pendaftaran.index') }}" class="nav-link {{ request()->is('admin/pendaftaran*') ? 'active' : '' }}">
+                    <i class="bi bi-person-lines-fill"></i> Data Pendaftar
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="{{ route('admin.pembayaran-ppdb.index') }}" class="nav-link {{ request()->is('admin/pembayaran-ppdb*') ? 'active' : '' }}">
+                    <i class="bi bi-bank"></i> Rekening PPDB
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="{{ route('admin.qris-ppdb.index') }}" class="nav-link {{ request()->is('admin/qris-ppdb*') ? 'active' : '' }}">
+                    <i class="bi bi-qr-code"></i> QRIS PPDB
                 </a>
             </li>
             <li class="nav-item">
@@ -129,6 +200,19 @@
                     <i class="bi bi-person-workspace"></i> Pengaturan Profil
                 </a>
             </li>
+            <li class="nav-item mt-2">
+                <div style="font-size:0.68rem;font-weight:800;text-transform:uppercase;letter-spacing:1.5px;color:#94a3b8;padding:8px 16px;">PPDB</div>
+            </li>
+            <li class="nav-item">
+                <a href="{{ route('admin.pembayaran-ppdb.index') }}" class="nav-link {{ request()->is('admin/pembayaran-ppdb*') ? 'active' : '' }}">
+                    <i class="bi bi-credit-card-2-front"></i> Rekening PPDB
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="{{ route('admin.qris-ppdb.index') }}" class="nav-link {{ request()->is('admin/qris-ppdb*') ? 'active' : '' }}">
+                    <i class="bi bi-qr-code"></i> QRIS PPDB
+                </a>
+            </li>
             <li class="nav-item">
                 <a href="{{ route('admin.pendaftaran.index') }}" class="nav-link {{ request()->is('admin/pendaftaran*') ? 'active' : '' }}">
                     <i class="bi bi-person-lines-fill"></i> Pendaftaran
@@ -146,9 +230,14 @@
     <div class="main-content">
         <!-- Topbar -->
         <div class="topbar">
-            <h4 class="mb-0 fw-bold text-dark">@yield('title_page', 'Dashboard')</h4>
+            <div class="d-flex align-items-center">
+                <button class="btn btn-light d-md-none me-3" id="sidebarToggle">
+                    <i class="bi bi-list fs-4"></i>
+                </button>
+                <h4 class="mb-0 fw-bold text-dark">@yield('title_page', 'Dashboard')</h4>
+            </div>
             <div>
-                <span class="fw-semibold">Admin Sistem</span>
+                <span class="fw-semibold d-none d-md-inline">Admin Sistem</span>
                 <i class="bi bi-person-circle fs-4 ms-2 text-primary align-middle"></i>
             </div>
         </div>
@@ -157,6 +246,25 @@
     </div>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const toggleBtn = document.getElementById("sidebarToggle");
+        const sidebar = document.querySelector(".sidebar");
+        const overlay = document.getElementById("sidebarOverlay");
+
+        if (toggleBtn && sidebar && overlay) {
+            toggleBtn.addEventListener("click", function() {
+                sidebar.classList.toggle("active");
+                overlay.classList.toggle("active");
+            });
+
+            overlay.addEventListener("click", function() {
+                sidebar.classList.remove("active");
+                overlay.classList.remove("active");
+            });
+        }
+    });
+</script>
 @stack('scripts')
 </body>
 </html>

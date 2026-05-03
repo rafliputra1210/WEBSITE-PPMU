@@ -728,16 +728,6 @@
                 </div>
             </div>
 
-            <div class="col-md-6 col-lg-4">
-                <div class="feature-card">
-                    <div class="feature-icon" style="background:rgba(6,78,59,0.08);color:#064e3b;">
-                        <i class="bi bi-person-fill-check"></i>
-                    </div>
-                    <h4 class="fw-bold text-dark mb-3">Portal Wali Santri</h4>
-                    <p class="text-secondary mb-4" style="line-height:1.7;">Pantau perkembangan akademik, kehadiran, tagihan SPP, dan laporan keuangan putra-putri Anda secara real-time kapanpun, dimanapun.</p>
-                    <a href="#" class="text-decoration-none fw-semibold" style="color:var(--c-primary);">Login Wali <i class="bi bi-arrow-right"></i></a>
-                </div>
-            </div>
 
             <div class="col-md-6 col-lg-4">
                 <div class="feature-card">
@@ -819,39 +809,10 @@
     </div>
 </section>
 
-{{-- ===================== STATS SECTION ===================== --}}
-<section class="stats-section">
-    <div class="container position-relative" style="z-index:1;">
-        <div class="row g-4 text-center">
-            <div class="col-6 col-md-3">
-                <div class="stat-box">
-                    <h2 class="counter" data-target="1200">0</h2>
-                    <p>Santri Mukim</p>
-                </div>
-            </div>
-            <div class="col-6 col-md-3">
-                <div class="stat-box">
-                    <h2 class="counter" data-target="85">0</h2>
-                    <p>Asatidz & Guru</p>
-                </div>
-            </div>
-            <div class="col-6 col-md-3">
-                <div class="stat-box">
-                    <h2 class="counter" data-target="15">0</h2>
-                    <p>Tahun Berdiri</p>
-                </div>
-            </div>
-            <div class="col-6 col-md-3">
-                <div class="stat-box">
-                    <h2 class="counter" data-target="500">0</h2>
-                    <p>Alumni Berprestasi</p>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
+
 
 {{-- ===================== TESTIMONIALS ===================== --}}
+@if(isset($testimonis) && $testimonis->count() > 0)
 <section class="testimonials-section">
     <div class="container">
         <div class="text-center mb-5">
@@ -861,50 +822,28 @@
         </div>
 
         <div class="row g-4">
-            <div class="col-md-4">
+            @foreach($testimonis as $t)
+            <div class="col-md-4" data-aos="fade-up" data-aos-delay="{{ $loop->index * 100 }}">
                 <div class="testimonial-card">
-                    <div class="testimonial-stars">★★★★★</div>
-                    <p class="text-secondary mb-4" style="line-height:1.7;font-style:italic;">"Alhamdulillah, putra saya sangat berkembang sejak masuk pesantren ini. Tidak hanya hafalan Qur'an yang bertambah, akhlaknya pun semakin baik. Sangat recommended!"</p>
+                    <div class="testimonial-stars">
+                        @for($s = 1; $s <= 5; $s++){{ $s <= $t->bintang ? '★' : '☆' }}@endfor
+                    </div>
+                    <p class="text-secondary mb-4" style="line-height:1.7;font-style:italic;">"{{ $t->isi }}"</p>
                     <div class="d-flex align-items-center gap-3">
-                        <div class="avatar-placeholder" style="background:linear-gradient(135deg,#10b981,#059669);color:#fff;">B</div>
+                        <div class="avatar-placeholder" style="background:{{ $t->warna_avatar }};color:#fff;">{{ $t->inisial }}</div>
                         <div>
-                            <div class="fw-bold text-dark" style="font-size:0.9rem;">Bapak Hendra S.</div>
-                            <div class="text-muted" style="font-size:0.78rem;">Wali Santri — Kelas 5 MI</div>
+                            <div class="fw-bold text-dark" style="font-size:0.9rem;">{{ $t->nama }}</div>
+                            <div class="text-muted" style="font-size:0.78rem;">{{ $t->peran }}</div>
                         </div>
                     </div>
                 </div>
             </div>
-
-            <div class="col-md-4">
-                <div class="testimonial-card">
-                    <div class="testimonial-stars">★★★★★</div>
-                    <p class="text-secondary mb-4" style="line-height:1.7;font-style:italic;">"Fasilitas asramanya bersih, kasur nyaman, dan makanan bergizi. Sistem keamanannya juga ketat. Anak saya merasa betah dan semangat belajar setiap harinya."</p>
-                    <div class="d-flex align-items-center gap-3">
-                        <div class="avatar-placeholder" style="background:linear-gradient(135deg,#10b981,#059669);color:#fff;">N</div>
-                        <div>
-                            <div class="fw-bold text-dark" style="font-size:0.9rem;">Ibu Nurhasanah</div>
-                            <div class="text-muted" style="font-size:0.78rem;">Wali Santri — Tahfidz Junior</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-md-4">
-                <div class="testimonial-card">
-                    <div class="testimonial-stars">★★★★★</div>
-                    <p class="text-secondary mb-4" style="line-height:1.7;font-style:italic;">"Saya alumni pesantren ini angkatan 2018. Ilmu yang saya dapat di sini menjadi bekal kuat saat kuliah di luar negeri. Terima kasih para asatidz yang luar biasa."</p>
-                    <div class="d-flex align-items-center gap-3">
-                        <div class="avatar-placeholder" style="background:linear-gradient(135deg,#f59e0b,#ef4444);color:#fff;">R</div>
-                        <div>
-                            <div class="fw-bold text-dark" style="font-size:0.9rem;">Ahmad Rizki Maulana</div>
-                            <div class="text-muted" style="font-size:0.78rem;">Alumni 2018 — Mahasiswa Al-Azhar</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            @endforeach
         </div>
     </div>
 </section>
+@endif
+
 
 {{-- ===================== CTA SECTION ===================== --}}
 <section class="cta-section">

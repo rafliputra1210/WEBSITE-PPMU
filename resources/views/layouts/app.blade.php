@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@yield('title', 'Educate Portal — Pesantren & Madrasah Terpadu')</title>
+    <title>@yield('title', 'PPMUJakarta — Pesantren & Madrasah Terpadu')</title>
     <meta name="description" content="Portal resmi Pesantren dan Madrasah Terpadu. Mendidik generasi cerdas, berakhlak mulia, dan berwawasan global.">
 
     <!-- Google Fonts -->
@@ -52,60 +52,60 @@
             z-index: 1000;
             height: var(--nav-h);
             transition: all 0.4s cubic-bezier(.4,0,.2,1);
-            background: rgba(255, 255, 255, 0.65);
-            backdrop-filter: blur(24px) saturate(200%);
-            -webkit-backdrop-filter: blur(24px) saturate(200%);
-            border-bottom: 1px solid rgba(5, 150, 105, 0.08);
+            background: var(--grad-primary);
+            box-shadow: 0 4px 20px rgba(5,150,105,0.2);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
         }
 
         #main-navbar.scrolled {
-            background: rgba(255, 255, 255, 0.97);
-            box-shadow: 0 1px 3px rgba(0,0,0,0.04), 0 8px 32px rgba(5,150,105,0.07);
-            border-bottom: 1px solid rgba(5, 150, 105, 0.12);
+            background: linear-gradient(135deg, #064e3b 0%, #047857 100%);
+            box-shadow: 0 8px 30px rgba(0,0,0,0.15);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
         }
 
         /* Teks navbar */
-        #main-navbar .brand-text { color: var(--c-dark-green); font-weight: 800; font-size: 1.15rem; letter-spacing: -0.5px; transition: color 0.3s; }
-        #main-navbar .nav-link { color: #475569 !important; font-weight: 600; font-size: 0.9rem; padding: 0.4rem 0.9rem !important; border-radius: 8px; transition: all 0.2s; }
-        #main-navbar .nav-link:hover { color: var(--c-primary) !important; background: rgba(16, 185, 129, 0.08); }
-        #main-navbar .nav-link.active-nav { color: var(--c-primary) !important; background: rgba(16, 185, 129, 0.12); }
-        #main-navbar.scrolled .nav-link { color: #334155 !important; }
-        #main-navbar.scrolled .brand-text { color: var(--c-dark-green) !important; }
+        #main-navbar .brand-text { color: #ffffff; font-weight: 800; font-size: 1.15rem; letter-spacing: -0.5px; transition: color 0.3s; }
+        #main-navbar .nav-link { color: rgba(255,255,255,0.85) !important; font-weight: 600; font-size: 0.9rem; padding: 0.4rem 0.9rem !important; border-radius: 8px; transition: all 0.2s; }
+        #main-navbar .nav-link:hover { color: #ffffff !important; background: rgba(255, 255, 255, 0.15); }
+        #main-navbar .nav-link.active-nav { color: #ffffff !important; background: rgba(255, 255, 255, 0.2); }
+        #main-navbar.scrolled .brand-text { color: #ffffff !important; }
+        #main-navbar.scrolled .nav-link { color: rgba(255,255,255,0.85) !important; }
         #main-navbar.scrolled .nav-link:hover,
-        #main-navbar.scrolled .nav-link.active-nav { color: var(--c-primary) !important; }
+        #main-navbar.scrolled .nav-link.active-nav { color: #ffffff !important; background: rgba(255, 255, 255, 0.15); }
 
         .nav-logo-box {
             width: 36px;
             height: 36px;
-            background: var(--grad-primary);
+            background: #ffffff;
             border-radius: 10px;
             display: flex;
             align-items: center;
             justify-content: center;
             font-weight: 900;
             font-size: 1rem;
-            color: white;
+            color: var(--c-primary);
             flex-shrink: 0;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
         }
 
         .btn-nav-ppdb {
-            background: var(--grad-primary);
-            color: #fff !important;
+            background: #ffffff;
+            color: var(--c-primary) !important;
             border: none;
             padding: 9px 24px;
             border-radius: 100px;
-            font-weight: 700;
+            font-weight: 800;
             font-size: 0.85rem;
             text-decoration: none;
             transition: all 0.3s cubic-bezier(.4,0,.2,1);
-            box-shadow: 0 4px 14px rgba(5,150,105,0.3);
+            box-shadow: 0 4px 14px rgba(0,0,0,0.1);
             display: inline-block;
         }
 
         .btn-nav-ppdb:hover {
-            color: #fff !important;
+            color: var(--c-dark-green) !important;
             transform: translateY(-2px);
-            box-shadow: 0 8px 24px rgba(5,150,105,0.4);
+            box-shadow: 0 8px 24px rgba(0,0,0,0.15);
         }
 
         .btn-nav-login {
@@ -202,13 +202,13 @@
             background: rgba(255,255,255,0.28);
         }
         #main-navbar.scrolled .nav-hamburger {
-            background: #f1f5f9;
-            border-color: #e2e8f0;
-            color: #334155;
+            background: rgba(255,255,255,0.15);
+            border-color: rgba(255,255,255,0.3);
+            color: #fff;
         }
         #main-navbar.scrolled .nav-hamburger:hover {
-            background: #e2e8f0;
-            color: var(--c-primary);
+            background: rgba(255,255,255,0.25);
+            color: #fff;
         }
 
         /* Dropdown Menu */
@@ -245,108 +245,167 @@
 
         /* ======= FOOTER ======= */
         .site-footer {
-            background: linear-gradient(180deg, #064e3b 0%, #022c22 100%);
-            background-image: var(--pattern-islamic);
+            background: linear-gradient(135deg, #064e3b 0%, #022c22 100%);
+            position: relative;
             color: #ecfdf5;
-            padding: 60px 0 0;
-            margin-top: 0;
-            border-top: 3px solid var(--c-primary);
+            padding: 80px 0 0;
+            margin-top: 60px;
+            border-top: none;
+            overflow: hidden;
         }
 
-        .footer-brand { font-weight: 800; color: #f1f5f9; font-size: 1.05rem; }
+        .site-footer::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #10b981, #059669);
+        }
+
+        .site-footer::after {
+            content: '';
+            position: absolute;
+            top: -50%; right: -20%;
+            width: 800px; height: 800px;
+            background: radial-gradient(circle, rgba(16, 185, 129, 0.05) 0%, transparent 60%);
+            border-radius: 50%;
+            pointer-events: none;
+        }
+
+        .footer-brand { font-weight: 900; color: #ffffff; font-size: 1.5rem; letter-spacing: -0.5px; }
+        
+        .footer-brand-box {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 44px; height: 44px;
+            background: linear-gradient(135deg, #10b981, #059669);
+            border-radius: 14px;
+            font-size: 1.2rem;
+            font-weight: 900;
+            color: #fff;
+            box-shadow: 0 10px 20px rgba(16, 185, 129, 0.2);
+        }
 
         .footer-tagline {
-            color: #94a3b8;
-            font-size: 0.8rem;
-            line-height: 1.6;
-            margin-top: 6px;
-            max-width: 220px;
+            color: #a7f3d0;
+            font-size: 0.95rem;
+            line-height: 1.8;
+            margin-top: 16px;
+            max-width: 300px;
         }
 
         .footer-col-title {
             color: #ffffff;
-            font-weight: 700;
-            font-size: 0.72rem;
-            text-transform: uppercase;
-            letter-spacing: 1.2px;
-            margin-bottom: 12px;
+            font-weight: 800;
+            font-size: 1.1rem;
+            margin-bottom: 24px;
+            position: relative;
+            display: inline-block;
+        }
+
+        .footer-col-title::after {
+            content: '';
+            position: absolute;
+            bottom: -8px; left: 0;
+            width: 40px; height: 3px;
+            background: #10b981;
+            border-radius: 2px;
         }
 
         .footer-link {
-            display: block;
-            color: #94a3b8;
-            text-decoration: none;
-            font-size: 0.82rem;
-            padding: 3px 0;
-            transition: color 0.2s;
-        }
-        .footer-link:hover { color: #6ee7b7; }
-
-        .footer-contact-row {
             display: flex;
             align-items: center;
-            gap: 8px;
-            font-size: 0.8rem;
-            color: #94a3b8;
-            margin-bottom: 8px;
+            color: #a7f3d0;
+            text-decoration: none;
+            font-size: 0.9rem;
+            padding: 6px 0;
+            transition: all 0.3s;
+            font-weight: 500;
         }
-        .footer-contact-row i {
-            color: #34d399;
-            font-size: 0.85rem;
+        
+        .footer-link::before {
+            content: '\F286';
+            font-family: 'bootstrap-icons';
+            font-size: 0.7rem;
+            margin-right: 8px;
+            opacity: 0;
+            transform: translateX(-10px);
+            transition: all 0.3s;
+            color: #10b981;
+        }
+
+        .footer-link:hover { color: #ffffff; padding-left: 5px; }
+        .footer-link:hover::before { opacity: 1; transform: translateX(0); }
+
+        .footer-contact-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 16px;
+            color: #a7f3d0;
+            margin-bottom: 20px;
+            font-size: 0.9rem;
+            line-height: 1.6;
+        }
+        .footer-contact-icon {
+            width: 36px; height: 36px;
+            background: rgba(16, 185, 129, 0.15);
+            border-radius: 10px;
+            display: flex; align-items: center; justify-content: center;
+            color: #10b981;
+            font-size: 1.1rem;
             flex-shrink: 0;
+            transition: all 0.3s;
+        }
+        .footer-contact-item:hover .footer-contact-icon {
+            background: #10b981;
+            color: #ffffff;
+            transform: translateY(-3px);
         }
 
         .footer-divider {
-            border-color: rgba(255,255,255,0.05);
-            margin: 28px 0 0;
+            border-color: rgba(255,255,255,0.1);
+            margin: 60px 0 30px;
         }
 
         .footer-bottom {
-            padding: 14px 0;
+            padding-bottom: 30px;
             display: flex;
             align-items: center;
             justify-content: space-between;
-            gap: 12px;
             flex-wrap: wrap;
-        }
-
-        .footer-copy {
-            font-size: 0.75rem;
-            color: #64748b;
-        }
-
-        .footer-bottom-links {
-            display: flex;
             gap: 20px;
+            position: relative;
+            z-index: 1;
         }
-        .footer-bottom-links a {
-            font-size: 0.75rem;
-            color: #64748b;
-            text-decoration: none;
-            transition: color 0.2s;
+
+        .footer-copy { font-size: 0.85rem; color: #a7f3d0; font-weight: 500; }
+
+        .social-buttons {
+            display: flex;
+            gap: 12px;
         }
-        .footer-bottom-links a:hover { color: #6ee7b7; }
 
         .social-btn {
-            width: 32px;
-            height: 32px;
-            background: rgba(255,255,255,0.04);
-            border: 1px solid rgba(255,255,255,0.08);
-            border-radius: 8px;
+            width: 40px;
+            height: 40px;
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 12px;
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            color: #64748b;
-            font-size: 0.88rem;
+            color: #ffffff;
+            font-size: 1.1rem;
             text-decoration: none;
-            transition: all 0.2s;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
         .social-btn:hover {
-            background: var(--c-primary);
-            border-color: var(--c-primary);
+            background: linear-gradient(135deg, #10b981, #059669);
+            border-color: transparent;
             color: #fff;
-            transform: translateY(-2px);
-            box-shadow: 0 4px 15px rgba(5,150,105,0.4);
+            transform: translateY(-4px);
+            box-shadow: 0 10px 20px rgba(16, 185, 129, 0.3);
         }
 
         /* ======= PAGE PADDING FOR NON-HERO PAGES ======= */
@@ -536,6 +595,18 @@
             transform: translateY(0);
         }
 
+        @media (max-width: 575px) {
+            .btn-float {
+                width: 48px;
+                height: 48px;
+                font-size: 1.2rem;
+            }
+            .floating-controls {
+                bottom: 20px;
+                right: 20px;
+            }
+        }
+
         /* Custom Scrollbar */
         ::-webkit-scrollbar { width: 8px; }
         ::-webkit-scrollbar-track { background: #f0fdf4; }
@@ -633,25 +704,14 @@
         <div class="mob-header">
             <!-- Brand kiri -->
             <a href="{{ url('/') }}" class="d-flex align-items-center gap-2 text-decoration-none">
-                <div class="nav-logo-box" style="width:32px;height:32px;font-size:0.85rem;">E</div>
-                <span style="font-weight:800;font-size:1rem;color:#fff;">Educate<span style="color:#67e8f9;">.</span></span>
+                <div class="nav-logo-box" style="width:32px;height:32px;font-size:0.85rem;">P</div>
+                <span style="font-weight:800;font-size:1.1rem;color:#fff;">ppmiful<span style="color:#67e8f9;">.</span></span>
             </a>
 
-            <!-- Logo Madrasah kanan -->
-            <div class="d-flex align-items-center gap-2">
-                <a href="{{ route('madrasah.index') }}" class="d-flex align-items-center gap-2 text-decoration-none" title="Portal Madrasah">
-                    <img src="{{ asset('images/logo-madrasah.png') }}"
-                         alt="Logo Madrasah"
-                         class="mob-madrasah-logo">
-                    <div style="text-align:right;">
-                        <div style="font-size:0.68rem;font-weight:700;color:#fff;line-height:1.2;">Madrasah</div>
-                        <div style="font-size:0.58rem;font-weight:500;color:rgba(255,255,255,0.6);text-transform:uppercase;letter-spacing:0.5px;">PPMU</div>
-                    </div>
-                </a>
-                <button class="mob-close-btn" data-bs-dismiss="offcanvas" aria-label="Tutup">
-                    <i class="bi bi-x-lg"></i>
-                </button>
-            </div>
+            <!-- Close Button -->
+            <button class="mob-close-btn" data-bs-dismiss="offcanvas" aria-label="Tutup">
+                <i class="bi bi-x-lg"></i>
+            </button>
         </div>
 
         <!-- Body -->
@@ -768,59 +828,85 @@
 
     <!-- ===== FOOTER ===== -->
     <footer class="site-footer">
-        <div class="container">
-            <div class="row g-4 align-items-start">
+        <div class="container position-relative z-1">
+            <div class="row g-5">
 
                 <!-- Brand Col -->
-                <div class="col-lg-3 col-md-6">
-                    <div class="d-flex align-items-center gap-2 mb-2">
-                        <div class="nav-logo-box" style="width:30px;height:30px;font-size:0.85rem;">E</div>
-                        <span class="footer-brand">Educate<span style="color:var(--c-cyan);">.</span></span>
+                <div class="col-lg-4 col-md-6">
+                    <div class="d-flex align-items-center gap-3 mb-4">
+                        <div class="footer-brand-box">E</div>
+                        <span class="footer-brand">Miftahul Ulum Jakarta<span style="color:#10b981;">.</span></span>
                     </div>
-                    <p class="footer-tagline">Pendidikan terpadu Pesantren &amp; Madrasah — membentuk generasi berakhlak &amp; berwawasan global.</p>
-                    <div class="d-flex gap-2 mt-3">
+                    <p class="footer-tagline">Portal pendidikan terpadu Pesantren & Madrasah. Kami berdedikasi membentuk generasi Qur'ani yang berakhlak mulia dan berwawasan global.</p>
+                    <div class="social-buttons mt-4">
                         <a href="#" class="social-btn"><i class="bi bi-facebook"></i></a>
                         <a href="#" class="social-btn"><i class="bi bi-instagram"></i></a>
                         <a href="#" class="social-btn"><i class="bi bi-youtube"></i></a>
-                        <a href="#" class="social-btn"><i class="bi bi-whatsapp"></i></a>
+                        <a href="#" class="social-btn"><i class="bi bi-tiktok"></i></a>
                     </div>
                 </div>
 
-                <!-- Pesantren -->
-                <div class="col-lg-2 col-md-3 col-6">
-                    <div class="footer-col-title">Pesantren</div>
-                    <a href="{{ route('pesantren.index') }}" class="footer-link">Portal Pesantren</a>
-                    <a href="{{ route('pesantren.pendaftaran') }}" class="footer-link">Pendaftaran</a>
-                    <a href="{{ route('pesantren.donasi') }}" class="footer-link">Donasi</a>
-                    <a href="{{ route('pesantren.berita') }}" class="footer-link">Berita</a>
-                    <a href="{{ route('galeri.index') }}" class="footer-link">Galeri</a>
+                <!-- Pesantren Links -->
+                <div class="col-lg-2 col-md-6 col-6">
+                    <h4 class="footer-col-title">Pesantren</h4>
+                    <div class="d-flex flex-column gap-2">
+                        <a href="{{ route('pesantren.index') }}" class="footer-link">Portal Pesantren</a>
+                        <a href="{{ route('pesantren.profil') }}" class="footer-link">Profil & Sejarah</a>
+                        <a href="{{ route('pesantren.fasilitas') }}" class="footer-link">Fasilitas Asrama</a>
+                        <a href="{{ route('pesantren.pendaftaran') }}" class="footer-link">Info Pendaftaran</a>
+                        <a href="{{ route('pesantren.donasi') }}" class="footer-link">Investasi Akhirat</a>
+                    </div>
                 </div>
 
-                <!-- Madrasah -->
-                <div class="col-lg-2 col-md-3 col-6">
-                    <div class="footer-col-title">Madrasah</div>
-                    <a href="{{ route('madrasah.index') }}" class="footer-link">Portal Madrasah</a>
-                    <a href="{{ route('madrasah.pendaftaran') }}" class="footer-link">Pendaftaran</a>
-                    <a href="{{ route('madrasah.fasilitas') }}" class="footer-link">Fasilitas</a>
+                <!-- Madrasah Links -->
+                <div class="col-lg-2 col-md-6 col-6">
+                    <h4 class="footer-col-title">Madrasah</h4>
+                    <div class="d-flex flex-column gap-2">
+                        <a href="{{ route('madrasah.index') }}" class="footer-link">Portal Madrasah</a>
+                        <a href="{{ route('madrasah.profil') }}" class="footer-link">Profil Lembaga</a>
+                        <a href="{{ route('madrasah.fasilitas') }}" class="footer-link">Fasilitas Sekolah</a>
+                        <a href="{{ route('madrasah.pendaftaran') }}" class="footer-link">Info Pendaftaran</a>
+                        <a href="{{ route('galeri.index') }}" class="footer-link">Galeri Prestasi</a>
+                    </div>
                 </div>
 
                 <!-- Kontak -->
-                <div class="col-lg-5 col-md-12">
-                    <div class="footer-col-title">Kontak</div>
-                    <div class="footer-contact-row"><i class="bi bi-geo-alt-fill"></i> Jl. Pendidikan No. 1, Pesantren Terpadu, Jawa Timur</div>
-                    <div class="footer-contact-row"><i class="bi bi-telephone-fill"></i> +62 812 3456 7890</div>
-                    <div class="footer-contact-row"><i class="bi bi-envelope-fill"></i> info@educateportal.sch.id</div>
-                    <div class="footer-contact-row"><i class="bi bi-clock-fill"></i> Senin – Jumat, 08.00 – 16.00 WIB</div>
+                <div class="col-lg-4 col-md-6">
+                    <h4 class="footer-col-title">Hubungi Kami</h4>
+                    <div class="footer-contact-item">
+                        <div class="footer-contact-icon"><i class="bi bi-geo-alt-fill"></i></div>
+                        <div>
+                            <strong>Alamat Utama</strong><br>
+                            Gedung Utama Diniyah Mifathul Ulum Panggilingan Rt.08/Rw.06 Cakung Jakarta Timur
+                        </div>
+                    </div>
+                    <div class="footer-contact-item">
+                        <div class="footer-contact-icon"><i class="bi bi-telephone-fill"></i></div>
+                        <div>
+                            <strong>Telepon / WhatsApp</strong><br>
+                            +62 878 0065 4979
+                        </div>
+                    </div>
+                    <div class="footer-contact-item mb-0">
+                        <div class="footer-contact-icon"><i class="bi bi-envelope-fill"></i></div>
+                        <div>
+                            <strong>Email Resmi</strong><br>
+                            yayasanmiftahululum57@gmail.com
+                        </div>
+                    </div>
                 </div>
 
             </div>
 
             <hr class="footer-divider">
+            
             <div class="footer-bottom">
-                <span class="footer-copy">&copy; {{ date('Y') }} Educate Portal — Pesantren &amp; Madrasah Terpadu. All Rights Reserved.</span>
-                <div class="footer-bottom-links">
-                    <a href="#">Kebijakan Privasi</a>
-                    <a href="#">Syarat &amp; Ketentuan</a>
+                <div class="footer-copy">
+                    &copy; {{ date('Y') }} <strong>ppmuajakarta</strong>. Hak Cipta Dilindungi.
+                </div>
+                <div class="d-flex gap-4">
+                    <a href="#" class="footer-link text-decoration-none mb-0" style="padding:0;">Kebijakan Privasi</a>
+                    <a href="#" class="footer-link text-decoration-none mb-0" style="padding:0;">Syarat Ketentuan</a>
                 </div>
             </div>
         </div>

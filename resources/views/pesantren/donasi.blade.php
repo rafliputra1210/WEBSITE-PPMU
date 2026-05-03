@@ -423,8 +423,8 @@
     <div class="container">
         <div class="row g-5">
             {{-- FORM COLUMN --}}
-            <div class="col-lg-7">
-                <div class="form-card" data-aos="fade-right">
+            <div class="col-lg-8 mx-auto">
+                <div class="form-card" data-aos="fade-up">
                     <div class="d-flex align-items-center gap-3 mb-4">
                         <div style="width:48px;height:48px;background:linear-gradient(135deg,#10b981,#059669);border-radius:14px;display:flex;align-items:center;justify-content:center;color:#fff;font-size:1.2rem;">
                             <i class="bi bi-pencil-square"></i>
@@ -549,7 +549,7 @@
             </div>
 
             {{-- SIDEBAR COLUMN --}}
-            <div class="col-lg-5">
+            <div class="col-lg-4">
                 {{-- REKENING INFO --}}
                 <div class="form-card mb-4" data-aos="fade-left" data-aos-delay="100">
                     <h5 style="font-weight:800;color:#0f172a;margin-bottom:1.2rem;font-size:1.05rem;">
@@ -588,11 +588,29 @@
                         </div>
                     </div>
 
+                    @forelse($listQris as $qris)
                     <div class="rekening-card mt-3">
                         <div class="d-flex align-items-center gap-3">
-                            @php $qris = \App\Models\Setting::get('donasi_qris'); @endphp
+                            <div class="bank-logo" style="width: 56px; height: 56px; overflow: hidden; padding: 4px;">
+                                <img src="{{ asset('storage/' . $qris->gambar) }}" 
+                                     alt="QRIS" style="width:100%; height:100%; object-fit:contain;">
+                            </div>
+                            <div class="flex-grow-1">
+                                <div style="font-size:0.75rem;color:#059669;font-weight:700;text-transform:uppercase;letter-spacing:0.5px;">Scan QRIS</div>
+                                <div style="font-size:1rem;font-weight:800;color:#064e3b;letter-spacing:0.5px;">{{ $qris->nama ?: 'E-Wallet/M-Banking' }}</div>
+                                <div style="font-size:0.78rem;color:#64748b;">a.n. {{ \App\Models\Setting::get('donasi_rekening_nama', 'Yayasan Pesantren Terpadu') }}</div>
+                            </div>
+                            <button class="copy-btn py-2 px-3" style="background:#0f172a;" onclick="window.open('{{ asset('storage/' . $qris->gambar) }}', '_blank')">
+                                <i class="bi bi-arrows-fullscreen me-1"></i> Lihat
+                            </button>
+                        </div>
+                    </div>
+                    @empty
+                    <div class="rekening-card mt-3">
+                        <div class="d-flex align-items-center gap-3">
+                            @php $qrisSetting = \App\Models\Setting::get('donasi_qris'); @endphp
                             <div class="bank-logo" style="width: 56px; height: 56px;">
-                                <img src="{{ $qris ? asset('storage/' . $qris) : 'https://upload.wikimedia.org/wikipedia/commons/d/d0/QRIS_logo.svg' }}" 
+                                <img src="{{ $qrisSetting ? asset('storage/' . $qrisSetting) : 'https://upload.wikimedia.org/wikipedia/commons/d/d0/QRIS_logo.svg' }}" 
                                      alt="QRIS" style="width:100%; height:100%; object-fit:contain;">
                             </div>
                             <div class="flex-grow-1">
@@ -605,6 +623,7 @@
                             </button>
                         </div>
                     </div>
+                    @endforelse
                 </div>
 
                 {{-- DONATUR TERBARU --}}
@@ -649,6 +668,39 @@
         </div>
     </div>
 </section>
+
+{{-- ===================== PROGRES PEMBANGUNAN ===================== --}}
+@if($progres->count() > 0)
+<section style="padding:60px 0;background:#fff;">
+    <div class="container">
+        <div class="text-center mb-5">
+             <span class="section-chip-green">Laporan</span>
+             <h2 style="font-size:clamp(1.8rem,4vw,2.4rem);font-weight:800;color:#0f172a;letter-spacing:-0.5px;">
+                 Progres Pembangunan
+             </h2>
+             <p style="color:#64748b;font-size:1rem;max-width:520px;margin:12px auto 0;">
+                 Perkembangan terbaru pembangunan dari dana yang telah Anda amanahkan.
+             </p>
+        </div>
+
+        <div class="row g-4">
+            @foreach($progres as $p)
+            <div class="col-md-6 col-lg-4">
+                <div class="form-card p-0 h-100 d-flex flex-column" data-aos="fade-up" data-aos-delay="{{ $loop->index * 100 }}">
+                    <img src="{{ asset('storage/' . $p->foto) }}" alt="{{ $p->judul }}" style="width:100%; height:200px; object-fit:cover; border-radius:20px 20px 0 0;">
+                    <div class="p-4 flex-grow-1">
+                        <h5 style="font-weight:800; color:#0f172a; margin-bottom:10px;">{{ $p->judul }}</h5>
+                        <p style="font-size:0.9rem; color:#64748b; line-height:1.6; margin:0;">
+                            {{ Str::limit(strip_tags($p->keterangan), 120) }}
+                        </p>
+                    </div>
+                </div>
+            </div>
+            @endforeach
+        </div>
+    </div>
+</section>
+@endif
 
 {{-- ===================== LEADERBOARD DONASI ===================== --}}
 <section style="padding:60px 0;background:#f8fafb;border-top:1px solid #f1f5f9;">
@@ -800,49 +852,7 @@
     </div>
 </section>
 
-{{-- ===================== HASIL PROGRES ===================== --}}
-@if($progres->count() > 0)
-<section style="padding:80px 0;background:#f8fafb;border-top:1px solid #f1f5f9;">
-    <div class="container">
-        <div class="text-center mb-5">
-             <span class="section-chip-green">Laporan</span>
-             <h2 style="font-size:clamp(1.8rem,4vw,2.4rem);font-weight:800;color:#0f172a;letter-spacing:-0.5px;">
-                 Hasil Progres Pembangunan
-             </h2>
-             <p style="color:#64748b;font-size:1rem;max-width:520px;margin:12px auto 0;">
-                 Informasi terbaru mengenai progres pembangunan dan pemanfaatan dana donasi.
-             </p>
-        </div>
 
-        <div class="row g-4 justify-content-center">
-            @foreach($progres as $item)
-            <div class="col-md-6 col-lg-4">
-                <div class="card border-0 shadow-sm h-100" style="border-radius:20px;overflow:hidden;">
-                    @if($item->foto)
-                    <img src="{{ asset('storage/' . $item->foto) }}" class="card-img-top" alt="{{ $item->judul }}" style="height:250px;object-fit:cover;">
-                    @else
-                    <div class="bg-light d-flex align-items-center justify-content-center" style="height:250px;">
-                        <i class="bi bi-image text-muted" style="font-size:3rem;"></i>
-                    </div>
-                    @endif
-                    <div class="card-body p-4 flex-grow-1">
-                        <small class="text-muted d-block mb-2" style="font-size:0.8rem;font-weight:600;">
-                            <i class="bi bi-calendar3 me-1"></i> {{ $item->created_at->format('d M Y') }}
-                        </small>
-                        <h5 class="fw-bold mb-3" style="color:#0f172a;">{{ $item->judul }}</h5>
-                        @if($item->keterangan)
-                        <p class="text-muted mb-0" style="font-size:0.9rem;line-height:1.6;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;">
-                            {{ $item->keterangan }}
-                        </p>
-                        @endif
-                    </div>
-                </div>
-            </div>
-            @endforeach
-        </div>
-    </div>
-</section>
-@endif
 
 @endsection
 
