@@ -10,6 +10,7 @@ use App\Http\Controllers\FasilitasController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\BannerController;
 use App\Http\Controllers\PesantrenBannerController;
+use App\Http\Controllers\MadrasahBannerController;
 use App\Http\Controllers\TestimoniController;
 
 // 1. Rute Beranda
@@ -44,7 +45,8 @@ Route::prefix('pesantren')->name('pesantren.')->group(function () {
 // 3. Portal Madrasah
 Route::prefix('madrasah')->name('madrasah.')->group(function () {
     Route::get('/', function () {
-        return view('madrasah.index');
+        $banners = \App\Models\MadrasahBanner::where('is_active', true)->orderBy('order', 'asc')->get();
+        return view('madrasah.index', compact('banners'));
     })->name('index');
 
     Route::get('/pendaftaran', [PendaftaranController::class, 'showFormMadrasah'])->name('pendaftaran');
@@ -61,6 +63,17 @@ Route::prefix('madrasah')->name('madrasah.')->group(function () {
 
 // 4. Galeri Publik
 Route::get('/galeri', [GaleriController::class, 'index'])->name('galeri.index');
+
+// Temporary route to run migrations
+Route::get('/run-migrate', function () {
+    try {
+        \Illuminate\Support\Facades\Artisan::call('migrate', ['--force' => true]);
+        $output = \Illuminate\Support\Facades\Artisan::output();
+        return '<pre style="background:#111;color:#0f0;padding:20px;font-size:14px;">✅ Migrasi berhasil dijalankan!<br><br>' . htmlspecialchars($output) . '</pre>';
+    } catch (\Exception $e) {
+        return '<pre style="background:#111;color:red;padding:20px;">❌ Error: ' . htmlspecialchars($e->getMessage()) . '</pre>';
+    }
+});
 
 // Temporary route to setup admin user
 Route::get('/setup-admin', function () {
@@ -86,6 +99,7 @@ Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function () 
     // Banner
     Route::resource('banner', BannerController::class)->except(['show']);
     Route::resource('pesantren-banner', PesantrenBannerController::class)->except(['show']);
+    Route::resource('madrasah-banner', MadrasahBannerController::class)->except(['show']);
 
     // Testimoni
     Route::resource('testimoni', TestimoniController::class)->except(['show']);
@@ -182,6 +196,8 @@ Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function () 
         Route::get('/', [AdminController::class, 'pembayaranPpdbIndex'])->name('index');
         Route::get('/create', [AdminController::class, 'pembayaranPpdbCreate'])->name('create');
         Route::post('/', [AdminController::class, 'pembayaranPpdbStore'])->name('store');
+        Route::get('/{pembayaranPpdb}/edit', [AdminController::class, 'pembayaranPpdbEdit'])->name('edit');
+        Route::put('/{pembayaranPpdb}', [AdminController::class, 'pembayaranPpdbUpdate'])->name('update');
         Route::put('/{pembayaranPpdb}/toggle', [AdminController::class, 'pembayaranPpdbToggle'])->name('toggle');
         Route::delete('/{pembayaranPpdb}', [AdminController::class, 'pembayaranPpdbDestroy'])->name('destroy');
     });
@@ -191,6 +207,8 @@ Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function () 
         Route::get('/', [AdminController::class, 'qrisPpdbIndex'])->name('index');
         Route::get('/create', [AdminController::class, 'qrisPpdbCreate'])->name('create');
         Route::post('/', [AdminController::class, 'qrisPpdbStore'])->name('store');
+        Route::get('/{qrisPpdb}/edit', [AdminController::class, 'qrisPpdbEdit'])->name('edit');
+        Route::put('/{qrisPpdb}', [AdminController::class, 'qrisPpdbUpdate'])->name('update');
         Route::put('/{qrisPpdb}/toggle', [AdminController::class, 'qrisPpdbToggle'])->name('toggle');
         Route::delete('/{qrisPpdb}', [AdminController::class, 'qrisPpdbDestroy'])->name('destroy');
     });

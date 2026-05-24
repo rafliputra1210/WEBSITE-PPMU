@@ -38,6 +38,9 @@
                             {{ $q->is_active ? 'Aktif' : 'Nonaktif' }}
                         </button>
                     </form>
+                    <a href="{{ route('admin.qris-ppdb.edit', $q) }}" class="btn btn-sm btn-outline-warning">
+                        <i class="bi bi-pencil-square"></i>
+                    </a>
                     <form method="POST" action="{{ route('admin.qris-ppdb.destroy', $q) }}" onsubmit="return confirm('Hapus QRIS ini?')">
                         @csrf @method('DELETE')
                         <button class="btn btn-sm btn-outline-danger"><i class="bi bi-trash"></i></button>

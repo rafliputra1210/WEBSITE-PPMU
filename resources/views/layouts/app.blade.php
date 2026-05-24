@@ -6,16 +6,13 @@
     <title>@yield('title', 'PPMUJakarta — Pesantren & Madrasah Terpadu')</title>
     <meta name="description" content="Portal resmi Pesantren dan Madrasah Terpadu. Mendidik generasi cerdas, berakhlak mulia, dan berwawasan global.">
 
-    <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
 
-    <!-- Bootstrap & Icons -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     
-    <!-- AOS Animations -->
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 
     <style>
@@ -50,7 +47,6 @@
             left: 0;
             right: 0;
             z-index: 1000;
-            height: var(--nav-h);
             transition: all 0.4s cubic-bezier(.4,0,.2,1);
             background: var(--grad-primary);
             box-shadow: 0 4px 20px rgba(5,150,105,0.2);
@@ -63,30 +59,13 @@
             border-bottom: 1px solid rgba(255, 255, 255, 0.05);
         }
 
-        /* Teks navbar */
-        #main-navbar .brand-text { color: #ffffff; font-weight: 800; font-size: 1.15rem; letter-spacing: -0.5px; transition: color 0.3s; }
         #main-navbar .nav-link { color: rgba(255,255,255,0.85) !important; font-weight: 600; font-size: 0.9rem; padding: 0.4rem 0.9rem !important; border-radius: 8px; transition: all 0.2s; }
         #main-navbar .nav-link:hover { color: #ffffff !important; background: rgba(255, 255, 255, 0.15); }
         #main-navbar .nav-link.active-nav { color: #ffffff !important; background: rgba(255, 255, 255, 0.2); }
-        #main-navbar.scrolled .brand-text { color: #ffffff !important; }
+        
         #main-navbar.scrolled .nav-link { color: rgba(255,255,255,0.85) !important; }
         #main-navbar.scrolled .nav-link:hover,
         #main-navbar.scrolled .nav-link.active-nav { color: #ffffff !important; background: rgba(255, 255, 255, 0.15); }
-
-        .nav-logo-box {
-            width: 36px;
-            height: 36px;
-            background: #ffffff;
-            border-radius: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: 900;
-            font-size: 1rem;
-            color: var(--c-primary);
-            flex-shrink: 0;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-        }
 
         .btn-nav-ppdb {
             background: #ffffff;
@@ -108,80 +87,6 @@
             box-shadow: 0 8px 24px rgba(0,0,0,0.15);
         }
 
-        .btn-nav-login {
-            color: rgba(255,255,255,0.85) !important;
-            border: 1px solid rgba(255,255,255,0.3);
-            padding: 7px 18px;
-            border-radius: 100px;
-            font-weight: 600;
-            font-size: 0.85rem;
-            text-decoration: none;
-            transition: all 0.3s;
-            display: inline-block;
-        }
-
-        .btn-nav-login:hover {
-            background: rgba(255,255,255,0.15);
-            color: #fff !important;
-            border-color: rgba(255,255,255,0.5);
-        }
-
-        /* ======= LOGO MADRASAH (NAVBAR) ======= */
-        .nav-madrasah-logo-wrap {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            text-decoration: none;
-        }
-        .nav-madrasah-logo {
-            height: 40px;
-            width: auto;
-            object-fit: contain;
-            transition: all 0.3s ease;
-            flex-shrink: 0;
-            filter: drop-shadow(0 2px 6px rgba(0,0,0,0.15));
-        }
-        .nav-madrasah-logo:hover {
-            transform: scale(1.06);
-            filter: drop-shadow(0 4px 12px rgba(0,0,0,0.25));
-        }
-        #main-navbar.scrolled .nav-madrasah-logo {
-            filter: drop-shadow(0 2px 6px rgba(0,0,0,0.08));
-        }
-        #main-navbar.scrolled .nav-madrasah-logo:hover {
-            filter: drop-shadow(0 4px 10px rgba(99,102,241,0.2));
-        }
-        .nav-madrasah-label {
-            font-size: 0.72rem;
-            font-weight: 700;
-            line-height: 1.3;
-            letter-spacing: 0.3px;
-            color: rgba(255,255,255,0.9);
-            transition: color 0.3s;
-        }
-        .nav-madrasah-label span {
-            display: block;
-            font-size: 0.62rem;
-            font-weight: 500;
-            opacity: 0.75;
-            letter-spacing: 0.5px;
-            text-transform: uppercase;
-        }
-        #main-navbar.scrolled .nav-madrasah-label {
-            color: var(--c-dark-green);
-        }
-        /* Hide text label on medium screens, show only logo */
-        @media (max-width: 1199px) {
-            .nav-madrasah-label { display: none; }
-        }
-        /* Mobile logo in offcanvas header */
-        .mob-madrasah-logo {
-            height: 36px;
-            width: auto;
-            object-fit: contain;
-            filter: drop-shadow(0 2px 6px rgba(0,0,0,0.2));
-        }
-
         /* ======= MOBILE HAMBURGER ======= */
         .nav-hamburger {
             display: flex;
@@ -198,20 +103,9 @@
             transition: all 0.25s;
             flex-shrink: 0;
         }
-        .nav-hamburger:hover {
-            background: rgba(255,255,255,0.28);
-        }
-        #main-navbar.scrolled .nav-hamburger {
-            background: rgba(255,255,255,0.15);
-            border-color: rgba(255,255,255,0.3);
-            color: #fff;
-        }
-        #main-navbar.scrolled .nav-hamburger:hover {
-            background: rgba(255,255,255,0.25);
-            color: #fff;
-        }
+        .nav-hamburger:hover { background: rgba(255,255,255,0.28); }
 
-        /* Dropdown Menu */
+        /* Dropdown Menu Desktop */
         .dropdown-menu {
             border: 1px solid #f1f5f9;
             border-radius: 14px;
@@ -240,7 +134,6 @@
             color: var(--c-primary);
         }
 
-        /* Main content - no top padding by default (hero handles it) */
         main { min-height: 80vh; }
 
         /* ======= FOOTER ======= */
@@ -262,31 +155,8 @@
             background: linear-gradient(90deg, #10b981, #059669);
         }
 
-        .site-footer::after {
-            content: '';
-            position: absolute;
-            top: -50%; right: -20%;
-            width: 800px; height: 800px;
-            background: radial-gradient(circle, rgba(16, 185, 129, 0.05) 0%, transparent 60%);
-            border-radius: 50%;
-            pointer-events: none;
-        }
-
         .footer-brand { font-weight: 900; color: #ffffff; font-size: 1.5rem; letter-spacing: -0.5px; }
         
-        .footer-brand-box {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            width: 44px; height: 44px;
-            background: linear-gradient(135deg, #10b981, #059669);
-            border-radius: 14px;
-            font-size: 1.2rem;
-            font-weight: 900;
-            color: #fff;
-            box-shadow: 0 10px 20px rgba(16, 185, 129, 0.2);
-        }
-
         .footer-tagline {
             color: #a7f3d0;
             font-size: 0.95rem;
@@ -381,20 +251,14 @@
 
         .footer-copy { font-size: 0.85rem; color: #a7f3d0; font-weight: 500; }
 
-        .social-buttons {
-            display: flex;
-            gap: 12px;
-        }
+        .social-buttons { display: flex; gap: 12px; }
 
         .social-btn {
-            width: 40px;
-            height: 40px;
+            width: 40px; height: 40px;
             background: rgba(255,255,255,0.05);
             border: 1px solid rgba(255,255,255,0.1);
             border-radius: 12px;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
+            display: inline-flex; align-items: center; justify-content: center;
             color: #ffffff;
             font-size: 1.1rem;
             text-decoration: none;
@@ -408,13 +272,11 @@
             box-shadow: 0 10px 20px rgba(16, 185, 129, 0.3);
         }
 
-        /* ======= PAGE PADDING FOR NON-HERO PAGES ======= */
-        .page-padded-top { padding-top: calc(var(--nav-h) + 20px); }
-
-        /* ======= MOBILE OFFCANVAS MENU ======= */
+        /* ======= MOBILE OFFCANVAS MENU (BOOTSTRAP MURNI) ======= */
         #mobileMenu {
-            max-width: 300px;
+            max-width: 320px;
             border-left: none;
+            background-color: #ffffff;
         }
         .mob-header {
             display: flex;
@@ -422,7 +284,6 @@
             justify-content: space-between;
             padding: 18px 20px;
             background: linear-gradient(135deg, #064e3b 0%, #047857 100%);
-            border-bottom: none !important;
         }
         .mob-close-btn {
             width: 34px; height: 34px;
@@ -440,15 +301,14 @@
             padding: 0;
             overflow-y: auto;
         }
-        /* Section group */
-        .mob-section {
-            padding: 16px 20px 8px;
-        }
+        
+        .mob-section { padding: 16px 20px 8px; }
+        
         .mob-section-label {
             display: flex;
             align-items: center;
             gap: 8px;
-            margin-bottom: 6px;
+            margin-bottom: 10px;
         }
         .mob-section-line {
             flex: 1;
@@ -456,13 +316,13 @@
             border-radius: 2px;
         }
         .mob-section-text {
-            font-size: 0.68rem;
+            font-size: 0.7rem;
             font-weight: 800;
             text-transform: uppercase;
             letter-spacing: 1.5px;
             white-space: nowrap;
         }
-        /* Nav links */
+        
         .mob-link {
             display: flex;
             align-items: center;
@@ -472,69 +332,49 @@
             text-decoration: none;
             color: #1e293b;
             font-weight: 600;
-            font-size: 0.9rem;
+            font-size: 0.95rem;
             transition: all 0.2s;
-            margin-bottom: 2px;
+            margin-bottom: 4px;
         }
         .mob-link:hover {
             background: #f8fafc;
             color: var(--c-primary);
-            transform: translateX(3px);
+            transform: translateX(4px);
         }
         .mob-link.active-mob {
             background: rgba(5,150,105,0.08);
             color: var(--c-primary);
         }
+        
         .mob-link .mob-icon {
-            width: 34px; height: 34px;
+            width: 36px; height: 36px;
             border-radius: 9px;
             display: flex; align-items: center; justify-content: center;
-            font-size: 0.95rem;
+            font-size: 1rem;
             flex-shrink: 0;
         }
         .mob-link .mob-arrow {
             margin-left: auto;
-            font-size: 0.75rem;
+            font-size: 0.8rem;
             opacity: 0.35;
             transition: opacity 0.2s;
         }
         .mob-link:hover .mob-arrow { opacity: 0.7; }
-        /* Separating line between sub-sections */
+        
         .mob-divider {
             height: 1px;
             background: linear-gradient(to right, transparent, #e2e8f0 30%, #e2e8f0 70%, transparent);
             margin: 6px 20px;
         }
-        /* CTA footer inside offcanvas */
-        .mob-cta {
-            padding: 16px 20px 24px;
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-        }
-        .mob-cta-masuk {
-            display: block;
-            text-align: center;
-            padding: 11px;
-            border-radius: 100px;
-            font-weight: 700;
-            font-size: 0.9rem;
-            border: 2px solid var(--c-primary);
-            color: var(--c-primary);
-            text-decoration: none;
-            transition: all 0.25s;
-        }
-        .mob-cta-masuk:hover {
-            background: var(--c-primary);
-            color: #fff;
-        }
+
+        .mob-cta { padding: 16px 20px 24px; }
         .mob-cta-ppdb {
             display: block;
             text-align: center;
-            padding: 12px;
+            padding: 14px;
             border-radius: 100px;
             font-weight: 700;
-            font-size: 0.9rem;
+            font-size: 1rem;
             background: var(--grad-primary);
             color: #fff;
             text-decoration: none;
@@ -546,6 +386,7 @@
             transform: translateY(-2px);
             box-shadow: 0 8px 25px rgba(5,150,105,0.45);
         }
+
         /* ======= FLOATING BUTTONS ======= */
         .floating-controls {
             position: fixed;
@@ -556,14 +397,10 @@
             gap: 12px;
             z-index: 1050;
         }
-
         .btn-float {
-            width: 54px;
-            height: 54px;
+            width: 54px; height: 54px;
             border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            display: flex; align-items: center; justify-content: center;
             font-size: 1.5rem;
             color: white;
             box-shadow: 0 10px 25px rgba(0,0,0,0.15);
@@ -571,24 +408,20 @@
             text-decoration: none;
             border: none;
         }
-
         .btn-float:hover {
             transform: scale(1.1) translateY(-5px);
             color: white;
         }
-
         .btn-wa {
             background: #25d366;
             box-shadow: 0 10px 25px rgba(37, 211, 102, 0.3);
         }
-
         .btn-back-to-top {
             background: var(--c-primary);
             opacity: 0;
             visibility: hidden;
             transform: translateY(20px);
         }
-
         .btn-back-to-top.show {
             opacity: 1;
             visibility: visible;
@@ -596,15 +429,8 @@
         }
 
         @media (max-width: 575px) {
-            .btn-float {
-                width: 48px;
-                height: 48px;
-                font-size: 1.2rem;
-            }
-            .floating-controls {
-                bottom: 20px;
-                right: 20px;
-            }
+            .btn-float { width: 48px; height: 48px; font-size: 1.2rem; }
+            .floating-controls { bottom: 20px; right: 20px; }
         }
 
         /* Custom Scrollbar */
@@ -618,28 +444,14 @@
 </head>
 <body>
 
-    <!-- ===== NAVBAR ===== -->
-    <nav id="main-navbar">
-        <div class="container h-100 d-flex align-items-center justify-content-between">
-            <!-- Brand + Logo Madrasah (kiri) -->
+    <nav id="main-navbar" style="padding: 15px 0 !important;">
+        <div class="container d-flex align-items-center justify-content-between">
             <div class="d-flex align-items-center gap-3">
-                <!-- Logo Madrasah -->
-                <a href="{{ route('madrasah.index') }}" class="nav-madrasah-logo-wrap" title="Portal Madrasah">
-                    <img src="{{ asset('images/logo.jpeg') }}"
-                         alt="Logo Madrasah"
-                         class="nav-madrasah-logo">
-                </a>
-
-                <!-- Divider -->
-                <div style="width:1px;height:28px;background:rgba(16, 185, 129, 0.2);" id="nav-logo-divider"></div>
-
-                <!-- Brand Educate -->
-                <a href="{{ url('/') }}" class="d-flex align-items-center gap-2 text-decoration-none">
-                    
+                <a href="{{ route('madrasah.index') }}" title="Portal Madrasah">
+                    <img src="{{ asset('images/BG WEB.png') }}" alt="Logo Madrasah" style="height: 65px; width: auto; object-fit: contain;"> 
                 </a>
             </div>
 
-            <!-- Desktop Nav -->
             <ul class="navbar-nav flex-row align-items-center gap-1 d-none d-lg-flex">
                 <li class="nav-item">
                     <a class="nav-link {{ request()->is('/') ? 'active-nav' : '' }}" href="{{ url('/') }}">Beranda</a>
@@ -682,42 +494,32 @@
                 </li>
             </ul>
 
-            <!-- CTA Buttons (Desktop) -->
             <div class="d-none d-lg-flex align-items-center gap-3">
                 <a href="{{ route('pesantren.pendaftaran') }}" class="btn-nav-ppdb">PPDB 2026</a>
             </div>
 
-            <!-- Mobile: Hamburger -->
             <div class="d-flex d-lg-none align-items-center gap-2">
-                <button class="nav-hamburger"
-                        data-bs-toggle="offcanvas" data-bs-target="#mobileMenu"
-                        type="button" aria-label="Buka Menu">
+                <button class="nav-hamburger" data-bs-toggle="offcanvas" data-bs-target="#mobileMenu" type="button" aria-label="Buka Menu">
                     <i class="bi bi-list"></i>
                 </button>
             </div>
         </div>
     </nav>
 
-    <!-- Mobile Offcanvas -->
     <div class="offcanvas offcanvas-end" tabindex="-1" id="mobileMenu">
-        <!-- Header -->
+        
         <div class="mob-header">
-            <!-- Brand kiri -->
-            <a href="{{ url('/') }}" class="d-flex align-items-center gap-2 text-decoration-none">
-                <div class="nav-logo-box" style="width:32px;height:32px;font-size:0.85rem;">P</div>
-                <span style="font-weight:800;font-size:1.1rem;color:#fff;">ppmiful<span style="color:#67e8f9;">.</span></span>
+            <a href="{{ url('/') }}" class="d-flex align-items-center text-decoration-none">
+                <img src="{{ asset('images/BG WEB.png') }}" alt="Logo Pesantren" style="height: 40px; width: auto; object-fit: contain;">
+                <span style="font-weight:800; font-size:1.2rem; color:#fff; margin-left: 10px;">ppmiful<span style="color:#67e8f9;">.</span></span>
             </a>
-
-            <!-- Close Button -->
             <button class="mob-close-btn" data-bs-dismiss="offcanvas" aria-label="Tutup">
                 <i class="bi bi-x-lg"></i>
             </button>
         </div>
 
-        <!-- Body -->
         <div class="mob-body">
 
-            <!-- Beranda -->
             <div class="mob-section">
                 <a href="{{ url('/') }}" class="mob-link {{ request()->is('/') ? 'active-mob' : '' }}">
                     <span class="mob-icon" style="background:#f0fdf4;color:#16a34a;"><i class="bi bi-house-fill"></i></span>
@@ -733,7 +535,6 @@
 
             <div class="mob-divider"></div>
 
-            <!-- Pesantren Section -->
             <div class="mob-section">
                 <div class="mob-section-label">
                     <span class="mob-section-text" style="color:#059669;">Pesantren</span>
@@ -763,7 +564,6 @@
 
             <div class="mob-divider"></div>
 
-            <!-- Madrasah Section -->
             <div class="mob-section">
                 <div class="mob-section-label">
                     <span class="mob-section-text" style="color:#0891b2;">Madrasah</span>
@@ -793,7 +593,6 @@
 
             <div class="mob-divider"></div>
 
-            <!-- Berita & Galeri -->
             <div class="mob-section">
                 <div class="mob-section-label">
                     <span class="mob-section-text" style="color:#64748b;">Konten</span>
@@ -813,7 +612,6 @@
 
             <div class="mob-divider"></div>
 
-            <!-- CTA -->
             <div class="mob-cta">
                 <a href="{{ route('pesantren.pendaftaran') }}" class="mob-cta-ppdb">PPDB 2026 →</a>
             </div>
@@ -821,32 +619,26 @@
         </div>
     </div>
 
-    <!-- Main Content -->
     <main>
         @yield('content')
     </main>
 
-    <!-- ===== FOOTER ===== -->
     <footer class="site-footer">
         <div class="container position-relative z-1">
             <div class="row g-5">
 
-                <!-- Brand Col -->
                 <div class="col-lg-4 col-md-6">
                     <div class="d-flex align-items-center gap-3 mb-4">
-                        <div class="footer-brand-box">E</div>
                         <span class="footer-brand">Miftahul Ulum Jakarta<span style="color:#10b981;">.</span></span>
                     </div>
                     <p class="footer-tagline">Portal pendidikan terpadu Pesantren & Madrasah. Kami berdedikasi membentuk generasi Qur'ani yang berakhlak mulia dan berwawasan global.</p>
                     <div class="social-buttons mt-4">
-                        <a href="#" class="social-btn"><i class="bi bi-facebook"></i></a>
-                        <a href="#" class="social-btn"><i class="bi bi-instagram"></i></a>
-                        <a href="#" class="social-btn"><i class="bi bi-youtube"></i></a>
-                        <a href="#" class="social-btn"><i class="bi bi-tiktok"></i></a>
+                        <a href="https://www.instagram.com/mediamifulofficial/" class="social-btn"><i class="bi bi-instagram"></i></a>
+                        <a href="https://youtube.com/@miftahululumtv?si=pSyQDU4wpBlN_8pZ" class="social-btn"><i class="bi bi-youtube"></i></a>
+                        <a href="https://www.tiktok.com/@mediamifulofficial?_r=1&_t=ZS-96UH0FW4jSO" class="social-btn"><i class="bi bi-tiktok"></i></a>
                     </div>
                 </div>
 
-                <!-- Pesantren Links -->
                 <div class="col-lg-2 col-md-6 col-6">
                     <h4 class="footer-col-title">Pesantren</h4>
                     <div class="d-flex flex-column gap-2">
@@ -858,7 +650,6 @@
                     </div>
                 </div>
 
-                <!-- Madrasah Links -->
                 <div class="col-lg-2 col-md-6 col-6">
                     <h4 class="footer-col-title">Madrasah</h4>
                     <div class="d-flex flex-column gap-2">
@@ -870,7 +661,6 @@
                     </div>
                 </div>
 
-                <!-- Kontak -->
                 <div class="col-lg-4 col-md-6">
                     <h4 class="footer-col-title">Hubungi Kami</h4>
                     <div class="footer-contact-item">
@@ -884,7 +674,8 @@
                         <div class="footer-contact-icon"><i class="bi bi-telephone-fill"></i></div>
                         <div>
                             <strong>Telepon / WhatsApp</strong><br>
-                            +62 878 0065 4979
+                            +62 878-0065-4974<br>
+                            +62 859-5986-6426
                         </div>
                     </div>
                     <div class="footer-contact-item mb-0">
@@ -912,9 +703,8 @@
         </div>
     </footer>
 
-    <!-- Floating Controls -->
     <div class="floating-controls">
-        <a href="https://wa.me/6281234567890" target="_blank" class="btn-float btn-wa" title="Hubungi Kami via WhatsApp">
+        <a href="https://wa.me/6287800654974" target="_blank" class="btn-float btn-wa" title="Hubungi Kami via WhatsApp">
             <i class="bi bi-whatsapp"></i>
         </a>
         <button onclick="scrollToTop()" class="btn-float btn-back-to-top" title="Kembali ke Atas">
@@ -922,12 +712,10 @@
         </button>
     </div>
 
-    <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
     @yield('scripts')
 
-    <!-- AOS JS -->
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
         // Initialize AOS

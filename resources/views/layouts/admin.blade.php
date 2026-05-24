@@ -139,6 +139,11 @@
                 </a>
             </li>
             <li class="nav-item">
+                <a href="{{ route('admin.madrasah-banner.index') }}" class="nav-link {{ request()->is('admin/madrasah-banner*') ? 'active' : '' }}">
+                    <i class="bi bi-image"></i> Banner Madrasah
+                </a>
+            </li>
+            <li class="nav-item">
                 <a href="{{ route('admin.testimoni.index') }}" class="nav-link {{ request()->is('admin/testimoni*') ? 'active' : '' }}">
                     <i class="bi bi-chat-quote-fill"></i> Testimoni
                 </a>
@@ -171,13 +176,8 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a href="{{ route('admin.pembayaran-ppdb.index') }}" class="nav-link {{ request()->is('admin/pembayaran-ppdb*') ? 'active' : '' }}">
-                    <i class="bi bi-bank"></i> Rekening PPDB
-                </a>
-            </li>
-            <li class="nav-item">
-                <a href="{{ route('admin.qris-ppdb.index') }}" class="nav-link {{ request()->is('admin/qris-ppdb*') ? 'active' : '' }}">
-                    <i class="bi bi-qr-code"></i> QRIS PPDB
+                <a href="{{ route('admin.pembayaran-ppdb.index') }}" class="nav-link {{ request()->is('admin/pembayaran-ppdb*') || request()->is('admin/qris-ppdb*') ? 'active' : '' }}">
+                    <i class="bi bi-bank"></i> Metode Pembayaran
                 </a>
             </li>
             <li class="nav-item">
@@ -200,24 +200,7 @@
                     <i class="bi bi-person-workspace"></i> Pengaturan Profil
                 </a>
             </li>
-            <li class="nav-item mt-2">
-                <div style="font-size:0.68rem;font-weight:800;text-transform:uppercase;letter-spacing:1.5px;color:#94a3b8;padding:8px 16px;">PPDB</div>
-            </li>
-            <li class="nav-item">
-                <a href="{{ route('admin.pembayaran-ppdb.index') }}" class="nav-link {{ request()->is('admin/pembayaran-ppdb*') ? 'active' : '' }}">
-                    <i class="bi bi-credit-card-2-front"></i> Rekening PPDB
-                </a>
-            </li>
-            <li class="nav-item">
-                <a href="{{ route('admin.qris-ppdb.index') }}" class="nav-link {{ request()->is('admin/qris-ppdb*') ? 'active' : '' }}">
-                    <i class="bi bi-qr-code"></i> QRIS PPDB
-                </a>
-            </li>
-            <li class="nav-item">
-                <a href="{{ route('admin.pendaftaran.index') }}" class="nav-link {{ request()->is('admin/pendaftaran*') ? 'active' : '' }}">
-                    <i class="bi bi-person-lines-fill"></i> Pendaftaran
-                </a>
-            </li>
+
         </ul>
         
         <hr>

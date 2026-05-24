@@ -4,7 +4,7 @@
 
 @section('content')
 <div class="d-flex align-items-center gap-3 mb-4">
-    <a href="{{ route('admin.qris-ppdb.index') }}" class="btn btn-outline-secondary btn-sm">
+    <a href="{{ route('admin.pembayaran-ppdb.index') }}" class="btn btn-outline-secondary btn-sm">
         <i class="bi bi-arrow-left"></i>
     </a>
     <div>
@@ -51,7 +51,7 @@
                 <button type="submit" class="btn btn-success px-4">
                     <i class="bi bi-upload me-1"></i> Simpan QRIS
                 </button>
-                <a href="{{ route('admin.qris-ppdb.index') }}" class="btn btn-outline-secondary">Batal</a>
+                <a href="{{ route('admin.pembayaran-ppdb.index') }}" class="btn btn-outline-secondary">Batal</a>
             </div>
         </form>
     </div>

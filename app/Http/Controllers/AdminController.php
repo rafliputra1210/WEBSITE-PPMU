@@ -395,7 +395,8 @@ class AdminController extends Controller
     public function pembayaranPpdbIndex()
     {
         $rekening = PembayaranPpdb::latest('id')->get();
-        return view('admin.pembayaran-ppdb.index', compact('rekening'));
+        $qrisPpdb = QrisPpdb::latest('id')->get();
+        return view('admin.pembayaran-ppdb.index', compact('rekening', 'qrisPpdb'));
     }
 
     public function pembayaranPpdbCreate()
@@ -429,6 +430,32 @@ class AdminController extends Controller
     {
         $pembayaranPpdb->update(['is_active' => !$pembayaranPpdb->is_active]);
         return redirect()->route('admin.pembayaran-ppdb.index')->with('success', 'Status rekening berhasil diubah.');
+    }
+
+    public function pembayaranPpdbEdit(PembayaranPpdb $pembayaranPpdb)
+    {
+        return view('admin.pembayaran-ppdb.edit', compact('pembayaranPpdb'));
+    }
+
+    public function pembayaranPpdbUpdate(Request $request, PembayaranPpdb $pembayaranPpdb)
+    {
+        $request->validate([
+            'entitas'     => 'required|in:pesantren,madrasah',
+            'nama_bank'   => 'required|string|max:100',
+            'no_rekening' => 'required|string|max:100',
+            'atas_nama'   => 'required|string|max:200',
+            'keterangan'  => 'nullable|string',
+        ]);
+
+        $pembayaranPpdb->update([
+            'entitas'     => $request->entitas,
+            'nama_bank'   => $request->nama_bank,
+            'no_rekening' => $request->no_rekening,
+            'atas_nama'   => $request->atas_nama,
+            'keterangan'  => $request->keterangan,
+        ]);
+
+        return redirect()->route('admin.pembayaran-ppdb.index')->with('success', 'Rekening PPDB berhasil diperbarui.');
     }
 
     public function pembayaranPpdbDestroy(PembayaranPpdb $pembayaranPpdb)
@@ -469,13 +496,43 @@ class AdminController extends Controller
             'is_active' => true,
         ]);
 
-        return redirect()->route('admin.qris-ppdb.index')->with('success', 'QRIS PPDB berhasil ditambahkan.');
+        return redirect()->route('admin.pembayaran-ppdb.index')->with('success', 'QRIS PPDB berhasil ditambahkan.');
+    }
+
+    public function qrisPpdbEdit(QrisPpdb $qrisPpdb)
+    {
+        return view('admin.qris-ppdb.edit', compact('qrisPpdb'));
+    }
+
+    public function qrisPpdbUpdate(Request $request, QrisPpdb $qrisPpdb)
+    {
+        $request->validate([
+            'entitas' => 'required|in:pesantren,madrasah',
+            'nama'    => 'nullable|string|max:255',
+            'gambar'  => 'nullable|image|mimes:jpeg,png,jpg,webp|max:4096',
+        ]);
+
+        $data = [
+            'entitas' => $request->entitas,
+            'nama'    => $request->nama,
+        ];
+
+        if ($request->hasFile('gambar')) {
+            if ($qrisPpdb->gambar && Storage::disk('public')->exists($qrisPpdb->gambar)) {
+                Storage::disk('public')->delete($qrisPpdb->gambar);
+            }
+            $data['gambar'] = $request->file('gambar')->store('qris-ppdb', 'public');
+        }
+
+        $qrisPpdb->update($data);
+
+        return redirect()->route('admin.pembayaran-ppdb.index')->with('success', 'QRIS PPDB berhasil diperbarui.');
     }
 
     public function qrisPpdbToggle(QrisPpdb $qrisPpdb)
     {
         $qrisPpdb->update(['is_active' => !$qrisPpdb->is_active]);
-        return redirect()->route('admin.qris-ppdb.index')->with('success', 'Status QRIS PPDB berhasil diubah.');
+        return redirect()->route('admin.pembayaran-ppdb.index')->with('success', 'Status QRIS PPDB berhasil diubah.');
     }
 
     public function qrisPpdbDestroy(QrisPpdb $qrisPpdb)
@@ -484,6 +541,6 @@ class AdminController extends Controller
             Storage::disk('public')->delete($qrisPpdb->gambar);
         }
         $qrisPpdb->delete();
-        return redirect()->route('admin.qris-ppdb.index')->with('success', 'QRIS PPDB berhasil dihapus.');
+        return redirect()->route('admin.pembayaran-ppdb.index')->with('success', 'QRIS PPDB berhasil dihapus.');
     }
 }
