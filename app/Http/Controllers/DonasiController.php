@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Donatur;
 use App\Models\Setting;
 use App\Models\Qris;
+use App\Models\BukuKas;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
 
 class DonasiController extends Controller
@@ -12,7 +14,7 @@ class DonasiController extends Controller
     /**
      * Tampilkan halaman donasi/investasi akhirat.
      */
-    public function index()
+    public function index(Request $request)
     {
         // Hitung total donasi (semua status agar langsung tertambah pada target)
         $totalTerkumpul = Donatur::sum('jumlah_donasi');
@@ -36,6 +38,30 @@ class DonasiController extends Controller
         // Ambil daftar QRIS aktif
         $listQris = Qris::where('is_active', true)->latest()->get();
 
+        // --- BUKU KAS / LAPORAN TRANSPARANSI ---
+        $bulan = $request->get('bulan', date('m'));
+        $tahun = $request->get('tahun', date('Y'));
+
+        $kasLaporan = BukuKas::whereYear('tanggal', $tahun)
+                             ->whereMonth('tanggal', $bulan)
+                             ->orderBy('tanggal', 'asc')
+                             ->get();
+
+        $kasPemasukan = BukuKas::whereYear('tanggal', $tahun)
+                               ->whereMonth('tanggal', $bulan)
+                               ->where('tipe', 'pemasukan')
+                               ->sum('nominal');
+
+        $kasPengeluaran = BukuKas::whereYear('tanggal', $tahun)
+                                 ->whereMonth('tanggal', $bulan)
+                                 ->where('tipe', 'pengeluaran')
+                                 ->sum('nominal');
+
+        $lastDayOfMonth = date('Y-m-t', strtotime("$tahun-$bulan-01"));
+        $kasSaldo = BukuKas::where('tanggal', '<=', $lastDayOfMonth)
+                            ->selectRaw("SUM(CASE WHEN tipe = 'pemasukan' THEN nominal ELSE -nominal END) as saldo")
+                            ->value('saldo') ?? 0;
+
         return view('pesantren.donasi', compact(
             'totalTerkumpul',
             'targetDonasi',
@@ -44,8 +70,53 @@ class DonasiController extends Controller
             'donaturTerbaru',
             'leaderboardDonasi',
             'progres',
-            'listQris'
+            'listQris',
+            'kasLaporan',
+            'kasPemasukan',
+            'kasPengeluaran',
+            'kasSaldo',
+            'bulan',
+            'tahun'
         ));
+    }
+
+    /**
+     * Preview Laporan Bulanan Buku Kas dalam format PDF.
+     */
+    public function previewPdf(Request $request)
+    {
+        $bulan = $request->get('bulan', date('m'));
+        $tahun = $request->get('tahun', date('Y'));
+
+        $items = BukuKas::whereYear('tanggal', $tahun)
+                        ->whereMonth('tanggal', $bulan)
+                        ->orderBy('tanggal', 'asc')
+                        ->get();
+
+        $totalPemasukan = BukuKas::whereYear('tanggal', $tahun)
+                                 ->whereMonth('tanggal', $bulan)
+                                 ->where('tipe', 'pemasukan')
+                                 ->sum('nominal');
+
+        $totalPengeluaran = BukuKas::whereYear('tanggal', $tahun)
+                                   ->whereMonth('tanggal', $bulan)
+                                   ->where('tipe', 'pengeluaran')
+                                   ->sum('nominal');
+
+        $lastDayOfMonth = date('Y-m-t', strtotime("$tahun-$bulan-01"));
+        $saldoKumulatif = BukuKas::where('tanggal', '<=', $lastDayOfMonth)
+                                  ->selectRaw("SUM(CASE WHEN tipe = 'pemasukan' THEN nominal ELSE -nominal END) as saldo")
+                                  ->value('saldo') ?? 0;
+
+        $pdf = Pdf::loadView('pesantren.donasi_laporan_pdf', compact(
+            'items', 'totalPemasukan', 'totalPengeluaran', 'saldoKumulatif', 'bulan', 'tahun'
+        ));
+
+        // Format nama file: laporan-keuangan-ppmu-[nama-bulan]-[tahun].pdf
+        $namaBulan = \Carbon\Carbon::create()->month((int) $bulan)->isoFormat('MMMM');
+        $filename = "laporan-keuangan-ppmu-{$namaBulan}-{$tahun}.pdf";
+
+        return $pdf->stream($filename);
     }
 
     /**

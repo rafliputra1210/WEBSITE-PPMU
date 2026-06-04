@@ -423,7 +423,7 @@
     <div class="container">
         <div class="row g-5">
             {{-- FORM COLUMN --}}
-            <div class="col-lg-8 mx-auto">
+            <div class="col-lg-8">
                 <div class="form-card" data-aos="fade-up">
                     <div class="d-flex align-items-center gap-3 mb-4">
                         <div style="width:48px;height:48px;background:linear-gradient(135deg,#10b981,#059669);border-radius:14px;display:flex;align-items:center;justify-content:center;color:#fff;font-size:1.2rem;">
@@ -545,10 +545,56 @@
                             <i class="bi bi-heart-fill me-2"></i>Donasi Sekarang
                         </button>
                     </form>
+
+                    {{-- INFO REKENING & PANITIA (teks statis) --}}
+                    {{-- INFO REKENING & PANITIA (teks statis) --}}
+                    <div style="margin-top:2rem;padding-top:1.8rem;border-top:2px solid #e2e8f0;">
+                        {{-- Nomor Rekening --}}
+                        <div style="background:linear-gradient(135deg,#f0fdf4,#dcfce7);border:1.5px solid #86efac;border-radius:16px;padding:1.25rem 1.5rem;margin-bottom:1rem;">
+                            <div style="display:flex;align-items:center;gap:10px;margin-bottom:0.7rem;">
+                                <div style="width:36px;height:36px;background:#10b981;border-radius:10px;display:flex;align-items:center;justify-content:center;color:#fff;font-size:1.1rem;flex-shrink:0;"><i class="bi bi-bank"></i></div>
+                                <div style="font-weight:800;color:#064e3b;font-size:0.95rem;">Rekening Pembangunan Pesantren & Masjid</div>
+                            </div>
+                            <div style="font-size:0.85rem;color:#374151;line-height:1.8;">
+                                <div class="mb-2" style="border-bottom: 1px dashed #86efac; padding-bottom: 6px;">
+                                    <strong>Bank Syariah Indonesia (BSI)</strong><br>
+                                    No. Rekening: <strong style="color:#064e3b;font-size:1.05rem;letter-spacing:0.5px;">7281180066</strong><br>
+                                    Atas Nama: <span style="color:#064e3b; font-weight: 600;">Pesantren Miftahul Ulum</span>
+                                </div>
+                                <div class="mb-2" style="border-bottom: 1px dashed #86efac; padding-bottom: 6px;">
+                                    <strong>BTN Syariah</strong><br>
+                                    No. Rekening: <strong style="color:#064e3b;font-size:1.05rem;letter-spacing:0.5px;">2001766158</strong><br>
+                                    Atas Nama: <span style="color:#064e3b; font-weight: 600;">Pesantren Miftahul Ulum</span>
+                                </div>
+                                <div>
+                                    <strong>Bank BCA</strong><br>
+                                    No. Rekening: <strong style="color:#064e3b;font-size:1.05rem;letter-spacing:0.5px;">6241729467</strong><br>
+                                    Atas Nama: <span style="color:#064e3b; font-weight: 600;">Pesantren Miftahul Ulum</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        {{-- Kontak Panitia --}}
+                        <div style="background:#fff8ed;border:1.5px solid #fed7aa;border-radius:16px;padding:1.25rem 1.5rem;">
+                            <div style="display:flex;align-items:center;gap:10px;margin-bottom:0.85rem;">
+                                <div style="width:36px;height:36px;background:#f59e0b;border-radius:10px;display:flex;align-items:center;justify-content:center;color:#fff;font-size:1rem;flex-shrink:0;"><i class="bi bi-telephone-fill"></i></div>
+                                <div style="font-weight:800;color:#78350f;font-size:0.95rem;">Informasi & Konfirmasi Panitia</div>
+                            </div>
+                            <div style="font-size:0.82rem;color:#374151;line-height:2;">
+                                <div class="d-flex align-items-center justify-content-between flex-wrap gap-2">
+                                    <div>
+                                        <strong style="color:#1e293b; font-size: 0.9rem;">Muhammad Fadil</strong><br>
+                                        <span style="color:#6b7280; font-size: 0.78rem;">Panitia Pembangunan PP. Miftahul Ulum</span><br>
+                                        <span style="font-family:monospace;font-size:0.9rem; font-weight: 600; color:#78350f;">0895-6058-78885</span>
+                                    </div>
+                                    <a href="https://wa.me/62895605878885" target="_blank" style="background:#25D366;color:#fff;padding:6px 16px;border-radius:100px;font-size:0.8rem;font-weight:700;text-decoration:none;white-space:nowrap;box-shadow: 0 4px 8px rgba(37,211,102,0.2);"><i class="bi bi-whatsapp me-1"></i>Chat WA</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
 
-            {{-- SIDEBAR COLUMN --}}
             <div class="col-lg-4">
                 {{-- REKENING INFO --}}
                 <div class="form-card mb-4" data-aos="fade-left" data-aos-delay="100">
@@ -561,10 +607,8 @@
                             <div class="bank-logo">BSI</div>
                             <div class="flex-grow-1">
                                 <div style="font-size:0.75rem;color:#059669;font-weight:700;text-transform:uppercase;letter-spacing:0.5px;">Bank Syariah Indonesia</div>
-                                <div style="font-size:1.15rem;font-weight:800;color:#064e3b;letter-spacing:1px;" id="rek-bsi">
-                                    {{ \App\Models\Setting::get('donasi_rekening_bsi', '7172 8399 01') }}
-                                </div>
-                                <div style="font-size:0.78rem;color:#64748b;">a.n. {{ \App\Models\Setting::get('donasi_rekening_nama', 'Yayasan Pesantren Terpadu') }}</div>
+                                <div style="font-size:1.15rem;font-weight:800;color:#064e3b;letter-spacing:1px;" id="rek-bsi">7281180066</div>
+                                <div style="font-size:0.78rem;color:#64748b;">a.n. Pesantren Miftahul Ulum</div>
                             </div>
                             <button class="copy-btn" onclick="copyRek('rek-bsi')">
                                 <i class="bi bi-clipboard me-1"></i>Salin
@@ -572,17 +616,29 @@
                         </div>
                     </div>
 
-                    <div class="rekening-card">
+                    <div class="rekening-card mb-3">
                         <div class="d-flex align-items-center gap-3">
-                            <div class="bank-logo">BRI</div>
+                            <div class="bank-logo">BTN</div>
                             <div class="flex-grow-1">
-                                <div style="font-size:0.75rem;color:#059669;font-weight:700;text-transform:uppercase;letter-spacing:0.5px;">Bank Rakyat Indonesia</div>
-                                <div style="font-size:1.15rem;font-weight:800;color:#064e3b;letter-spacing:1px;" id="rek-bri">
-                                    {{ \App\Models\Setting::get('donasi_rekening_bri', '0123 0456 7890 123') }}
-                                </div>
-                                <div style="font-size:0.78rem;color:#64748b;">a.n. {{ \App\Models\Setting::get('donasi_rekening_nama', 'Yayasan Pesantren Terpadu') }}</div>
+                                <div style="font-size:0.75rem;color:#059669;font-weight:700;text-transform:uppercase;letter-spacing:0.5px;">BTN Syariah</div>
+                                <div style="font-size:1.15rem;font-weight:800;color:#064e3b;letter-spacing:1px;" id="rek-btn">2001766158</div>
+                                <div style="font-size:0.78rem;color:#64748b;">a.n. Pesantren Miftahul Ulum</div>
                             </div>
-                            <button class="copy-btn" onclick="copyRek('rek-bri')">
+                            <button class="copy-btn" onclick="copyRek('rek-btn')">
+                                <i class="bi bi-clipboard me-1"></i>Salin
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="rekening-card mb-3">
+                        <div class="d-flex align-items-center gap-3">
+                            <div class="bank-logo">BCA</div>
+                            <div class="flex-grow-1">
+                                <div style="font-size:0.75rem;color:#059669;font-weight:700;text-transform:uppercase;letter-spacing:0.5px;">Bank BCA</div>
+                                <div style="font-size:1.15rem;font-weight:800;color:#064e3b;letter-spacing:1px;" id="rek-bca">6241729467</div>
+                                <div style="font-size:0.78rem;color:#64748b;">a.n. Pesantren Miftahul Ulum</div>
+                            </div>
+                            <button class="copy-btn" onclick="copyRek('rek-bca')">
                                 <i class="bi bi-clipboard me-1"></i>Salin
                             </button>
                         </div>
@@ -598,7 +654,7 @@
                             <div class="flex-grow-1">
                                 <div style="font-size:0.75rem;color:#059669;font-weight:700;text-transform:uppercase;letter-spacing:0.5px;">Scan QRIS</div>
                                 <div style="font-size:1rem;font-weight:800;color:#064e3b;letter-spacing:0.5px;">{{ $qris->nama ?: 'E-Wallet/M-Banking' }}</div>
-                                <div style="font-size:0.78rem;color:#64748b;">a.n. {{ \App\Models\Setting::get('donasi_rekening_nama', 'Yayasan Pesantren Terpadu') }}</div>
+                                <div style="font-size:0.78rem;color:#64748b;">a.n. Pesantren Miftahul Ulum</div>
                             </div>
                             <button class="copy-btn py-2 px-3" style="background:#0f172a;" onclick="window.open('{{ asset('storage/' . $qris->gambar) }}', '_blank')">
                                 <i class="bi bi-arrows-fullscreen me-1"></i> Lihat
@@ -616,14 +672,35 @@
                             <div class="flex-grow-1">
                                 <div style="font-size:0.75rem;color:#059669;font-weight:700;text-transform:uppercase;letter-spacing:0.5px;">Scan QRIS</div>
                                 <div style="font-size:1rem;font-weight:800;color:#064e3b;letter-spacing:0.5px;">Gunakan Aplikasi E-Wallet/M-Banking</div>
-                                <div style="font-size:0.78rem;color:#64748b;">a.n. {{ \App\Models\Setting::get('donasi_rekening_nama', 'Yayasan Pesantren Terpadu') }}</div>
+                                <div style="font-size:0.78rem;color:#64748b;">a.n. Pesantren Miftahul Ulum</div>
                             </div>
-                            <button class="copy-btn py-2 px-3" style="background:#0f172a;" onclick="alert('Silakan scan QRIS dengan aplikasi M-Banking atau E-Wallet Anda.')">
+                            <button class="copy-btn py-2 px-3" style="background:#0f172a;" onclick="alert('Silakan scan QRIS dengan aplikasi M-Banking or E-Wallet Anda.')">
                                 <i class="bi bi-qr-code-scan me-1"></i> Scan
                             </button>
                         </div>
                     </div>
                     @endforelse
+                </div>
+
+                {{-- INFORMASI & KONFIRMASI PANITIA MASJID --}}
+                <div class="form-card mb-4" data-aos="fade-left" data-aos-delay="150">
+                    <h5 style="font-weight:800;color:#0f172a;margin-bottom:1.2rem;font-size:1.05rem;">
+                        <i class="bi bi-chat-text-fill me-2 text-success"></i>Informasi & Konfirmasi
+                    </h5>
+                    <p class="small text-muted mb-3" style="font-size: 0.85rem; line-height: 1.5;">
+                        Hubungi Panitia Pembangunan PP. Miftahul Ulum untuk informasi dan konfirmasi donasi Anda:
+                    </p>
+                    <div class="d-flex flex-column gap-3">
+                        <div class="p-3 bg-light rounded-3 d-flex align-items-center justify-content-between" style="border: 1px solid #e2e8f0;">
+                            <div>
+                                <div class="fw-bold text-dark" style="font-size:0.88rem; line-height: 1.2;">Muhammad Fadil</div>
+                                <div class="small text-muted mt-1" style="font-size:0.8rem;">0895-6058-78885</div>
+                            </div>
+                            <a href="https://wa.me/62895605878885" target="_blank" class="btn btn-sm btn-success rounded-pill px-3 d-flex align-items-center gap-1" style="font-size: 0.8rem; font-weight: 600;">
+                                <i class="bi bi-whatsapp"></i> Chat
+                            </a>
+                        </div>
+                    </div>
                 </div>
 
                 {{-- DONATUR TERBARU --}}
@@ -777,6 +854,129 @@
                                 <div style="color:#94a3b8;font-size:0.9rem;">Belum ada data donatur...</div>
                             </td>
                         </tr>
+                        @endforelse
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</section>
+
+{{-- ===================== LAPORAN KEUANGAN BULANAN (BUKU KAS) ===================== --}}
+<section style="padding:60px 0;background:#fff;border-top:1px solid #f1f5f9;">
+    <div class="container">
+        <div class="text-center mb-5">
+             <span class="section-chip-green">Laporan Transparansi</span>
+             <h2 style="font-size:clamp(1.8rem,4vw,2.4rem);font-weight:800;color:#0f172a;letter-spacing:-0.5px;">
+                 Laporan Keuangan Bulanan
+             </h2>
+             <p style="color:#64748b;font-size:1rem;max-width:520px;margin:12px auto 0;">
+                 Arus kas masuk dan pengeluaran donasi pembangunan pesantren sebagai bentuk transparansi kami.
+             </p>
+        </div>
+
+        <div class="form-card mx-auto" style="max-width:900px; padding:2rem;" data-aos="fade-up">
+            <!-- Filter & Download Laporan -->
+            <div class="row g-3 align-items-end mb-4">
+                <div class="col-md-8">
+                    <form action="{{ route('pesantren.donasi') }}#laporan-kas" id="laporan-kas" method="GET" class="row g-2">
+                        <div class="col-6 col-sm-5">
+                            <label class="form-label small fw-bold text-muted mb-1">Bulan</label>
+                            <select name="bulan" class="form-select form-select-sm" style="border-radius:8px; border:1.5px solid #e2e8f0; height: 38px;">
+                                @for ($m = 1; $m <= 12; $m++)
+                                    <option value="{{ sprintf('%02d', $m) }}" {{ $bulan == sprintf('%02d', $m) ? 'selected' : '' }}>
+                                        {{ \Carbon\Carbon::create()->month($m)->isoFormat('MMMM') }}
+                                    </option>
+                                @endfor
+                            </select>
+                        </div>
+                        <div class="col-6 col-sm-5">
+                            <label class="form-label small fw-bold text-muted mb-1">Tahun</label>
+                            <select name="tahun" class="form-select form-select-sm" style="border-radius:8px; border:1.5px solid #e2e8f0; height: 38px;">
+                                @for ($y = date('Y') - 3; $y <= date('Y') + 1; $y++)
+                                    <option value="{{ $y }}" {{ $tahun == $y ? 'selected' : '' }}>{{ $y }}</option>
+                                @endfor
+                            </select>
+                        </div>
+                        <div class="col-12 col-sm-2 d-flex align-items-end">
+                            <button type="submit" class="btn btn-success btn-sm w-100 fw-bold d-flex align-items-center justify-content-center" style="height: 38px; border-radius:8px; background:#059669; border:none;">
+                                <i class="bi bi-funnel-fill me-1"></i> Cari
+                            </button>
+                        </div>
+                    </form>
+                </div>
+                <div class="col-md-4 text-md-end">
+                    <a href="{{ route('pesantren.donasi.laporan-pdf', ['bulan' => $bulan, 'tahun' => $tahun]) }}" 
+                       target="_blank" 
+                       class="btn btn-danger btn-sm w-100 fw-bold d-flex align-items-center justify-content-center" 
+                       style="height: 38px; border-radius:8px; background:#dc2626; border:none; box-shadow: 0 4px 10px rgba(220,38,38,0.25);">
+                        <i class="bi bi-file-earmark-pdf-fill me-2"></i> Preview Laporan (PDF)
+                    </a>
+                </div>
+            </div>
+
+            <!-- Widget Ringkasan Arus Kas -->
+            <div class="row g-3 mb-4 text-center">
+                <div class="col-md-4">
+                    <div style="background:#f0fdf4; border:1.5px solid #bbf7d0; border-radius:16px; padding:1.2rem;">
+                        <span style="font-size:0.75rem; color:#15803d; font-weight:700; text-transform:uppercase; letter-spacing:0.5px;">Pemasukan Bulanan</span>
+                        <h4 style="margin:5px 0 0 0; color:#166534; font-weight:800; font-size:1.25rem;">
+                            Rp {{ number_format($kasPemasukan, 0, ',', '.') }}
+                        </h4>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div style="background:#fef2f2; border:1.5px solid #fecaca; border-radius:16px; padding:1.2rem;">
+                        <span style="font-size:0.75rem; color:#b91c1c; font-weight:700; text-transform:uppercase; letter-spacing:0.5px;">Pengeluaran Bulanan</span>
+                        <h4 style="margin:5px 0 0 0; color:#991b1b; font-weight:800; font-size:1.25rem;">
+                            Rp {{ number_format($kasPengeluaran, 0, ',', '.') }}
+                        </h4>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div style="background:#eff6ff; border:1.5px solid #bfdbfe; border-radius:16px; padding:1.2rem;">
+                        <span style="font-size:0.75rem; color:#1d4ed8; font-weight:700; text-transform:uppercase; letter-spacing:0.5px;">Saldo Kas Donasi</span>
+                        <h4 style="margin:5px 0 0 0; color:#1e40af; font-weight:800; font-size:1.25rem;">
+                            Rp {{ number_format($kasSaldo, 0, ',', '.') }}
+                        </h4>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tabel Detail Laporan Kas -->
+            <div class="table-responsive">
+                <table class="table table-hover align-middle mb-0" style="min-width: 600px;">
+                    <thead style="background: rgba(16,185,129,0.05);">
+                        <tr>
+                            <th class="ps-3 py-3 rounded-start" style="font-size:0.85rem;color:#64748b;font-weight:700;text-transform:uppercase;border-bottom:none;">#</th>
+                            <th class="py-3" style="font-size:0.85rem;color:#64748b;font-weight:700;text-transform:uppercase;border-bottom:none;">Tanggal</th>
+                            <th class="py-3" style="font-size:0.85rem;color:#64748b;font-weight:700;text-transform:uppercase;border-bottom:none;">Kategori</th>
+                            <th class="py-3" style="font-size:0.85rem;color:#64748b;font-weight:700;text-transform:uppercase;border-bottom:none;">Keterangan</th>
+                            <th class="pe-3 py-3 rounded-end text-end" style="font-size:0.85rem;color:#64748b;font-weight:700;text-transform:uppercase;border-bottom:none;">Nominal</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @forelse ($kasLaporan as $index => $kas)
+                            <tr style="border-bottom: 1px solid #f1f5f9;">
+                                <td class="ps-3 py-3 text-muted">{{ $index + 1 }}</td>
+                                <td class="py-3 text-secondary" style="font-size:0.88rem;">{{ $kas->tanggal->format('d/m/Y') }}</td>
+                                <td class="py-3">
+                                    <span class="badge bg-light text-dark border px-2 py-1" style="font-size: 0.75rem;">{{ $kas->kategori }}</span>
+                                </td>
+                                <td class="py-3 fw-semibold" style="font-size:0.88rem; color:#1e293b;">{{ $kas->keterangan }}</td>
+                                <td class="pe-3 py-3 text-end fw-bold {{ $kas->tipe == 'pemasukan' ? 'text-success' : 'text-danger' }}" style="font-size:0.9rem;">
+                                    {{ $kas->tipe == 'pemasukan' ? '+' : '-' }} Rp {{ number_format($kas->nominal, 0, ',', '.') }}
+                                </td>
+                            </tr>
+                        @empty
+                            <tr>
+                                <td colspan="5" class="text-center py-5">
+                                    <div style="width:50px;height:50px;background:rgba(100,116,139,0.08);border-radius:50%;display:inline-flex;align-items:center;justify-content:center;margin-bottom:12px;">
+                                        <i class="bi bi-file-earmark-text text-muted" style="font-size:1.3rem;"></i>
+                                    </div>
+                                    <p style="color:#94a3b8;font-size:0.88rem;margin:0;font-style:italic;">Belum ada riwayat transaksi di bulan terpilih.</p>
+                                </td>
+                            </tr>
                         @endforelse
                     </tbody>
                 </table>

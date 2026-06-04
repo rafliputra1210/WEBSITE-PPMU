@@ -123,22 +123,24 @@
                         <input type="radio" name="pilih_metode" value="Transfer BSI" class="form-check-input mt-0" style="width:20px;height:20px;" checked onchange="updateMetode('Transfer BSI')">
                         <div class="bank-logo">BSI</div>
                         <div class="flex-grow-1">
-                            <div class="fw-bold text-dark" id="rek-bsi">{{ \App\Models\Setting::get('donasi_rekening_bsi', '7172 8399 01') }}</div>
-                            <div class="small text-muted">Bank Syariah Indonesia a.n {{ \App\Models\Setting::get('donasi_rekening_nama', 'Yayasan Pesantren') }}</div>
+                            <div class="fw-bold text-dark" id="rek-bsi">{{ \App\Models\Setting::get('donasi_rekening_bsi', '8111333999') }}</div>
+                            <div class="small text-muted">Bank Syariah Indonesia a.n {{ \App\Models\Setting::get('donasi_rekening_nama', 'Masjid Sulaimani BSI') }}</div>
                         </div>
                         <button type="button" class="copy-btn" onclick="copyRek('rek-bsi')">Salin</button>
                     </label>
 
                     <!-- BRI -->
+                    @if($rekBri = \App\Models\Setting::get('donasi_rekening_bri'))
                     <label class="rekening-box d-flex align-items-center gap-3 w-100">
                         <input type="radio" name="pilih_metode" value="Transfer BRI" class="form-check-input mt-0" style="width:20px;height:20px;" onchange="updateMetode('Transfer BRI')">
                         <div class="bank-logo">BRI</div>
                         <div class="flex-grow-1">
-                            <div class="fw-bold text-dark" id="rek-bri">{{ \App\Models\Setting::get('donasi_rekening_bri', '0123 0456 7890') }}</div>
-                            <div class="small text-muted">Bank Rakyat Indonesia a.n {{ \App\Models\Setting::get('donasi_rekening_nama', 'Yayasan Pesantren') }}</div>
+                            <div class="fw-bold text-dark" id="rek-bri">{{ $rekBri }}</div>
+                            <div class="small text-muted">Bank Rakyat Indonesia a.n {{ \App\Models\Setting::get('donasi_rekening_nama', 'Masjid Sulaimani BSI') }}</div>
                         </div>
                         <button type="button" class="copy-btn" onclick="copyRek('rek-bri')">Salin</button>
                     </label>
+                    @endif
 
                     <!-- QRIS -->
                     @forelse($listQris as $qris)

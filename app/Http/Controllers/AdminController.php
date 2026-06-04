@@ -276,7 +276,7 @@ class AdminController extends Controller
             'status'       => 'required|in:pending,berhasil',
         ]);
 
-        Donatur::create([
+        $donatur = Donatur::create([
             'nama_donatur' => $request->nama_donatur,
             'jenis_donasi' => $request->jenis_donasi,
             'no_wa'        => $request->no_wa,
@@ -285,6 +285,17 @@ class AdminController extends Controller
             'tanggal_donasi'=> $request->tanggal_donasi,
             'status'       => $request->status,
         ]);
+
+        if ($donatur->status === 'berhasil' && $donatur->jenis_donasi === 'nominal') {
+            \App\Models\BukuKas::create([
+                'tanggal' => $donatur->tanggal_donasi,
+                'tipe' => 'pemasukan',
+                'nominal' => $donatur->jumlah_donasi,
+                'kategori' => 'Donasi',
+                'keterangan' => 'Donasi dari ' . $donatur->nama_donatur,
+                'donatur_id' => $donatur->id,
+            ]);
+        }
 
         return redirect()->route('admin.donasi.index')->with('success', 'Data Donasi berhasil ditambahkan.');
     }
@@ -316,6 +327,21 @@ class AdminController extends Controller
             'status'       => $request->status,
         ]);
 
+        if ($donasi->status === 'berhasil' && $donasi->jenis_donasi === 'nominal') {
+            \App\Models\BukuKas::updateOrCreate(
+                ['donatur_id' => $donasi->id],
+                [
+                    'tanggal' => $donasi->tanggal_donasi,
+                    'tipe' => 'pemasukan',
+                    'nominal' => $donasi->jumlah_donasi,
+                    'kategori' => 'Donasi',
+                    'keterangan' => 'Donasi dari ' . $donasi->nama_donatur,
+                ]
+            );
+        } else {
+            \App\Models\BukuKas::where('donatur_id', $donasi->id)->delete();
+        }
+
         return redirect()->route('admin.donasi.index')->with('success', 'Data Donasi berhasil diperbarui.');
     }
 
@@ -335,9 +361,9 @@ class AdminController extends Controller
             $settings = [
                 'donasi_target' => Setting::get('donasi_target', 500000000),
                 'donasi_hero_poster' => Setting::get('donasi_hero_poster'),
-                'donasi_rekening_bsi' => Setting::get('donasi_rekening_bsi', '7172 8399 01'),
-                'donasi_rekening_bri' => Setting::get('donasi_rekening_bri', '0123 0456 7890 123'),
-                'donasi_rekening_nama' => Setting::get('donasi_rekening_nama', 'Yayasan Pesantren Terpadu'),
+                'donasi_rekening_bsi' => Setting::get('donasi_rekening_bsi', '8111333999'),
+                'donasi_rekening_bri' => Setting::get('donasi_rekening_bri', null),
+                'donasi_rekening_nama' => Setting::get('donasi_rekening_nama', 'Masjid Sulaimani BSI'),
                 'donasi_qris' => Setting::get('donasi_qris'),
             ];
             

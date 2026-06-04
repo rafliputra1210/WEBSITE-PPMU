@@ -32,6 +32,7 @@ Route::prefix('pesantren')->name('pesantren.')->group(function () {
 
     // Donasi
     Route::get('/donasi', [DonasiController::class, 'index'])->name('donasi');
+    Route::get('/donasi/laporan-pdf', [DonasiController::class, 'previewPdf'])->name('donasi.laporan-pdf');
     Route::post('/donasi', [DonasiController::class, 'store'])->name('donasi.store');
     Route::get('/donasi/{id}/pembayaran', [DonasiController::class, 'pembayaran'])->name('donasi.pembayaran');
     Route::post('/donasi/{id}/upload-bukti', [DonasiController::class, 'uploadBukti'])->name('donasi.uploadBukti');
@@ -146,6 +147,15 @@ Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function () 
         Route::get('/{donasi}/edit', [AdminController::class, 'donasiEdit'])->name('edit');
         Route::put('/{donasi}', [AdminController::class, 'donasiUpdate'])->name('update');
         Route::delete('/{donasi}', [AdminController::class, 'donasiDestroy'])->name('destroy');
+    });
+
+    // Buku Kas CRUD
+    Route::prefix('buku-kas')->name('buku-kas.')->group(function () {
+        Route::get('/', [\App\Http\Controllers\BukuKasController::class, 'index'])->name('index');
+        Route::post('/', [\App\Http\Controllers\BukuKasController::class, 'store'])->name('store');
+        Route::put('/{id}', [\App\Http\Controllers\BukuKasController::class, 'update'])->name('update');
+        Route::delete('/{id}', [\App\Http\Controllers\BukuKasController::class, 'destroy'])->name('destroy');
+        Route::post('/sync', [\App\Http\Controllers\BukuKasController::class, 'syncDonasi'])->name('sync');
     });
 
     // Pendaftaran Santri

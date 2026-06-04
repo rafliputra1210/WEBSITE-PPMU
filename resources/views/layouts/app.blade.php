@@ -51,6 +51,35 @@
             background: var(--grad-primary);
             box-shadow: 0 4px 20px rgba(5,150,105,0.2);
             border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 15px 0;
+        }
+
+        @media (max-width: 991px) {
+            #main-navbar {
+                padding: 10px 0;
+            }
+        }
+
+        .nav-logo {
+            height: 55px;
+            width: auto;
+            max-width: 100%;
+            object-fit: contain;
+            transition: all 0.3s ease;
+        }
+
+        @media (max-width: 991px) {
+            .nav-logo {
+                height: 45px;
+                max-width: 240px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .nav-logo {
+                height: 36px;
+                max-width: 190px;
+            }
         }
 
         #main-navbar.scrolled {
@@ -444,11 +473,11 @@
 </head>
 <body>
 
-    <nav id="main-navbar" style="padding: 15px 0 !important;">
+    <nav id="main-navbar">
         <div class="container d-flex align-items-center justify-content-between">
             <div class="d-flex align-items-center gap-3">
                 <a href="{{ route('madrasah.index') }}" title="Portal Madrasah">
-                    <img src="{{ asset('images/BG WEB.png') }}" alt="Logo Madrasah" style="height: 65px; width: auto; object-fit: contain;"> 
+                    <img src="{{ asset('images/WEBSITE.png') }}" alt="Logo Madrasah" class="nav-logo"> 
                 </a>
             </div>
 
@@ -510,8 +539,7 @@
         
         <div class="mob-header">
             <a href="{{ url('/') }}" class="d-flex align-items-center text-decoration-none">
-                <img src="{{ asset('images/BG WEB.png') }}" alt="Logo Pesantren" style="height: 40px; width: auto; object-fit: contain;">
-                <span style="font-weight:800; font-size:1.2rem; color:#fff; margin-left: 10px;">ppmiful<span style="color:#67e8f9;">.</span></span>
+                <img src="{{ asset('images/WEBSITE1.png') }}" alt="Logo Pesantren" style="height: 40px; width: auto; object-fit: contain;">
             </a>
             <button class="mob-close-btn" data-bs-dismiss="offcanvas" aria-label="Tutup">
                 <i class="bi bi-x-lg"></i>
@@ -666,8 +694,15 @@
                     <div class="footer-contact-item">
                         <div class="footer-contact-icon"><i class="bi bi-geo-alt-fill"></i></div>
                         <div>
-                            <strong>Alamat Utama</strong><br>
-                            Gedung Utama Diniyah Mifathul Ulum Panggilingan Rt.08/Rw.06 Cakung Jakarta Timur
+                            <strong>Alamat Madrasah</strong><br>
+                            Gedung Miftahul Ulum, Kp. Penggilingan RT.008/RW.006, Kel. Penggilingan Cakung Jakarta Timur DKI Jakarta
+                        </div>
+                    </div>
+                    <div class="footer-contact-item">
+                        <div class="footer-contact-icon"><i class="bi bi-geo-alt-fill"></i></div>
+                        <div>
+                            <strong>Alamat Pondok Pesantren</strong><br>
+                            Pondok Pesantren Miftahul Ulum, Kp. Pulongandang, Sindangsari Cabangbungin Bekasi Jawa Barat
                         </div>
                     </div>
                     <div class="footer-contact-item">
@@ -682,7 +717,7 @@
                         <div class="footer-contact-icon"><i class="bi bi-envelope-fill"></i></div>
                         <div>
                             <strong>Email Resmi</strong><br>
-                            yayasanmiftahululum57@gmail.com
+                            Admin@ppmiful.com
                         </div>
                     </div>
                 </div>
@@ -704,7 +739,7 @@
     </footer>
 
     <div class="floating-controls">
-        <a href="https://wa.me/6287800654974" target="_blank" class="btn-float btn-wa" title="Hubungi Kami via WhatsApp">
+        <a href="https://wa.me/62859598664266" target="_blank" class="btn-float btn-wa" title="Hubungi Kami via WhatsApp">
             <i class="bi bi-whatsapp"></i>
         </a>
         <button onclick="scrollToTop()" class="btn-float btn-back-to-top" title="Kembali ke Atas">

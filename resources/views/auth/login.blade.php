@@ -89,7 +89,7 @@
 
 <div class="login-card">
     <div class="login-visual">
-        <div style="font-size: 3rem; margin-bottom: 20px;"><i class="bi bi-shield-lock-fill"></i></div>
+        <img src="{{ asset('images/WEBSITE1.png') }}" alt="Logo PPMU" style="max-height: 70px; max-width: 100%; object-fit: contain; margin-bottom: 20px; filter: drop-shadow(0px 4px 6px rgba(0,0,0,0.1));">
         <h3 class="fw-bold mb-3">Admin Portal</h3>
         <p style="opacity: 0.8; font-size: 0.9rem;">Masuk ke dashboard untuk mengelola konten website, pendaftaran, dan data master.</p>
     </div>

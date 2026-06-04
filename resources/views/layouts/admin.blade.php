@@ -26,6 +26,21 @@
             padding: 20px;
             z-index: 1050;
             transition: all 0.3s;
+            overflow-y: auto;
+        }
+        /* Custom scrollbar for sidebar */
+        .sidebar::-webkit-scrollbar {
+            width: 5px;
+        }
+        .sidebar::-webkit-scrollbar-track {
+            background: #f1f5f9;
+        }
+        .sidebar::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 4px;
+        }
+        .sidebar::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8;
         }
         .main-content {
             margin-left: 260px;
@@ -159,6 +174,11 @@
                 </a>
             </li>
             <li class="nav-item">
+                <a href="{{ route('admin.buku-kas.index') }}" class="nav-link {{ request()->is('admin/buku-kas*') ? 'active' : '' }}">
+                    <i class="bi bi-wallet2"></i> Buku Kas Donasi
+                </a>
+            </li>
+            <li class="nav-item">
                 <a href="{{ route('admin.qris.index') }}" class="nav-link {{ request()->is('admin/qris*') ? 'active' : '' }}">
                     <i class="bi bi-qr-code-scan"></i> Kelola QRIS
                 </a>
@@ -204,8 +224,15 @@
         </ul>
         
         <hr>
-        <a href="{{ url('/') }}" class="nav-link text-danger" target="_blank">
-            <i class="bi bi-box-arrow-right"></i> Kembali ke Web
+        <a href="{{ url('/') }}" class="nav-link text-secondary" target="_blank">
+            <i class="bi bi-globe"></i> Lihat Website
+        </a>
+        <form action="{{ route('logout') }}" method="POST" id="logout-form" class="d-none">
+            @csrf
+        </form>
+        <a href="{{ route('logout') }}" class="nav-link text-danger" 
+           onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+            <i class="bi bi-box-arrow-right"></i> Keluar (Logout)
         </a>
     </div>
 
