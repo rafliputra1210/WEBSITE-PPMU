@@ -5,6 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@yield('title', 'PPMUJakarta — Pesantren & Madrasah Terpadu')</title>
     <meta name="description" content="Portal resmi Pesantren dan Madrasah Terpadu. Mendidik generasi cerdas, berakhlak mulia, dan berwawasan global.">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="{{ asset('images/WEBSITE1.png') }}">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -280,26 +283,7 @@
 
         .footer-copy { font-size: 0.85rem; color: #a7f3d0; font-weight: 500; }
 
-        .social-buttons { display: flex; gap: 12px; }
 
-        .social-btn {
-            width: 40px; height: 40px;
-            background: rgba(255,255,255,0.05);
-            border: 1px solid rgba(255,255,255,0.1);
-            border-radius: 12px;
-            display: inline-flex; align-items: center; justify-content: center;
-            color: #ffffff;
-            font-size: 1.1rem;
-            text-decoration: none;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-        .social-btn:hover {
-            background: linear-gradient(135deg, #10b981, #059669);
-            border-color: transparent;
-            color: #fff;
-            transform: translateY(-4px);
-            box-shadow: 0 10px 20px rgba(16, 185, 129, 0.3);
-        }
 
         /* ======= MOBILE OFFCANVAS MENU (BOOTSTRAP MURNI) ======= */
         #mobileMenu {
@@ -423,28 +407,31 @@
             right: 30px;
             display: flex;
             flex-direction: column;
+            align-items: center;
             gap: 12px;
             z-index: 1050;
         }
-        .btn-float {
-            width: 54px; height: 54px;
+        .btn-float, .btn-social-float {
+            width: 48px; height: 48px;
             border-radius: 50%;
             display: flex; align-items: center; justify-content: center;
-            font-size: 1.5rem;
+            font-size: 1.3rem;
             color: white;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.15);
             transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             text-decoration: none;
             border: none;
         }
-        .btn-float:hover {
+        .btn-float:hover, .btn-social-float:hover {
             transform: scale(1.1) translateY(-5px);
             color: white;
         }
         .btn-wa {
             background: #25d366;
-            box-shadow: 0 10px 25px rgba(37, 211, 102, 0.3);
         }
+        .btn-ig { background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285AEB 90%); }
+        .btn-yt { background: #FF0000; }
+        .btn-tiktok { background: #000000; }
         .btn-back-to-top {
             background: var(--c-primary);
             opacity: 0;
@@ -458,7 +445,7 @@
         }
 
         @media (max-width: 575px) {
-            .btn-float { width: 48px; height: 48px; font-size: 1.2rem; }
+            .btn-float, .btn-social-float { width: 42px; height: 42px; font-size: 1.15rem; }
             .floating-controls { bottom: 20px; right: 20px; }
         }
 
@@ -660,11 +647,6 @@
                         <span class="footer-brand">Miftahul Ulum Jakarta<span style="color:#10b981;">.</span></span>
                     </div>
                     <p class="footer-tagline">Portal pendidikan terpadu Pesantren & Madrasah. Kami berdedikasi membentuk generasi Qur'ani yang berakhlak mulia dan berwawasan global.</p>
-                    <div class="social-buttons mt-4">
-                        <a href="https://www.instagram.com/mediamifulofficial/" class="social-btn"><i class="bi bi-instagram"></i></a>
-                        <a href="https://youtube.com/@miftahululumtv?si=pSyQDU4wpBlN_8pZ" class="social-btn"><i class="bi bi-youtube"></i></a>
-                        <a href="https://www.tiktok.com/@mediamifulofficial?_r=1&_t=ZS-96UH0FW4jSO" class="social-btn"><i class="bi bi-tiktok"></i></a>
-                    </div>
                 </div>
 
                 <div class="col-lg-2 col-md-6 col-6">
@@ -739,6 +721,15 @@
     </footer>
 
     <div class="floating-controls">
+        <a href="https://www.instagram.com/mediamifulofficial/" target="_blank" class="btn-social-float btn-ig" title="Instagram">
+            <i class="bi bi-instagram"></i>
+        </a>
+        <a href="https://youtube.com/@miftahululumtv?si=pSyQDU4wpBlN_8pZ" target="_blank" class="btn-social-float btn-yt" title="YouTube">
+            <i class="bi bi-youtube"></i>
+        </a>
+        <a href="https://www.tiktok.com/@mediamifulofficial?_r=1&_t=ZS-96UH0FW4jSO" target="_blank" class="btn-social-float btn-tiktok" title="TikTok">
+            <i class="bi bi-tiktok"></i>
+        </a>
         <a href="https://wa.me/62859598664266" target="_blank" class="btn-float btn-wa" title="Hubungi Kami via WhatsApp">
             <i class="bi bi-whatsapp"></i>
         </a>
