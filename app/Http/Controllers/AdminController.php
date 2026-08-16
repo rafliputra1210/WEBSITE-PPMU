@@ -269,6 +269,7 @@ class AdminController extends Controller
         $request->validate([
             'nama_donatur' => 'required|string|max:255',
             'jenis_donasi' => 'required|in:nominal,material',
+            'nama_barang'  => 'required_if:jenis_donasi,material|nullable|string|max:255',
             'no_wa'        => 'nullable|string|max:20',
             'jumlah_donasi'=> 'required_if:jenis_donasi,nominal|numeric|min:0',
             'pesan'        => 'nullable|string',
@@ -279,6 +280,7 @@ class AdminController extends Controller
         $donatur = Donatur::create([
             'nama_donatur' => $request->nama_donatur,
             'jenis_donasi' => $request->jenis_donasi,
+            'nama_barang'  => $request->jenis_donasi === 'material' ? $request->nama_barang : null,
             'no_wa'        => $request->no_wa,
             'jumlah_donasi'=> $request->jumlah_donasi ?? 0,
             'pesan'        => $request->pesan,
@@ -310,6 +312,7 @@ class AdminController extends Controller
         $request->validate([
             'nama_donatur' => 'required|string|max:255',
             'jenis_donasi' => 'required|in:nominal,material',
+            'nama_barang'  => 'required_if:jenis_donasi,material|nullable|string|max:255',
             'no_wa'        => 'nullable|string|max:20',
             'jumlah_donasi'=> 'required_if:jenis_donasi,nominal|numeric|min:0',
             'pesan'        => 'nullable|string',
@@ -320,6 +323,7 @@ class AdminController extends Controller
         $donasi->update([
             'nama_donatur' => $request->nama_donatur,
             'jenis_donasi' => $request->jenis_donasi,
+            'nama_barang'  => $request->jenis_donasi === 'material' ? $request->nama_barang : null,
             'no_wa'        => $request->no_wa,
             'jumlah_donasi'=> $request->jumlah_donasi ?? 0,
             'pesan'        => $request->pesan,

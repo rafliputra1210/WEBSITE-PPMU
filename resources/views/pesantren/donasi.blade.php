@@ -531,6 +531,17 @@
                             </div>
                         </div>
 
+                        {{-- BARANG INPUT --}}
+                        <div class="mb-4" id="barang_input_group" style="display: none;">
+                            <label class="form-label">Nama Barang</label>
+                            <input type="text" name="nama_barang" id="nama_barang"
+                                   class="form-control @error('nama_barang') is-invalid @enderror"
+                                   placeholder="Contoh: Semen 10 Sak, Sajadah 5 Pcs" value="{{ old('nama_barang') }}">
+                            @error('nama_barang')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
+                        </div>
+
                         {{-- DOA / PESAN --}}
                         <div class="mb-4">
                             <label class="form-label">Doa / Pesan <span style="font-weight:400;color:#94a3b8;">(Opsional)</span></label>
@@ -726,7 +737,7 @@
                             </div>
                             <div style="font-weight:800;color:#059669;font-size:0.9rem;">
                                 @if($d->jenis_donasi == 'material')
-                                    <span class="badge bg-success bg-opacity-25 text-success px-2 py-1">Donasi Material</span>
+                                    <span class="badge bg-success bg-opacity-25 text-success px-2 py-1" title="{{ $d->nama_barang }}">{{ Str::limit($d->nama_barang ?? 'Donasi Material', 20) }}</span>
                                 @else
                                     Rp {{ number_format($d->jumlah_donasi, 0, ',', '.') }}
                                 @endif
@@ -841,7 +852,7 @@
                             <td class="pe-3 py-3 text-end">
                                 <div style="font-weight:800;color:#059669;font-size:0.95rem;">
                                     @if($donatur->jenis_donasi == 'material')
-                                        -
+                                        <span class="text-secondary small" style="font-weight:500;">{{ $donatur->nama_barang ?? '-' }}</span>
                                     @else
                                         Rp {{ number_format($donatur->jumlah_donasi, 0, ',', '.') }}
                                     @endif
@@ -1093,15 +1104,25 @@
         const quickSelect = document.getElementById('nominal_quick_select');
         const inputGroup = document.getElementById('nominal_input_group');
         const inputField = document.getElementById('jumlah_donasi');
+        const barangGroup = document.getElementById('barang_input_group');
+        const barangField = document.getElementById('nama_barang');
         
         if (jenis === 'material') {
             quickSelect.style.display = 'none';
             inputGroup.style.display = 'none';
             inputField.removeAttribute('required');
+            inputField.value = '';
+            
+            barangGroup.style.display = 'block';
+            barangField.setAttribute('required', 'required');
         } else {
             quickSelect.style.display = 'block';
             inputGroup.style.display = 'block';
             inputField.setAttribute('required', 'required');
+            
+            barangGroup.style.display = 'none';
+            barangField.removeAttribute('required');
+            barangField.value = '';
         }
     }
     

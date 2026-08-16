@@ -376,7 +376,7 @@
                 <div class="f-content">
                     <span class="badge-cat" style="position:static; margin-bottom:1.5rem; display:inline-block;">{{ $beritaUtama->kategori }}</span>
                     <h2>{{ $beritaUtama->judul }}</h2>
-                    <p class="article-excerpt">{{ $beritaUtama->ringkasan ?? Str::limit(strip_tags($beritaUtama->konten), 180) }}</p>
+                    <p class="article-excerpt">{{ Str::limit($beritaUtama->ringkasan ?? strip_tags($beritaUtama->konten), 180) }}</p>
                     <div class="article-meta mt-auto">
                         <span><i class="bi bi-person-circle me-1"></i> {{ $beritaUtama->penulis }}</span>
                         <span><i class="bi bi-calendar3 me-1"></i> {{ ($beritaUtama->tanggal_publikasi ?? $beritaUtama->created_at)->translatedFormat('d M Y') }}</span>
@@ -418,7 +418,7 @@
                             <span><i class="bi bi-calendar3"></i> {{ ($b->tanggal_publikasi ?? $b->created_at)->translatedFormat('d M Y') }}</span>
                         </div>
                         <h3 class="article-title">{{ $b->judul }}</h3>
-                        <p class="article-excerpt">{{ $b->ringkasan ?? Str::limit(strip_tags($b->konten), 100) }}</p>
+                        <p class="article-excerpt">{{ Str::limit($b->ringkasan ?? strip_tags($b->konten), 100) }}</p>
                         <a href="{{ route('pesantren.berita.detail', $b->slug) }}" class="btn-read mt-auto">
                             Baca Artikel <i class="bi bi-arrow-right"></i>
                         </a>

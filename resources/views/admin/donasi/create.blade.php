@@ -32,6 +32,12 @@
                         <input type="number" name="jumlah_donasi" id="jumlah_donasi" class="form-control" value="{{ old('jumlah_donasi') }}">
                     </div>
 
+                    <div class="mb-3" id="barang_box" style="display: none;">
+                        <label class="form-label">Nama Barang</label>
+                        <input type="text" name="nama_barang" id="nama_barang" class="form-control @error('nama_barang') is-invalid @enderror" value="{{ old('nama_barang') }}" placeholder="Contoh: Semen 10 Sak, Sajadah 5 Pcs">
+                        @error('nama_barang') <div class="invalid-feedback">{{ $message }}</div> @enderror
+                    </div>
+
                     <div class="mb-3">
                         <label class="form-label">Pesan / Doa</label>
                         <textarea name="pesan" class="form-control" rows="3">{{ old('pesan') }}</textarea>
@@ -62,11 +68,15 @@
 function toggleNominal() {
     var jenis = document.getElementById('jenis_donasi').value;
     var box = document.getElementById('nominal_box');
+    var barangBox = document.getElementById('barang_box');
     if (jenis == 'material') {
         box.style.display = 'none';
         document.getElementById('jumlah_donasi').value = '';
+        barangBox.style.display = 'block';
     } else {
         box.style.display = 'block';
+        barangBox.style.display = 'none';
+        document.getElementById('nama_barang').value = '';
     }
 }
 window.onload = toggleNominal;

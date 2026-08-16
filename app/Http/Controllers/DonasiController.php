@@ -127,6 +127,7 @@ class DonasiController extends Controller
         $validated = $request->validate([
             'nama_donatur' => 'nullable|string|max:255',
             'jenis_donasi' => 'required|in:nominal,material',
+            'nama_barang' => 'required_if:jenis_donasi,material|nullable|string|max:255',
             'no_wa' => 'nullable|string|max:20',
             'jumlah_donasi' => 'nullable|required_if:jenis_donasi,nominal|numeric|min:10000',
             'pesan' => 'nullable|string|max:1000',
@@ -135,6 +136,7 @@ class DonasiController extends Controller
         $donatur = Donatur::create([
             'nama_donatur' => $validated['nama_donatur'] ?: 'Hamba Allah',
             'jenis_donasi' => $validated['jenis_donasi'],
+            'nama_barang' => $validated['jenis_donasi'] === 'material' ? $request->nama_barang : null,
             'no_wa' => $validated['no_wa'],
             'jumlah_donasi' => $validated['jumlah_donasi'] ?? 0,
             'pesan' => $validated['pesan'],

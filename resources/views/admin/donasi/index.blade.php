@@ -9,7 +9,7 @@
                     <h6 class="mb-0">Manajemen Donasi</h6>
                     <div class="d-flex gap-2">
                         <a href="{{ route('admin.donasi.settings') }}" class="btn btn-outline-primary btn-sm"><i class="bi bi-gear-fill me-2"></i>Atur Halaman</a>
-                        <a href="{{ route('admin.donasi.create') }}" class="btn btn-primary btn-sm"><i class="fas fa-plus me-2"></i>Tambah Donatur</a>
+                        <a href="{{ route('admin.donasi.create') }}" class="btn btn-primary btn-sm"><i class="bi bi-plus-circle me-2"></i>Tambah Donatur</a>
                     </div>
                 </div>
 
@@ -51,6 +51,9 @@
                                     <td>
                                         @if($item->jenis_donasi == 'material')
                                             <span class="badge bg-success">Material</span>
+                                            @if($item->nama_barang)
+                                                <div class="small mt-1 text-secondary">({{ $item->nama_barang }})</div>
+                                            @endif
                                         @else
                                             <span class="text-primary fw-bold">Rp {{ number_format($item->jumlah_donasi, 0, ',', '.') }}</span>
                                         @endif
@@ -77,11 +80,11 @@
                                         @endif
                                     </td>
                                     <td>
-                                        <a href="{{ route('admin.donasi.edit', $item->id) }}" class="btn btn-sm btn-outline-info"><i class="fas fa-edit"></i></a>
+                                        <a href="{{ route('admin.donasi.edit', $item->id) }}" class="btn btn-sm btn-outline-info"><i class="bi bi-pencil-square"></i></a>
                                         <form action="{{ route('admin.donasi.destroy', $item->id) }}" method="POST" class="d-inline" onsubmit="return confirm('Yakin ingin menghapus?')">
                                             @csrf
                                             @method('DELETE')
-                                            <button type="submit" class="btn btn-sm btn-outline-danger"><i class="fas fa-trash"></i></button>
+                                            <button type="submit" class="btn btn-sm btn-outline-danger"><i class="bi bi-trash"></i></button>
                                         </form>
                                     </td>
                                 </tr>

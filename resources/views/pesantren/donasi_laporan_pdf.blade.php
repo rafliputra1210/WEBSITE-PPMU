@@ -1,9 +1,40 @@
+@php
+    // Mencoba berbagai kemungkinan path di cPanel dan Local
+    $paths = [
+        public_path('images/surat.jpeg'),
+        base_path('../public_html/images/surat.jpeg'),
+        $_SERVER['DOCUMENT_ROOT'] . '/images/surat.jpeg',
+        public_path('public_html/images/surat.jpeg')
+    ];
+
+    $base64 = '';
+    $foundPath = null;
+    
+    foreach ($paths as $p) {
+        if (file_exists($p)) {
+            $foundPath = $p;
+            break;
+        }
+    }
+
+    if ($foundPath) {
+        $type = pathinfo($foundPath, PATHINFO_EXTENSION);
+        $data = file_get_contents($foundPath);
+        $base64 = 'data:image/' . $type . ';base64,' . base64_encode($data);
+    } else {
+        // Fallback langsung menggunakan URL (Pastikan setting isRemoteEnabled true pada DOMPDF jika butuh ini)
+        $base64 = url('images/surat.jpeg');
+    }
+@endphp
 <!DOCTYPE html>
 <html lang="id">
 <head>
     <meta charset="UTF-8">
     <title>Laporan Keuangan PPMU</title>
     <style>
+        @page {
+            margin: 0;
+        }
         body {
             font-family: 'Helvetica', 'Arial', sans-serif;
             color: #333333;
@@ -11,6 +42,13 @@
             line-height: 1.4;
             margin: 0;
             padding: 0;
+            background-image: url('{{ $base64 }}');
+            background-size: 100% 100%;
+            background-repeat: no-repeat;
+            background-position: center;
+        }
+        .content-wrapper {
+            padding: 150px 70px 80px 60px;
         }
         .header-table {
             width: 100%;
@@ -134,20 +172,7 @@
     </style>
 </head>
 <body>
-
-    <!-- Kop Surat -->
-    <table class="header-table">
-        <tr>
-            <td class="header-text">
-                <h2>YAYASAN PONDOK PESANTREN MIFTAHUL ULUM</h2>
-                <h3>PESANTREN & MADRASAH TERPADU MIFTAHUL ULUM</h3>
-                <p>Gedung Utama Diniyah Miftahul Ulum, Kp. Penggilingan RT.008/RW.006, Kel. Penggilingan Cakung Jakarta Timur</p>
-                <p>Website: ppmiful.com | Email: Admin@ppmiful.com | Telp: +62 878-0065-4974</p>
-            </td>
-        </tr>
-    </table>
-
-    <div class="double-line"></div>
+    <div class="content-wrapper">
 
     <!-- Judul Laporan -->
     <div class="title-section">
@@ -224,20 +249,25 @@
     <!-- Tanda Tangan -->
     <table class="signature-table">
         <tr>
-            <td style="width: 50%; text-align: center;">
-                <div class="signature-title">Mengetahui,<br><strong>Pimpinan Pondok Pesantren</strong></div>
+            <td style="width: 50%; text-align: center; vertical-align: top;">
+                <div class="signature-title">Ketua Panitia</div>
                 <br><br><br><br>
-                <div class="signature-name">KH. Miftah Sulaiman</div>
-                <div style="font-size: 9pt; color: #555; margin-top: 5px;">NIP. PPMU-001-99</div>
+                <div class="signature-name">MOHAMAD FUAD</div>
             </td>
-            <td style="width: 50%; text-align: center;">
-                <div class="signature-title">Dibuat oleh,<br><strong>Bendahara Pesantren</strong></div>
+            <td style="width: 50%; text-align: center; vertical-align: top;">
+                <div class="signature-title">Sekretaris</div>
                 <br><br><br><br>
-                <div class="signature-name">Ust. Syawal Basri P.</div>
-                <div style="font-size: 9pt; color: #555; margin-top: 5px;">NIP. PPMU-024-12</div>
+                <div class="signature-name">MUHAMMAD FADIL</div>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2" style="text-align: center; padding-top: 30px;">
+                <div class="signature-title">Mengetahui;<br><strong>Pengasuh PP. MIftahul Ulum</strong></div>
+                <br><br><br><br>
+                <div class="signature-name">K.H. ABD. MUIZ ALI</div>
             </td>
         </tr>
     </table>
-
+    </div>
 </body>
 </html>

@@ -1,6 +1,8 @@
 @extends('layouts.app')
 
 @section('title', $berita->judul . ' — Berita Pesantren')
+@section('meta_description', $berita->ringkasan ?? Str::limit(strip_tags($berita->konten), 150))
+@section('og_image', $berita->gambar ? asset('storage/' . $berita->gambar) : asset('images/WEBSITE1.png'))
 
 @section('content')
 <style>
@@ -108,6 +110,8 @@
         color: #334155;
         font-size: 1.05rem;
         line-height: 1.85;
+        text-align: justify;
+        white-space: pre-line;
     }
 
     .prose p {

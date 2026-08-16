@@ -778,7 +778,7 @@
                     </div>
                     <div class="p-4 d-flex flex-column h-100">
                         <h5 class="fw-bold text-dark mb-2">{{ $prog->nama }}</h5>
-                        <p class="text-secondary small mb-3 flex-grow-1" style="line-height:1.6;">{{ $prog->deskripsi }}</p>
+                        <p class="text-secondary small mb-3 flex-grow-1" style="line-height:1.6; text-align: justify; white-space: pre-line;">{{ $prog->deskripsi }}</p>
                         <div class="d-flex align-items-center justify-content-between mt-auto">
                             <div class="d-flex gap-2">
                                 <span class="badge {{ $prog->kategori == 'Pesantren' ? 'bg-success-subtle text-success' : 'bg-info-subtle text-info' }} rounded-pill px-3 py-2 small fw-semibold">

@@ -4,7 +4,21 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@yield('title', 'PPMUJakarta — Pesantren & Madrasah Terpadu')</title>
-    <meta name="description" content="Portal resmi Pesantren dan Madrasah Terpadu. Mendidik generasi cerdas, berakhlak mulia, dan berwawasan global.">
+    <meta name="description" content="@yield('meta_description', 'Portal resmi Pesantren dan Madrasah Terpadu. Mendidik generasi cerdas, berakhlak mulia, dan berwawasan global.')">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="{{ url()->current() }}">
+    <meta property="og:title" content="@yield('title', 'PPMUJakarta — Pesantren & Madrasah Terpadu')">
+    <meta property="og:description" content="@yield('meta_description', 'Portal resmi Pesantren dan Madrasah Terpadu. Mendidik generasi cerdas, berakhlak mulia, dan berwawasan global.')">
+    <meta property="og:image" content="@yield('og_image', asset('images/WEBSITE1.png'))">
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="{{ url()->current() }}">
+    <meta property="twitter:title" content="@yield('title', 'PPMUJakarta — Pesantren & Madrasah Terpadu')">
+    <meta property="twitter:description" content="@yield('meta_description', 'Portal resmi Pesantren dan Madrasah Terpadu. Mendidik generasi cerdas, berakhlak mulia, dan berwawasan global.')">
+    <meta property="twitter:image" content="@yield('og_image', asset('images/WEBSITE1.png'))">
     
     <!-- Favicon -->
     <link rel="icon" type="image/png" href="{{ asset('images/WEBSITE1.png') }}">

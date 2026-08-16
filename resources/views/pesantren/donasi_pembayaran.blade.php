@@ -98,10 +98,10 @@
                         <div class="small opacity-75">ID Donasi: #{{ str_pad($donatur->id, 5, '0', STR_PAD_LEFT) }}</div>
                     </div>
                     <div class="text-end">
-                        <div class="small opacity-75">Nominal</div>
+                        <div class="small opacity-75">Nominal / Barang</div>
                         <h4 class="mb-0 fw-bold">
                             @if($donatur->jenis_donasi == 'material')
-                                Donasi Material
+                                {{ $donatur->nama_barang ?? 'Donasi Material' }}
                             @else
                                 Rp {{ number_format($donatur->jumlah_donasi, 0, ',', '.') }}
                             @endif
